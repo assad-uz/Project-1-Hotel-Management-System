@@ -27,4 +27,16 @@ html, body {
   text-align: center;
 }
 
+/* Book Now Button */
+.btn-yellow {
+  background-color: #00ff22 !important;
+  color: #000 !important;
+  border: none !important;
+  text-shadow: none !important; 
+}
+
+.btn-yellow:hover {
+  background-color: #4e4c46 !important;
+  color: #ffffff !important;
+}
 

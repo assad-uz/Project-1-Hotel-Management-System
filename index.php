@@ -3,37 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Welcome to Hotel Management System</title>
+  <title>Welcome Hotel Horizon </title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css" />
 
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="#">HotelSys</a>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="btn btn-outline-light me-2" href="auth/login.php">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-outline-light" href="auth/register.php">Register</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">HOTEL HORIZON</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <!-- Full screen background with overlay content -->
-  <div class="bg-cover">
-    <div class="overlay">
-      <h1 class="display-4 mb-3">Welcome to Our Hotel</h1>
-      <p class="lead mb-4">Book your stay with ease and comfort</p>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-5 me-auto mb-2 mb-lg-0"> <!-- Left side nav items -->
+        <li class="nav-item">
+          <a class="nav-link" href="rooms.php">Room</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.php">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.php">Contact Us</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ms-auto"> <!-- Right side buttons -->
+        <li class="nav-item">
+          <a class="btn btn-outline-light me-2" href="auth/login.php">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-light" href="auth/register.php">Register</a>
+        </li>
+      </ul>
     </div>
   </div>
+</nav>
+
+  <!-- Full screen background with overlay content -->
+<div class="bg-cover">
+  <div class="overlay text-center">
+    <h1 class="display-4 fw-bold mb-3">Welcome to Our Hotel</h1>
+    <p class="lead fw-semibold mb-4">Book your stay with ease and comfort</p>
+    <a href="book_room.php" class="btn btn-yellow btn-lg fw-semibold">Book Now</a>
+  </div>
+</div>
+
 
   <!-- Features Section -->
   <section class="py-5">
@@ -45,7 +64,7 @@
         </div>
         <div class="col-md-4">
           <h4>Easy Management</h4>
-          <p>Admins can easily manage rooms, users, and bookings.</p>
+          <p>Manage your bookings and rooms effortlessly.</p>
         </div>
         <div class="col-md-4">
           <h4>User Dashboard</h4>
