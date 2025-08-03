@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Welcome to Hotel Management System</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+
 </head>
 <body>
 
@@ -25,8 +27,12 @@
     </div>
   </nav>
 
-  <div class="full-image-wrapper">
-    <img src="assets/images/hotel-view.jpg" alt="Hotel View" class="full-image">
+  <!-- Full screen background with overlay content -->
+  <div class="bg-cover">
+    <div class="overlay">
+      <h1 class="display-4 mb-3">Welcome to Our Hotel</h1>
+      <p class="lead mb-4">Book your stay with ease and comfort</p>
+    </div>
   </div>
 
   <!-- Features Section -->
