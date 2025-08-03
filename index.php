@@ -25,14 +25,8 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <div class="bg-light text-center py-5">
-    <div class="container">
-      <h1 class="display-4 mb-3">Welcome to Our Hotel Management System</h1>
-      <p class="lead mb-4">Book your stay with ease and manage your reservations effortlessly.</p>
-      <a href="auth/login.php" class="btn btn-primary btn-lg me-2">Login</a>
-      <a href="auth/register.php" class="btn btn-outline-secondary btn-lg">Register</a>
-    </div>
+  <div class="full-image-wrapper">
+    <img src="assets/images/hotel-view.jpg" alt="Hotel View" class="full-image">
   </div>
 
   <!-- Features Section -->
