@@ -22,13 +22,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-5 me-auto mb-2 mb-lg-0"> <!-- Left side nav items -->
         <li class="nav-item">
-          <a class="nav-link" href="rooms.php">Room</a>
+          <a class="nav-link fs-6" href="rooms.php">Room</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="about.php">About Us</a>
+          <a class="nav-link fs-6" href="about.php">About Us</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="contact.php">Contact Us</a>
+          <a class="nav-link fs-6" href="contact.php">Contact Us</a>
         </li>
       </ul>
 
@@ -77,6 +77,7 @@
   <!-- Footer -->
   <footer class="bg-dark text-white text-center py-3">
     &copy; <?= date('Y') ?> Hotel Management System. All Rights Reserved.
+    <p class="mb-0">Developed by <a href="https://www.linkedin.com/in/assad-uz/">ASSADUZZAMAN SHAON</a></p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
