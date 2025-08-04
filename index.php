@@ -22,13 +22,31 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-5 me-auto mb-2 mb-lg-0"> <!-- Left side nav items -->
         <li class="nav-item">
-          <a class="nav-link fs-6" href="rooms.php">Room</a>
+          <a class="nav-link fs-6" href="rooms.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link fs-6" href="about.php">About Us</a>
+          <a class="nav-link fs-6" href="about.php">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link fs-6" href="contact.php">Contact Us</a>
+          <a class="nav-link fs-6" href="contact.php">Rooms</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-6" href="contact.php">Dining</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-6" href="contact.php">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-6" href="contact.php">Gallary</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-6" href="contact.php">Bookings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-6" href="contact.php">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-6" href="contact.php">Contact</a>
         </li>
       </ul>
 
@@ -47,7 +65,8 @@
   <!-- Full screen background with overlay content -->
 <div class="bg-cover">
   <div class="overlay text-center">
-    <h1 class="display-4 fw-bold mb-3">Welcome to Our Hotel</h1>
+    <h1 class="display-7 fw-bold mb-3">Welcome to HOTEL HORIZON</h1>
+    <!-- <h1 class="display-4 fw-bold mb-3">Welcome to <span class="text-warning">HOTEL HORIZON</span></h1> -->
     <p class="lead fw-semibold mb-4">Book your stay with ease and comfort</p>
     <a href="book_room.php" class="btn btn-yellow btn-lg fw-semibold">Book Now</a>
   </div>
