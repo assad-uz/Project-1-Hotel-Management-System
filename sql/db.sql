@@ -4,7 +4,7 @@ CREATE TABLE role (
     role_type VARCHAR(50) NOT NULL
 );
 
--- Table: user (Admin + Customer/User)
+-- Table: user (Admin + Customer)
 CREATE TABLE user (
     id INT AUTO_INCREMENT PRIMARY KEY,
     role_id INT NOT NULL,
@@ -16,12 +16,26 @@ CREATE TABLE user (
     FOREIGN KEY (role_id) REFERENCES role(id)
 );
 
--- Table: food_service
+-- Table: meal_type (Dropdown reference)
+CREATE TABLE meal_type (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    type_name VARCHAR(100) UNIQUE
+);
+
+-- Table: meal_period (Dropdown reference)
+CREATE TABLE meal_period (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    period_name VARCHAR(100) UNIQUE
+);
+
+-- ✅ Updated Table: food_service
 CREATE TABLE food_service (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    meal_type VARCHAR(100),
-    meal_period VARCHAR(100),
-    price DECIMAL(10,2)
+    meal_type_id INT,
+    meal_period_id INT,
+    price DECIMAL(10,2),
+    FOREIGN KEY (meal_type_id) REFERENCES meal_type(id),
+    FOREIGN KEY (meal_period_id) REFERENCES meal_period(id)
 );
 
 -- Table: room_service
@@ -34,24 +48,23 @@ CREATE TABLE room_service (
 -- Table: service
 CREATE TABLE service (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    room_service_id INT NOT NULL,
-    food_service INT NOT NULL,
-    service_price DECIMAL(10,2) NOT NULL,
+    room_service_id INT,
+    food_service INT,
+    service_price DECIMAL(10,2),
     FOREIGN KEY (room_service_id) REFERENCES room_service(id),
     FOREIGN KEY (food_service) REFERENCES food_service(id)
 );
 
--- ✅ Updated Table: room_type (with bed info inside)
+-- Table: room_type
 CREATE TABLE room_type (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    room_name VARCHAR(100) NOT NULL,
-    bed_description VARCHAR(100) NOT NULL   -- Example: "1 King Bed", "2 Twin Beds"
+    room_name VARCHAR(100) NOT NULL
 );
 
--- ✅ Updated Table: room
+-- ✅ Updated Table: room (No bed_info, uses room_type only)
 CREATE TABLE room (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    service_id INT NOT NULL,
+    service_id INT,
     room_type_id INT NOT NULL,
     room_id VARCHAR(50) NOT NULL,
     room_number VARCHAR(50) NOT NULL,
