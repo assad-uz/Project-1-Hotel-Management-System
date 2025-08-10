@@ -16,6 +16,7 @@
 .app-brand-text.demo {
   font-size: 1.75rem;
   letter-spacing: -0.5px;
+  /* text-transform: uppercase !important; */
   text-transform: lowercase;
 }
 
