@@ -28,7 +28,7 @@ CREATE TABLE meal_period (
     period_name VARCHAR(100) UNIQUE
 );
 
--- ✅ Updated Table: food_service
+-- Table: food_service
 CREATE TABLE food_service (
     id INT AUTO_INCREMENT PRIMARY KEY,
     meal_type_id INT,
@@ -61,7 +61,7 @@ CREATE TABLE room_type (
     room_name VARCHAR(100) NOT NULL
 );
 
--- ✅ Updated Table: room (No bed_info, uses room_type only)
+-- Table: room (No bed_info, uses room_type only)
 CREATE TABLE room (
     id INT AUTO_INCREMENT PRIMARY KEY,
     service_id INT,
