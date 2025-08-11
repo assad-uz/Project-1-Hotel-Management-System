@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html
   lang="en"
   class="light-style layout-menu-fixed"
@@ -1135,5 +1135,9 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+  <?php
+require_once("includes/../../../../includes/footer.php");
+?>
   </body>
 </html>
