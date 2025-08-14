@@ -3,8 +3,8 @@
 
 ?>
 <?php 
- include("include/header.php");
- include("include/nav.php");
+ include("include/home/header.php");
+ include("include/home/nav.php");
  ?>
 
   <!-- /.navbar -->
@@ -32,5 +32,5 @@
   <!-- /.content-wrapper -->
 
   <?php 
- include("include/footer.php");
+ include("include/home/footer.php");
  ?>
