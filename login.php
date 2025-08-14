@@ -42,7 +42,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin | Log in</title>
+  <title>Log in</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -54,25 +54,7 @@
   <link rel="stylesheet" href="dist/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition login-page">
-  <div class="container-fluid"> 
-       <div class="row">
-          <div class="col-4" style="float: left;">
-          </div>
-        <div class="col-4" style="float: left;">
-          </div>
-        <div class="col-4">
-           <a href="index.php">
-            <button type="submit" class="btn btn-primary ">Register</button>
-            </a>
-             <a href="login.php">
-            <button type="submit" class="btn btn-info ">sign-in</button>
-            </a>
-          </div>
-       
-         
-          <!-- /.col -->
-        </div>
-  </div>
+
 <div class="login-box">
   <div class="login-logo">
     <a href="dist/index2.html"><b>Admin</b></a>
@@ -121,9 +103,11 @@
       <!-- /.social-auth-links -->
 
       
-      <p class="mb-0">
-        <a href="index.php" class="text-center">Register a new membership</a>
-      </p>
+      <p class="text-center mb-0">
+                <span>New on our platform?</span>
+                <a href="registration.php">
+                  <span>Create an account</span>
+                </a>
     </div>
     <!-- /.login-card-body -->
   </div>

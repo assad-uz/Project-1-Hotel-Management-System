@@ -54,25 +54,7 @@ include("config.php");
 </head>
 <body class="hold-transition register-page">
 
-  <div class="container-fluid"> 
-       <div class="row">
-          <div class="col-4" style="float: left;">
-          </div>
-        <div class="col-4" style="float: left;">
-          </div>
-        <div class="col-4">
-           <a href="registration.php">
-            <button type="submit" class="btn btn-primary ">Register</button>
-            </a>
-             <a href="login.php">
-            <button type="submit" class="btn btn-info ">sign-in</button>
-            </a>
-          </div>
-       
-         
-          <!-- /.col -->
-        </div>
-  </div>
+
 <div class="register-box">
   <div class="register-logo">
     <a href="dist/index2.html"><b>Admin</b></a>
@@ -126,8 +108,13 @@ include("config.php");
       </form>
 
       
-
-      <a href="login.php" class="text-center">I already have a membership</a>
+      
+                    <p class="text-left">
+                <span>Already have an account?</span>
+                <a href="login.php">
+                  <span>Sign in instead</span>
+                </a>
+              </p>
     </div>
     <!-- /.form-box -->
   </div><!-- /.card -->
