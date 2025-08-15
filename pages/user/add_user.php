@@ -1,278 +1,107 @@
-<!-- Content Wrapper. Contains page content -->
 <?php
 include("config.php");
+// $conn যদি সেট না থাকে তাহলে login.php-তে রিডাইরেক্ট করুন
 if (!isset($conn)) {
-	header("location:login.php");
+    header("location:login.php");
+    exit(); // রিডাইরেক্টের পর স্ক্রিপ্ট এক্সিকিউশন বন্ধ করতে হবে
 }
-  if (isset($_POST['submit'])) {
 
-    $first_name = $_POST['firstname'];
+$r = "Users Registration Form"; // ডিফল্ট বার্তা সেট করুন
 
-    $last_name = $_POST['lastname'];
-
-    $phone = $_POST['phone'];
-
-    $email = $_POST['email'];
-
-    $password = $_POST['password'];
-
-    $role_id = $_POST['role_id'];
+if (isset($_POST['submit'])) {
+    // ইনপুট ডেটা sanitize করে SQL Injection থেকে রক্ষা করুন
+    $first_name = mysqli_real_escape_string($conn, $_POST['firstname']);
+    $last_name = mysqli_real_escape_string($conn, $_POST['lastname']);
+    $phone = mysqli_real_escape_string($conn, $_POST['phone']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $role_id = mysqli_real_escape_string($conn, $_POST['role_id']);
 
     $sql = "INSERT INTO `users`(`firstname`, `lastname`, `phone`, `email`, `password`, `role_id`) 
-
-           VALUES ('$first_name','$last_name','$phone','$email','$password', '$role_id')";
-
+            VALUES ('$first_name','$last_name','$phone','$email','$password', '$role_id')";
     $result = $conn->query($sql);
 
-    if ($result == TRUE) {
-
-      $r = "User Added Successfully";
-
-    }else{
-
-      echo "Error:". $sql . "<br>". $conn->error;
-
+    if ($result === TRUE) {
+        $r = "<div class='alert alert-success'>User Added Successfully</div>"; // সফলতার মেসেজ
+    } else {
+        $r = "<div class='alert alert-danger'>Error: " . $conn->error . "</div>"; // ব্যর্থতার মেসেজ
     }
-
-    $conn->close();
-
-  } 
-
+    // $conn->close() এখানে ব্যবহার করবেন না, কারণ এটি পুরো অ্যাপ্লিকেশনের জন্য কানেকশন বন্ধ করে দেবে।
+} 
 ?> 
 
-
-
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1>Add users</h1>
-        </div>
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Blank Page</li>
-          </ol>
-        </div>
-      </div>
-    </div><!-- /.container-fluid -->
-  </section>
-
-  <!-- Main content -->
-  <section class="content">
-
-    <!-- Default box -->
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title">Title</h3>
-
-        <div class="card-tools">
-          <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-            <i class="fas fa-minus"></i>
-          </button>
-          <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card card-primary">
-          <div class="card-header">
-            <h3 class="card-title">Quick Example</h3>
-          </div>
-          <div class="ftitle text-center"> 
-			<h4><?php echo isset($r)?$r:"Users Registration Form" ?></h4>
-		</div>
-          <!-- /.card-header -->
-          <!-- form start -->
-     <form action="#" method="post">
-                  <div class="card-body">
-
-              <div class="form-group">
-                <label for="fname">First Name</label>
-                <input type="text" class="form-control" id="fname" placeholder="Enter first name" name="firstname">
-              </div>
-               <div class="form-group">
-                <label for="lname">Last Name</label>
-                <input type="text" class="form-control" id="lname" placeholder="Enter last name" name="lastname">
-              </div>
-              <div class="form-group">
-                <label for="pNo">Contact</label>
-                <input type="text" class="form-control" id="pNo" placeholder="Enter phone number" name="phone">
-              </div>
-              <div class="form-group">
-                <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-              </div>
-              <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password" name="password">
-              </div>
-              <div class="form-group">
-        <label for="role_id">Role:</label>
-        <select name="role_id" id="role_id" class="form-control">
-            <?php
-            $roles = $conn->query("SELECT id, role_type FROM role");
-            while ($row = $roles->fetch_assoc()) {
-                echo "<option value='{$row['id']}'>{$row['role_type']}</option>";
-            }
-            ?>
-        </select>
-    </div>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Add users</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Add Users</li>
+                    </ol>
+                </div>
             </div>
-            <!-- /.card-body -->
-
-            <div class="card-footer">
-              <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-            </div>
-          </form>
         </div>
-      </div>
+    </section>
 
-      <!-- /.card-footer-->
+    <section class="content">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Add User</h3>
+                </div>
+            <div class="card-body">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Quick Example</h3>
+                    </div>
+                    
+                    <div class="ftitle text-center mt-3"> 
+                        <?php echo $r; ?>
+                    </div>
+                    
+                    <form action="#" method="post">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="fname">First Name</label>
+                                <input type="text" class="form-control" id="fname" placeholder="Enter first name" name="firstname">
+                            </div>
+                            <div class="form-group">
+                                <label for="lname">Last Name</label>
+                                <input type="text" class="form-control" id="lname" placeholder="Enter last name" name="lastname">
+                            </div>
+                            <div class="form-group">
+                                <label for="pNo">Contact</label>
+                                <input type="text" class="form-control" id="pNo" placeholder="Enter phone number" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email address</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                            </div>
+                            <div class="form-group">
+                                <label for="role_id">Role:</label>
+                                <select name="role_id" id="role_id" class="form-control">
+                                    <?php
+                                    $roles = $conn->query("SELECT id, role_type FROM role");
+                                    while ($row = $roles->fetch_assoc()) {
+                                        echo "<option value='{$row['id']}'>{$row['role_type']}</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </section>
     </div>
-    <!-- /.card -->
-
-  </section>
-  <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
-
-
-
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-      theme: 'bootstrap4'
-    })
-
-    //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    //Money Euro
-    $('[data-mask]').inputmask()
-
-    //Date picker
-    $('#reservationdate').datetimepicker({
-        format: 'L'
-    });
-
-    //Date and time picker
-    $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
-
-    //Date range picker
-    $('#reservation').daterangepicker()
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({
-      timePicker: true,
-      timePickerIncrement: 30,
-      locale: {
-        format: 'MM/DD/YYYY hh:mm A'
-      }
-    })
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-      {
-        ranges   : {
-          'Today'       : [moment(), moment()],
-          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        startDate: moment().subtract(29, 'days'),
-        endDate  : moment()
-      },
-      function (start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-      }
-    )
-
-    //Timepicker
-    $('#timepicker').datetimepicker({
-      format: 'LT'
-    })
-
-    //Bootstrap Duallistbox
-    $('.duallistbox').bootstrapDualListbox()
-
-    //Colorpicker
-    $('.my-colorpicker1').colorpicker()
-    //color picker with addon
-    $('.my-colorpicker2').colorpicker()
-
-    $('.my-colorpicker2').on('colorpickerChange', function(event) {
-      $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
-    })
-
-    $("input[data-bootstrap-switch]").each(function(){
-      $(this).bootstrapSwitch('state', $(this).prop('checked'));
-    })
-
-  })
-  // BS-Stepper Init
-  document.addEventListener('DOMContentLoaded', function () {
-    window.stepper = new Stepper(document.querySelector('.bs-stepper'))
-  })
-
-  // DropzoneJS Demo Code Start
-  Dropzone.autoDiscover = false
-
-  // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
-  var previewNode = document.querySelector("#template")
-  previewNode.id = ""
-  var previewTemplate = previewNode.parentNode.innerHTML
-  previewNode.parentNode.removeChild(previewNode)
-
-  var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
-    url: "/target-url", // Set the url
-    thumbnailWidth: 80,
-    thumbnailHeight: 80,
-    parallelUploads: 20,
-    previewTemplate: previewTemplate,
-    autoQueue: false, // Make sure the files aren't queued until manually added
-    previewsContainer: "#previews", // Define the container to display the previews
-    clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
-  })
-
-  myDropzone.on("addedfile", function(file) {
-    // Hookup the start button
-    file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file) }
-  })
-
-  // Update the total progress bar
-  myDropzone.on("totaluploadprogress", function(progress) {
-    document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
-  })
-
-  myDropzone.on("sending", function(file) {
-    // Show the total progress bar when upload starts
-    document.querySelector("#total-progress").style.opacity = "1"
-    // And disable the start button
-    file.previewElement.querySelector(".start").setAttribute("disabled", "disabled")
-  })
-
-  // Hide the total progress bar when nothing's uploading anymore
-  myDropzone.on("queuecomplete", function(progress) {
-    document.querySelector("#total-progress").style.opacity = "0"
-  })
-
-  // Setup the buttons for all transfers
-  // The "add files" button doesn't need to be setup because the config
-  // `clickable` has already been specified.
-  document.querySelector("#actions .start").onclick = function() {
-    myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED))
-  }
-  document.querySelector("#actions .cancel").onclick = function() {
-    myDropzone.removeAllFiles(true)
-  }
-  // DropzoneJS Demo Code End
-</script>
