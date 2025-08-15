@@ -11,7 +11,7 @@
 
   <!-- Main Sidebar Container -->
   <?php 
- include("include/sidebar.php");
+ include("include/home/sidebar.php");
  ?>
  <div>
     <!-- Main content -->

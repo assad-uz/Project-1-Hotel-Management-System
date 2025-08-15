@@ -14,7 +14,7 @@
    if(isset($_GET["page"])){
 	   $page=$_GET["page"];
 	   
-	   if($page=="assad"){
+	   if($page=="1"){
 		   
 		 include("pages/user/add_user.php"); 
 		   
@@ -45,7 +45,7 @@
 	   
    }else{
 	   
-       echo "Welcome to my NeW Project";
+       echo "Welcome to my New Project";
    }
 
 ?>

@@ -59,6 +59,7 @@ CREATE TABLE service (
 CREATE TABLE room_type (
     id INT AUTO_INCREMENT PRIMARY KEY,
     room_name VARCHAR(100) NOT NULL
+    price DECIMAL(10,2)
 );
 
 -- Table: room (No bed_info, uses room_type only)
