@@ -1,5 +1,10 @@
 <?php
 include("config.php");
+if (!isset($conn)) {
+    header("location:login.php");
+    exit();
+}
+
 
 $r = "";
 if (isset($_POST["btnDelete"])) {

@@ -1,15 +1,13 @@
 <?php
 include("config.php");
-// $conn যদি সেট না থাকে তাহলে login.php-তে রিডাইরেক্ট করুন
 if (!isset($conn)) {
     header("location:login.php");
-    exit(); // রিডাইরেক্টের পর স্ক্রিপ্ট এক্সিকিউশন বন্ধ করতে হবে
+    exit();
 }
 
-$r = "Users Registration Form"; // ডিফল্ট বার্তা সেট করুন
+$r = "";
 
 if (isset($_POST['submit'])) {
-    // ইনপুট ডেটা sanitize করে SQL Injection থেকে রক্ষা করুন
     $first_name = mysqli_real_escape_string($conn, $_POST['firstname']);
     $last_name = mysqli_real_escape_string($conn, $_POST['lastname']);
     $phone = mysqli_real_escape_string($conn, $_POST['phone']);
@@ -22,11 +20,11 @@ if (isset($_POST['submit'])) {
     $result = $conn->query($sql);
 
     if ($result === TRUE) {
-        $r = "<div class='alert alert-success'>User Added Successfully</div>"; // সফলতার মেসেজ
+        $r = "<div class='alert alert-success'>User Added Successfully</div>";
     } else {
-        $r = "<div class='alert alert-danger'>Error: " . $conn->error . "</div>"; // ব্যর্থতার মেসেজ
+        $r = "<div class='alert alert-danger'>Error: " . $conn->error . "</div>"; 
     }
-    // $conn->close() এখানে ব্যবহার করবেন না, কারণ এটি পুরো অ্যাপ্লিকেশনের জন্য কানেকশন বন্ধ করে দেবে।
+    
 } 
 ?> 
 
@@ -55,7 +53,7 @@ if (isset($_POST['submit'])) {
             <div class="card-body">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Quick Example</h3>
+                        <h3 class="card-title">Users Registration Form</h3>
                     </div>
                     
                     <div class="ftitle text-center mt-3"> 
