@@ -14,7 +14,7 @@
    if(isset($_GET["page"])){
 	   $page=$_GET["page"];
 	   
-	   if($page=="1"){
+	   if($page==1){
 		   
 		 include("pages/user/add_user.php"); 
 		   

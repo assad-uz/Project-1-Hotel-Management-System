@@ -39,7 +39,6 @@
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
            
@@ -83,7 +82,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home.php?page=assad" class="nav-link">
+                <a href="home.php?page=1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add User</p>
                 </a>
