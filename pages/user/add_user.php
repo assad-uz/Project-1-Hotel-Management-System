@@ -1,6 +1,6 @@
 <!-- Content Wrapper. Contains page content -->
 <?php
-// include("config.php");
+include("config.php");
 if (!isset($conn)) {
 	header("location:login.php");
 }
@@ -10,13 +10,17 @@ if (!isset($conn)) {
 
     $last_name = $_POST['lastname'];
 
+    $phone = $_POST['phone'];
+
     $email = $_POST['email'];
 
     $password = $_POST['password'];
 
-    $sql = "INSERT INTO `users`(`firstname`, `lastname`, `email`, `password`) 
+    $role_id = $_POST['role_id'];
 
-           VALUES ('$first_name','$last_name','$email','$password')";
+    $sql = "INSERT INTO `users`(`firstname`, `lastname`, `phone`, `email`, `password`, `role_id`) 
+
+           VALUES ('$first_name','$last_name','$phone','$email','$password', '$role_id')";
 
     $result = $conn->query($sql);
 
@@ -87,21 +91,36 @@ if (!isset($conn)) {
                   <div class="card-body">
 
               <div class="form-group">
-                <label for="exampleInputEmail1">First Name</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Name" name="firstname">
+                <label for="fname">First Name</label>
+                <input type="text" class="form-control" id="fname" placeholder="Enter first name" name="firstname">
               </div>
                <div class="form-group">
-                <label for="exampleInputEmail1">Last Name</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Last name" name="lastname">
+                <label for="lname">Last Name</label>
+                <input type="text" class="form-control" id="lname" placeholder="Enter last name" name="lastname">
               </div>
               <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="email">
+                <label for="pNo">Contact</label>
+                <input type="text" class="form-control" id="pNo" placeholder="Enter phone number" name="phone">
               </div>
               <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
               </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+              </div>
+              <div class="form-group">
+        <label for="role_id">Role:</label>
+        <select name="role_id" id="role_id" class="form-control">
+            <?php
+            $roles = $conn->query("SELECT id, role_type FROM role");
+            while ($row = $roles->fetch_assoc()) {
+                echo "<option value='{$row['id']}'>{$row['role_type']}</option>";
+            }
+            ?>
+        </select>
+    </div>
             </div>
             <!-- /.card-body -->
 
