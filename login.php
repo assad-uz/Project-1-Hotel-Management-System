@@ -12,7 +12,7 @@ if (isset($_POST["btnLogin"])) {
 
   if (isset($id)) {
     $_SESSION["s_email"] = $_email;
-    header("location:home.php");
+    header("location:home.php?page=0");
   } else {
     $error = "<span style='color:red;'>Incorrect username or password</span>";
   }

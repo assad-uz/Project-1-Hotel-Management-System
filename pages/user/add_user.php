@@ -1,4 +1,4 @@
-<?php
+<?php 
 include("config.php");
 if (!isset($conn)) {
     header("location:login.php");
@@ -38,7 +38,7 @@ if (isset($_POST['submit'])) {
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Add Users</li>
+                        <li class="breadcrumb-item active"></li>
                     </ol>
                 </div>
             </div>
@@ -53,7 +53,7 @@ if (isset($_POST['submit'])) {
             <div class="card-body">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Users Registration Form</h3>
+                        <h3 class="card-title">User Registration Form</h3>
                     </div>
                     
                     <div class="ftitle text-center mt-3"> 

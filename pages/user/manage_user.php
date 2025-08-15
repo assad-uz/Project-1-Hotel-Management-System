@@ -35,7 +35,8 @@ if (isset($_POST["btnDelete"])) {
                     </ol>
                 </div>
             </div>
-        </div></section>
+        </div>
+    </section>
 
     <section class="content">
         <div class="card">
@@ -50,11 +51,11 @@ if (isset($_POST["btnDelete"])) {
                     </button>
                 </div>
             </div>
-            
+
             <div class="p-3">
                 <?php echo $r; ?>
             </div>
-            
+
             <div class="card-body">
                 <div class="card">
                     <div class="card-body">
@@ -75,24 +76,27 @@ if (isset($_POST["btnDelete"])) {
                                 $users = $conn->query("SELECT id, firstname, lastname, phone, email, password FROM users");
                                 while (list($id, $fname, $lname, $phone, $email, $_pass) = $users->fetch_row()) {
                                     echo "<tr> 
-                                            <td>$id</td>
-                                            <td>$fname</td>
-                                            <td>$lname</td>
-                                            <td>$phone</td>
-                                            <td>$email</td>
-                                            <td>$_pass</td>
-                                            <td> 
-                                                <form action='' method='post' onsubmit='return confirm(\"Are you sure you want to delete this user?\");'>
-                                                    <input type='hidden' name='txtId' value='$id' />
-                                                    <button type='submit' name='btnDelete' class='btn btn-danger btn-sm' title='Delete'>
-                                                        <i class='fas fa-trash'></i>
-                                                    </button>
-                                                </form>
-                                                <a href='home.php?page=3&id=$id' class='btn btn-primary btn-sm' title='Edit'>
-                                                    <i class='fas fa-edit'></i>
-                                                </a>
-                                            </td>
-                                          </tr>";
+        <td>$id</td>
+        <td>$fname</td>
+        <td>$lname</td>
+        <td>$phone</td>
+        <td>$email</td>
+        <td>$_pass</td>
+        <td> 
+            <div class='d-flex align-items-center'>
+                <form action='' method='post' onsubmit='return confirm(\"Are you sure you want to delete this user?\");' style='margin-right: 15px;'>
+                    <input type='hidden' name='txtId' value='$id' />
+                    <button type='submit' name='btnDelete' class='btn btn-danger btn-sm' title='Delete'>
+                        <i class='fas fa-trash'></i>
+                    </button>
+
+                    </form>
+                <a href='home.php?page=3&id=$id' class='btn btn-primary btn-sm' title='Edit'>
+                    <i class='fas fa-edit'></i>
+                </a>
+            </div>
+        </td>
+    </tr>";
                                 }
                                 ?>
                             </tbody>
@@ -100,6 +104,6 @@ if (isset($_POST["btnDelete"])) {
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
     </section>
 </div>
