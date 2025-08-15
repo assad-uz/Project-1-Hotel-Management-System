@@ -56,19 +56,21 @@ if (isset($_POST["btnDelete"])) {
                   <th>First Name</th>
                   <th>Last Name</th>
                   <th>Email</th>
+                  <th>Phone</th>
                   <th>Password</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
-                $users = $conn->query("select * from users");
-                while (list($id, $fname, $lname, $email, $_pass) = $users->fetch_row()) {
+                $users = $conn->query("SELECT id, firstname, lastname, email, phone, password FROM users");
+                while (list($id, $fname, $lname, $email, $phone, $_pass) = $users->fetch_row()) {
                   echo "<tr> 
 					<td>$id</td>
 					<td>$fname</td>
 					<td>$lname</td>
 					<td>$email</td>
+					<td>$phone</td>
 					<td>$_pass</td>
 					<td> 
 					
