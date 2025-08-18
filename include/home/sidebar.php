@@ -71,7 +71,7 @@
              
             </ul>
           </li>
-        
+          <li class="nav-header">Users</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
@@ -96,30 +96,7 @@
              
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-               Category
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="home.php?page=4" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Add category</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="home.php?page=5" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Manage Category</p>
-                </a>
-              </li>
-             
-            </ul>
-          </li>
+          
           <li class="nav-header">Meal Management</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -131,7 +108,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home.php?page=8" class="nav-link">
+                <a href="home.php?page=4" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Meal</p>
                 </a>

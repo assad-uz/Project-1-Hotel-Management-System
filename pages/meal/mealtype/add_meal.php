@@ -54,15 +54,9 @@ if (isset($_POST['submit'])) {
                     </div>
 
                     <form action="#" method="post">
-                        <div class="form-group">
-                            <label for="meal_type">Select Meal Type </label>
-                                <select class="form-control" name="meal_type" id="meal_type" required>
-                                    <option value="">-- Select --</option>
-                                    <option value="BD food">Bangladeshi food</option>
-                                    <option value="Chinese food">Chinese food</option>
-                                    <option value="Pakistani food">Pakistani food</option>
-                                    <option value="Thai food">Thai food</option>
-                                </select>
+                         <div class="form-group">
+                            <label for="type_name">Meal Type</label>
+                            <input type="text" class="form-control" name="meal_type" id="meal_type" required>
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary" name="submit">Submit</button>

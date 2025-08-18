@@ -21,6 +21,7 @@ CREATE TABLE meal_type (
     id INT AUTO_INCREMENT PRIMARY KEY,
     type_name VARCHAR(100) UNIQUE
 );
+--ALTER TABLE meal_type DROP CONSTRAINT type_name; If need to off UNIQUE, run this code in the SQL--
 
 -- Table: meal_period (Dropdown reference)
 CREATE TABLE meal_period (

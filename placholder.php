@@ -31,7 +31,7 @@
 		  
 	   }else if($page==4){
 		   
-		   include("pages/category/add_cat.php");
+		   include("pages/meal/mealtype/add_meal.php");
 		  
 	   }else if($page==5){
 		   
@@ -47,7 +47,7 @@
 		  
 	   }else if($page==8){
 		   
-		    include("pages/meal/mealtype/add_meal.php");
+		    include("");
 		  
 	   }
 	   
