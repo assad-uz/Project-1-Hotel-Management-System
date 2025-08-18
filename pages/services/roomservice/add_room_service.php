@@ -1,25 +1,18 @@
 <?php
-// config.php ফাইলটি অন্তর্ভুক্ত করা হচ্ছে যেখানে ডেটাবেজ সংযোগ আছে।
 include("config.php");
-// যদি ডেটাবেজ সংযোগ না থাকে, তবে ব্যবহারকারীকে login.php তে পুনঃনির্দেশ করা হচ্ছে।
 if (!isset($conn)) {
     header("location:login.php");
     exit();
 }
 
-// ফলাফল বার্তা সংরক্ষণের জন্য একটি ভেরিয়েবল।
 $r = "";
 
-// যদি ফর্মটি জমা দেওয়া হয় (সাবমিট বাটনে ক্লিক করা হয়)।
 if (isset($_POST["submit"])) {
-    // ব্যবহারকারীর ইনপুট SQL ইনজেকশন থেকে সুরক্ষার জন্য স্যানিটাইজ করা হচ্ছে।
     $service_name = mysqli_real_escape_string($conn, $_POST['service_name']);
     $price = mysqli_real_escape_string($conn, $_POST['price']);
 
-    // ডেটাবেজে নতুন ডেটা ইনসার্ট করার জন্য SQL কোয়েরি।
     $sql = "INSERT INTO `room_service` (service_name, price) VALUES ('$service_name', '$price')";
 
-    // কোয়েরিটি চালানো হচ্ছে এবং সফল কিনা তা যাচাই করা হচ্ছে।
     if ($conn->query($sql) === TRUE) {
         $r = "<div class='alert alert-success'>Room Service added successfully.</div>";
     } else {
@@ -64,7 +57,6 @@ if (isset($_POST["submit"])) {
                         <input type="number" step="0.01" class="form-control" name="price" required>
                     </div>
                     <button type="submit" name="submit" class="btn btn-primary">Save</button>
-                    <a href="home.php?page=9" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>

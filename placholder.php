@@ -55,27 +55,27 @@
 		  
 	   }else if($page==10){
 		   
-		    include("pages/services/foodservice");
+		    include("pages/services/foodservice/add_food_service.php");
 		  
 	   }else if($page==11){
 		   
-		    include("pages/services/foodservice");
+		    include("pages/services/foodservice/manage_food_service.php");
 		  
 	   }else if($page==12){
 		   
-		    include("pages/services/foodservice");
+		    include("pages/services/foodservice/edit_food_service.php");
 		  
 	   }else if($page==13){
 		   
-		    include("pages/services/roomservice");
+		    include("pages/services/roomservice/add_room_service.php");
 		  
 	   }else if($page==14){
 		   
-		    include("pages/services/roomservice");
+		    include("pages/services/roomservice/manage_room_service.php");
 		  
 	   }else if($page==15){
 		   
-		    include("pages/services/roomservice");
+		    include("pages/services/roomservice/edit_room_service.php");
 		  
 	   }else if($page==16){
 		   

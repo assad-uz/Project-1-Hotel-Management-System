@@ -1,19 +1,15 @@
 <?php
-// config.php ফাইলটি অন্তর্ভুক্ত করা হচ্ছে।
 include("config.php");
-// যদি ডেটাবেজ সংযোগ না থাকে, তবে login.php তে পুনঃনির্দেশ করা হচ্ছে।
 if (!isset($conn)) {
     header("location:login.php");
     exit();
 }
 
-// ফলাফল বার্তা এবং ডেটা সংরক্ষণের জন্য ভেরিয়েবল।
 $r = "";
 $service_name = "";
 $price = "";
 $id = 0;
 
-// যদি id থাকে, তাহলে ডেটা লোড করুন।
 if (isset($_GET['id'])) {
     $id = mysqli_real_escape_string($conn, $_GET['id']);
     $sql_fetch = "SELECT `service_name`, `price` FROM `room_service` WHERE `id` = '$id'";
@@ -27,7 +23,6 @@ if (isset($_GET['id'])) {
     }
 }
 
-// যদি ফর্ম সাবমিট করা হয়, তাহলে ডেটা আপডেট করুন।
 if (isset($_POST['submit'])) {
     $id_update = mysqli_real_escape_string($conn, $_POST['id']);
     $service_name_update = mysqli_real_escape_string($conn, $_POST['service_name']);
@@ -61,7 +56,7 @@ if (isset($_POST['submit'])) {
                         <input type="number" step="0.01" class="form-control" name="price" value="<?php echo htmlspecialchars($price); ?>" required>
                     </div>
                     <button type="submit" class="btn btn-primary" name="submit">Update</button>
-                    <a href="home.php?page=9" class="btn btn-secondary">Cancel</a>
+                    <a href="home.php?page=14" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>
