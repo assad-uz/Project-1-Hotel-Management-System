@@ -35,7 +35,7 @@
 		  
 	   }else if($page==5){
 		   
-		   include("pages/category/manage_cat.php");
+		   include("pages/meal/mealtype/manage_meal.php");
 		  
 	   }else if($page==6){
 		   

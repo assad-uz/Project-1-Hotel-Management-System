@@ -117,7 +117,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home.php?page=1" class="nav-link">
+                <a href="home.php?page=5" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Manage Meals</p>
                 </a>
