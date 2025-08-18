@@ -378,7 +378,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-                Meal Period
+                Check-out
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -386,7 +386,7 @@
               <li class="nav-item">
                 <a href="home.php?page=1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add Period</p>
+                  <p>Add Check-out</p>
                 </a>
               </li>
              
@@ -395,7 +395,7 @@
               <li class="nav-item">
                 <a href="home.php?page=1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Manage Periods</p>
+                  <p>Manage Check-out</p>
                 </a>
               </li>
              
@@ -407,7 +407,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-                Meal Type
+                Invoice
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -415,7 +415,7 @@
               <li class="nav-item">
                 <a href="home.php?page=1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add Meal</p>
+                  <p>Add Invoice</p>
                 </a>
               </li>
              
@@ -424,7 +424,7 @@
               <li class="nav-item">
                 <a href="home.php?page=1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Manage Meals</p>
+                  <p>Manage Invoice</p>
                 </a>
               </li>
              
@@ -434,7 +434,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-                Meal Period
+                Payment
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -442,7 +442,7 @@
               <li class="nav-item">
                 <a href="home.php?page=1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add Period</p>
+                  <p>Add Payment</p>
                 </a>
               </li>
              
@@ -451,47 +451,60 @@
               <li class="nav-item">
                 <a href="home.php?page=1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Manage Periods</p>
+                  <p>Manage Payment</p>
                 </a>
               </li>
              
             </ul>
           </li>
 
-          <li class="nav-header">EXAMPLES</li>
-         
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
+              <i class="nav-icon fas fa-edit"></i>
               <p>
-                Pages
+                Transaction
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../examples/invoice.html" class="nav-link">
+                <a href="home.php?page=1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Invoice</p>
+                  <p>Add Transaction</p>
                 </a>
               </li>
-            
+             
+            </ul>
+            <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../examples/contact-us.html" class="nav-link">
+                <a href="home.php?page=1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Contact us</p>
+                  <p>Manage Transaction</p>
                 </a>
               </li>
+             
             </ul>
           </li>
-          
-          <li class="nav-header">MISCELLANEOUS</li>
-     
-          <li class="nav-header">MULTI LEVEL EXAMPLE</li>
-        
+
+          <li class="nav-header">Pages</li>
          
-          <li class="nav-header">LABELS</li>
-        
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Contact us
+              </p>
+            </a>
+          </li> 
+          
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                About us
+              </p>
+            </a>
+          </li>    
         
           
         </ul>
