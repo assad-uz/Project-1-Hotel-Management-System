@@ -51,11 +51,14 @@ CREATE TABLE room_service (
 CREATE TABLE service (
     id INT AUTO_INCREMENT PRIMARY KEY,
     room_service_id INT,
-    food_service INT,
-    service_price DECIMAL(10,2),
+    room_service_price DECIMAL(10,2) NOT NULL,
+    food_service_id INT,
+    food_service_price DECIMAL(10,2) NOT NULL,
+    total_service_price DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (room_service_id) REFERENCES room_service(id),
-    FOREIGN KEY (food_service) REFERENCES food_service(id)
+    FOREIGN KEY (food_service_id) REFERENCES food_service(id)
 );
+-- ALTER TABLE `service` CHANGE `food_service` `food_service_id` INT(11) NULL DEFAULT NULL; --
 
 -- Table: room_type
 CREATE TABLE room_type (

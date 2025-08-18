@@ -61,29 +61,40 @@ if (isset($_POST["btnDelete"])) {
                                 <tr>
                                     <th>#ID</th>
                                     <th>Room Service</th>
+                                    <th>Room Service Price</th>
                                     <th>Food Service</th>
-                                    <th>Service Price</th>
+                                    <th>Food Service Price</th>
+                                    <th>Total Price</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 // ডেটাবেজ থেকে সমস্ত সার্ভিস ডেটা লোড করার কোয়েরি।
-                                $sql = "SELECT s.id, rs.service_name AS room_service_name, fs.price AS food_service_price, s.service_price 
+                                $sql = "SELECT s.id, rs.service_name AS room_service_name, s.room_service_price, 
+                                        mt.type_name, mp.period_name, s.food_service_price, s.total_service_price
                                         FROM `service` AS s
                                         LEFT JOIN `room_service` AS rs ON s.room_service_id = rs.id
                                         LEFT JOIN `food_service` AS fs ON s.food_service_id = fs.id
+                                        LEFT JOIN `meal_type` AS mt ON fs.meal_type_id = mt.id
+                                        LEFT JOIN `meal_period` AS mp ON fs.meal_period_id = mp.id
                                         ORDER BY s.id DESC";
 
                                 $services = $conn->query($sql);
                                 while ($row = $services->fetch_assoc()) {
                                     $room_service_name = $row['room_service_name'] ? htmlspecialchars($row['room_service_name']) : 'N/A';
+                                    $room_service_price = $row['room_service_price'] ? '$' . htmlspecialchars($row['room_service_price']) : 'N/A';
+                                    $food_service_name = ($row['type_name'] && $row['period_name']) ? htmlspecialchars($row['type_name'] . ' (' . $row['period_name'] . ')') : 'N/A';
                                     $food_service_price = $row['food_service_price'] ? '$' . htmlspecialchars($row['food_service_price']) : 'N/A';
+                                    $total_price_formatted = $row['total_service_price'] ? '$' . htmlspecialchars($row['total_service_price']) : 'N/A';
+
                                     echo "<tr> 
                                             <td>" . htmlspecialchars($row['id']) . "</td>
                                             <td>" . $room_service_name . "</td>
+                                            <td>" . $room_service_price . "</td>
+                                            <td>" . $food_service_name . "</td>
                                             <td>" . $food_service_price . "</td>
-                                            <td>" . htmlspecialchars($row['service_price']) . "</td>
+                                            <td>" . $total_price_formatted . "</td>
                                             <td> 
                                                 <div class='d-flex align-items-center'>
                                                     <form action='' method='post' onsubmit='return confirm(\"Are you sure you want to delete this service?\");' style='margin-right: 15px;'>
