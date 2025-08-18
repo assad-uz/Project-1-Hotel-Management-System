@@ -1,112 +1,97 @@
 <?php
+// config.php ফাইলটি অন্তর্ভুক্ত করা হচ্ছে।
 include("config.php");
 if (!isset($conn)) {
     header("location:login.php");
     exit();
 }
 
+// ফলাফল বার্তা এবং ডেটা সংরক্ষণের জন্য ভেরিয়েবল।
 $r = "";
-$id = $fname = $lname = $email = $password = $phone = $role_id = '';
+$room_service_id = "";
+$food_service_id = "";
+$service_price = "";
+$id = 0;
 
-if (isset($_POST["btnUpdate"])) {
-    $id = $_POST["id"];
-    $fname = $_POST["fname"];
-    $lname = $_POST["lname"];
-    $phone = $_POST["phone"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $role_id = $_POST["role_id"];
-    
-    $sql = "UPDATE users SET firstname='$fname', lastname='$lname', phone='$phone', email='$email', password='$password', role_id='$role_id' WHERE id='$id'";
-    
-    if ($conn->query($sql) === TRUE) {
-        $r = "<div class='alert alert-success'>User updated successfully.</div>";
-    } else {
-        $r = "<div class='alert alert-danger'>Error to update. " . $conn->error . "</div>";
-    }
-}
-
+// যদি id থাকে, তাহলে ডেটা লোড করুন।
 if (isset($_GET['id'])) {
-    $id_to_edit = $_GET['id'];
-    
-    $sql = "SELECT id, firstname, lastname, phone, email, password, role_id FROM users WHERE id = '$id_to_edit'";
-    $result = $conn->query($sql);
-    
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $id = $row['id'];
-        $fname = $row['firstname'];
-        $lname = $row['lastname'];
-        $phone = $row['phone'];
-        $email = $row['email'];
-        $password = $row['password'];
-        $role_id = $row['role_id'];
+    $id = mysqli_real_escape_string($conn, $_GET['id']);
+    $sql_fetch = "SELECT `room_service_id`, `food_service_id`, `service_price` FROM `service` WHERE `id` = '$id'";
+    $result_fetch = $conn->query($sql_fetch);
+    if ($result_fetch->num_rows > 0) {
+        $row = $result_fetch->fetch_assoc();
+        $room_service_id = $row['room_service_id'];
+        $food_service_id = $row['food_service_id'];
+        $service_price = $row['service_price'];
+    } else {
+        $r = "<div class='alert alert-danger'>Record not found.</div>";
     }
 }
+
+// যদি ফর্ম সাবমিট করা হয়, তাহলে ডেটা আপডেট করুন।
+if (isset($_POST['submit'])) {
+    $id_update = mysqli_real_escape_string($conn, $_POST['id']);
+    $room_service_id_update = mysqli_real_escape_string($conn, $_POST['room_service_id']);
+    $food_service_id_update = mysqli_real_escape_string($conn, $_POST['food_service_id']);
+    $service_price_update = mysqli_real_escape_string($conn, $_POST['service_price']);
+
+    $sql_update = "UPDATE `service` SET `room_service_id` = '$room_service_id_update', `food_service_id` = '$food_service_id_update', `service_price` = '$service_price_update' WHERE `id` = '$id_update'";
+    if ($conn->query($sql_update) === TRUE) {
+        $r = "<div class='alert alert-success'>Service updated successfully.</div>";
+    } else {
+        $r = "<div class='alert alert-danger'>Error updating record: " . $conn->error . "</div>";
+    }
+}
+
+// ড্রপডাউনের জন্য room_service ডেটা লোড করা হচ্ছে।
+$room_services = $conn->query("SELECT id, service_name, price FROM `room_service` ORDER BY service_name ASC");
+
+// ড্রপডাউনের জন্য food_service ডেটা লোড করা হচ্ছে।
+$sql_food_services = "SELECT fs.id, mt.type_name, mp.period_name, fs.price FROM `food_service` AS fs
+                      INNER JOIN `meal_type` AS mt ON fs.meal_type_id = mt.id
+                      INNER JOIN `meal_period` AS mp ON fs.meal_period_id = mp.id
+                      ORDER BY mt.type_name, mp.period_name ASC";
+$food_services = $conn->query($sql_food_services);
 ?>
 
 <div class="content-wrapper">
     <section class="content-header">
-        <div class="container-fluid">
-            <h1>Update User</h1>
-        </div>
+        <h1>Edit Service</h1>
     </section>
-
     <section class="content">
-        <div class="card card-primary">
-            <div class="card-header">
-                <h3 class="card-title">Update User Info Form</h3>
-            </div>
+        <div class="card">
             <div class="card-body">
-                <div class="p-3">
-                    <?php echo $r; ?>
-                </div>
-
+                <?php echo $r; ?>
                 <form action="" method="post">
-                    <div class="card-body">
-                        <input type="hidden" name="id" value="<?php echo $id; ?>">
-                        
-                        <div class="form-group">
-                            <label>First Name</label>
-                            <input type="text" class="form-control" name="fname" value="<?php echo $fname; ?>">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Last Name</label>
-                            <input type="text" class="form-control" name="lname" value="<?php echo $lname; ?>">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Contact</label>
-                            <input type="text" class="form-control" name="phone" value="<?php echo $phone; ?>">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" class="form-control" name="email" value="<?php echo $email; ?>">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" name="password" value="<?php echo $password; ?>">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Role</label>
-                            <select name="role_id" class="form-control">
-                                <?php
-                                $roles = $conn->query("SELECT id, role_type FROM role");
-                                while ($row_role = $roles->fetch_assoc()) {
-                                    $selected = ($row_role['id'] == $role_id) ? 'selected' : '';
-                                    echo "<option value='{$row_role['id']}' {$selected}>{$row_role['role_type']}</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
+                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
+                    <div class="form-group">
+                        <label for="room_service_id">Room Service</label>
+                        <select class="form-control" name="room_service_id">
+                            <option value="">Select Room Service</option>
+                            <?php while ($row = $room_services->fetch_assoc()): ?>
+                                <option value="<?php echo htmlspecialchars($row['id']); ?>" <?php if ($row['id'] == $room_service_id) echo 'selected'; ?>>
+                                    <?php echo htmlspecialchars($row['service_name'] . ' - $' . $row['price']); ?>
+                                </option>
+                            <?php endwhile; ?>
+                        </select>
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary" name="btnUpdate">Update</button>
+                    <div class="form-group">
+                        <label for="food_service_id">Food Service</label>
+                        <select class="form-control" name="food_service_id">
+                            <option value="">Select Food Service</option>
+                            <?php while ($row = $food_services->fetch_assoc()): ?>
+                                <option value="<?php echo htmlspecialchars($row['id']); ?>" <?php if ($row['id'] == $food_service_id) echo 'selected'; ?>>
+                                    <?php echo htmlspecialchars($row['type_name'] . ' (' . $row['period_name'] . ') - $' . $row['price']); ?>
+                                </option>
+                            <?php endwhile; ?>
+                        </select>
                     </div>
+                    <div class="form-group">
+                        <label for="service_price">Service Price</label>
+                        <input type="number" step="0.01" class="form-control" name="service_price" value="<?php echo htmlspecialchars($service_price); ?>" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" name="submit">Update</button>
+                    <a href="home.php?page=13" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>
