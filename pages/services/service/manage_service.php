@@ -1,20 +1,25 @@
 <?php
+// config.php ফাইলটি অন্তর্ভুক্ত করা হচ্ছে।
 include("config.php");
 if (!isset($conn)) {
     header("location:login.php");
     exit();
 }
 
-
+// ফলাফল বার্তা সংরক্ষণের জন্য একটি ভেরিয়েবল।
 $r = "";
+
+// যদি ডিলিট বাটন ক্লিক করা হয়।
 if (isset($_POST["btnDelete"])) {
     $u_id = $_POST["txtId"];
-
-    $sql = "DELETE FROM users WHERE id = '$u_id'";
+    
+    // ডেটাবেজ থেকে service ডিলিট করার কোয়েরি।
+    $sql = "DELETE FROM `service` WHERE id = '$u_id'";
     $result = $conn->query($sql);
 
+    // কোয়েরি সফল হয়েছে কিনা যাচাই করা হচ্ছে।
     if ($result === TRUE) {
-        $r = "<div class='alert alert-success'>User deleted successfully.</div>";
+        $r = "<div class='alert alert-success'>Service deleted successfully.</div>";
     } else {
         $r = "<div class='alert alert-danger'>Error deleting record: " . $conn->error . "</div>";
     }
@@ -26,12 +31,12 @@ if (isset($_POST["btnDelete"])) {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Manage users</h1>
+                    <h1>Manage Services</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Manage Users</li>
+                        <li class="breadcrumb-item active">Manage Services</li>
                     </ol>
                 </div>
             </div>
@@ -41,15 +46,7 @@ if (isset($_POST["btnDelete"])) {
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Manage Users</h3>
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
+                <h3 class="card-title">Manage Services</h3>
             </div>
 
             <div class="p-3">
@@ -63,40 +60,44 @@ if (isset($_POST["btnDelete"])) {
                             <thead class="bg-primary text-white">
                                 <tr>
                                     <th>#ID</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Contact</th>
-                                    <th>Email</th>
-                                    <th>Password</th>
+                                    <th>Room Service</th>
+                                    <th>Food Service</th>
+                                    <th>Service Price</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                $users = $conn->query("SELECT id, firstname, lastname, phone, email, password FROM users");
-                                while (list($id, $fname, $lname, $phone, $email, $_pass) = $users->fetch_row()) {
-                                    echo "<tr> 
-        <td>$id</td>
-        <td>$fname</td>
-        <td>$lname</td>
-        <td>$phone</td>
-        <td>$email</td>
-        <td>$_pass</td>
-        <td> 
-            <div class='d-flex align-items-center'>
-                <form action='' method='post' onsubmit='return confirm(\"Are you sure you want to delete this user?\");' style='margin-right: 15px;'>
-                    <input type='hidden' name='txtId' value='$id' />
-                    <button type='submit' name='btnDelete' class='btn btn-danger btn-sm' title='Delete'>
-                        <i class='fas fa-trash'></i>
-                    </button>
+                                // ডেটাবেজ থেকে সমস্ত সার্ভিস ডেটা লোড করার কোয়েরি।
+                                $sql = "SELECT s.id, rs.service_name AS room_service_name, fs.price AS food_service_price, s.service_price 
+                                        FROM `service` AS s
+                                        LEFT JOIN `room_service` AS rs ON s.room_service_id = rs.id
+                                        LEFT JOIN `food_service` AS fs ON s.food_service_id = fs.id
+                                        ORDER BY s.id DESC";
 
-                    </form>
-                <a href='home.php?page=3&id=$id' class='btn btn-primary btn-sm' title='Edit'>
-                    <i class='fas fa-edit'></i>
-                </a>
-            </div>
-        </td>
-    </tr>";
+                                $services = $conn->query($sql);
+                                while ($row = $services->fetch_assoc()) {
+                                    $room_service_name = $row['room_service_name'] ? htmlspecialchars($row['room_service_name']) : 'N/A';
+                                    $food_service_price = $row['food_service_price'] ? '$' . htmlspecialchars($row['food_service_price']) : 'N/A';
+                                    echo "<tr> 
+                                            <td>" . htmlspecialchars($row['id']) . "</td>
+                                            <td>" . $room_service_name . "</td>
+                                            <td>" . $food_service_price . "</td>
+                                            <td>" . htmlspecialchars($row['service_price']) . "</td>
+                                            <td> 
+                                                <div class='d-flex align-items-center'>
+                                                    <form action='' method='post' onsubmit='return confirm(\"Are you sure you want to delete this service?\");' style='margin-right: 15px;'>
+                                                        <input type='hidden' name='txtId' value='" . htmlspecialchars($row['id']) . "' />
+                                                        <button type='submit' name='btnDelete' class='btn btn-danger btn-sm' title='Delete'>
+                                                            <i class='fas fa-trash'></i>
+                                                        </button>
+                                                    </form>
+                                                    <a href='home.php?page=14&id=" . htmlspecialchars($row['id']) . "' class='btn btn-primary btn-sm' title='Edit'>
+                                                        <i class='fas fa-edit'></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                          </tr>";
                                 }
                                 ?>
                             </tbody>
