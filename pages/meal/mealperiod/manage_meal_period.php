@@ -76,7 +76,7 @@ if (isset($_POST["btnDelete"])) {
                                                             <i class='fas fa-trash'></i>
                                                         </button>
                                                     </form>
-                                                    <a href='home.php?page=8&id=$id' class='btn btn-primary btn-sm' title='Edit'>
+                                                    <a href='home.php?page=9&id=$id' class='btn btn-primary btn-sm' title='Edit'>
                                                         <i class='fas fa-edit'></i>
                                                     </a>
                                                 </div>

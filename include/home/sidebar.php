@@ -135,7 +135,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home.php?page=1" class="nav-link">
+                <a href="home.php?page=7" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Period</p>
                 </a>
@@ -144,7 +144,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home.php?page=1" class="nav-link">
+                <a href="home.php?page=8" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Manage Periods</p>
                 </a>

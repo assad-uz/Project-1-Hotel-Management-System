@@ -58,7 +58,6 @@ if (isset($_POST["submit"])) {
                         <input type="number" step="0.01" class="form-control" name="price" required>
                     </div>
                     <button type="submit" name="submit" class="btn btn-primary">Save</button>
-                    <a href="home.php?page=7" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>

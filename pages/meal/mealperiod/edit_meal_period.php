@@ -58,7 +58,7 @@ if (isset($_POST['submit'])) {
                         <input type="number" step="0.01" class="form-control" name="price" value="<?php echo htmlspecialchars($price); ?>" required>
                     </div>
                     <button type="submit" class="btn btn-primary" name="submit">Update</button>
-                    <a href="home.php?page=7" class="btn btn-secondary">Cancel</a>
+                    <a href="home.php?page=8" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>

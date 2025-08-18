@@ -43,11 +43,31 @@
 		  
 	   }else if($page==7){
 		   
-		    include("pages/category/add_cat.php");
+		    include("pages/meal/mealperiod/add_meal_period.php");
 		  
 	   }else if($page==8){
 		   
-		    include("");
+		    include("pages/meal/mealperiod/manage_meal_period.php");
+		  
+	   }else if($page==9){
+		   
+		    include("pages/meal/mealperiod/edit_meal_period.php");
+		  
+	   }else if($page==10){
+		   
+		    include("pages/meal");
+		  
+	   }else if($page==11){
+		   
+		    include("pages/meal");
+		  
+	   }else if($page==12){
+		   
+		    include("pages/meal");
+		  
+	   }else if($page==13){
+		   
+		    include("pages/meal");
 		  
 	   }
 	   
