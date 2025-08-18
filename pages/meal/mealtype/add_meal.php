@@ -82,17 +82,7 @@ if (isset($_POST['submit'])) {
                                 <label for="password">Password</label>
                                 <input type="password" class="form-control" id="password" placeholder="Password" name="password">
                             </div>
-                            <div class="form-group">
-                                <label for="role_id">Role:</label>
-                                <select name="role_id" id="role_id" class="form-control">
-                                    <?php
-                                    $roles = $conn->query("SELECT id, role_type FROM role");
-                                    while ($row = $roles->fetch_assoc()) {
-                                        echo "<option value='{$row['id']}'>{$row['role_type']}</option>";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
+                            
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary" name="submit">Submit</button>
