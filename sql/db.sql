@@ -43,8 +43,8 @@ CREATE TABLE food_service (
 -- Table: room_service
 CREATE TABLE room_service (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    service_name VARCHAR(100),
-    price DECIMAL(10,2)
+    service_name VARCHAR(100) NOT NULL UNIQUE,
+    price DECIMAL(10,2) NOT NULL
 );
 
 -- Table: service

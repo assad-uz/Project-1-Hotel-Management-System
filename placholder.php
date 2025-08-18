@@ -55,19 +55,59 @@
 		  
 	   }else if($page==10){
 		   
-		    include("pages/meal");
+		    include("pages/services/foodservice");
 		  
 	   }else if($page==11){
 		   
-		    include("pages/meal");
+		    include("pages/services/foodservice");
 		  
 	   }else if($page==12){
 		   
-		    include("pages/meal");
+		    include("pages/services/foodservice");
 		  
 	   }else if($page==13){
 		   
-		    include("pages/meal");
+		    include("pages/services/roomservice");
+		  
+	   }else if($page==14){
+		   
+		    include("pages/services/roomservice");
+		  
+	   }else if($page==15){
+		   
+		    include("pages/services/roomservice");
+		  
+	   }else if($page==16){
+		   
+		    include("pages/services/roomservice");
+		  
+	   }else if($page==17){
+		   
+		    include("pages/services/roomservice");
+		  
+	   }else if($page==18){
+		   
+		    include("pages/services/roomservice");
+		  
+	   }else if($page==19){
+		   
+		    include("pages/services/roomservice");
+		  
+	   }else if($page==20){
+		   
+		    include("pages/services/roomservice");
+		  
+	   }else if($page==21){
+		   
+		    include("pages/services/roomservice");
+		  
+	   }else if($page==22){
+		   
+		    include("pages/services/roomservice");
+		  
+	   }else if($page==23){
+		   
+		    include("pages/services/roomservice");
 		  
 	   }
 	   
