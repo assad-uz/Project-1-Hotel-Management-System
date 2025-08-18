@@ -9,11 +9,12 @@ $r = "";
 if (isset($_POST["btnDelete"])) {
     $u_id = $_POST["txtId"];
     
-    $sql = "DELETE FROM `meal_type` WHERE id = '$u_id'";
+    // ডেটাবেজ থেকে meal_period ডিলিট করার কোয়েরি
+    $sql = "DELETE FROM `meal_period` WHERE id = '$u_id'";
     $result = $conn->query($sql);
 
     if ($result === TRUE) {
-        $r = "<div class='alert alert-success'>Meal Type deleted successfully.</div>";
+        $r = "<div class='alert alert-success'>Meal Period deleted successfully.</div>";
     } else {
         $r = "<div class='alert alert-danger'>Error deleting record: " . $conn->error . "</div>";
     }
@@ -25,12 +26,12 @@ if (isset($_POST["btnDelete"])) {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Manage Meal Types</h1>
+                    <h1>Manage Meal Periods</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Manage Meal Types</li>
+                        <li class="breadcrumb-item active">Manage Meal Periods</li>
                     </ol>
                 </div>
             </div>
@@ -40,15 +41,7 @@ if (isset($_POST["btnDelete"])) {
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Manage Meal Types</h3>
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
+                <h3 class="card-title">Manage Meal Periods</h3>
             </div>
 
             <div class="p-3">
@@ -62,29 +55,31 @@ if (isset($_POST["btnDelete"])) {
                             <thead class="bg-primary text-white">
                                 <tr>
                                     <th>#ID</th>
-                                    <th>Meal Type Name</th>
+                                    <th>Period Name</th>
+                                    <th>Price</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                $meal_types = $conn->query("SELECT id, type_name FROM `meal_type` ORDER BY id DESC");
-                                while (list($id, $type_name) = $meal_types->fetch_row()) {
+                                $meal_periods = $conn->query("SELECT id, period_name, price FROM `meal_period` ORDER BY id DESC");
+                                while (list($id, $period_name, $price) = $meal_periods->fetch_row()) {
                                     echo "<tr> 
                                             <td>$id</td>
-                                            <td>$type_name</td>
+                                            <td>$period_name</td>
+                                            <td>$price</td>
                                             <td> 
                                                 <div class='d-flex align-items-center'>
-    <form action='' method='post' onsubmit='return confirm(\"Are you sure you want to delete this meal type?\");' style='margin-right: 15px;'>
-        <input type='hidden' name='txtId' value='$id' />
-        <button type='submit' name='btnDelete' class='btn btn-danger btn-sm' title='Delete'>
-            <i class='fas fa-trash'></i>
-        </button>
-    </form>
-    <a href='home.php?page=6&id=$id' class='btn btn-primary btn-sm' title='Edit'>
-        <i class='fas fa-edit'></i>
-    </a>
-</div>
+                                                    <form action='' method='post' onsubmit='return confirm(\"Are you sure you want to delete this meal period?\");' style='margin-right: 15px;'>
+                                                        <input type='hidden' name='txtId' value='$id' />
+                                                        <button type='submit' name='btnDelete' class='btn btn-danger btn-sm' title='Delete'>
+                                                            <i class='fas fa-trash'></i>
+                                                        </button>
+                                                    </form>
+                                                    <a href='home.php?page=8&id=$id' class='btn btn-primary btn-sm' title='Edit'>
+                                                        <i class='fas fa-edit'></i>
+                                                    </a>
+                                                </div>
                                             </td>
                                           </tr>";
                                 }

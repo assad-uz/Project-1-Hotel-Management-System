@@ -39,7 +39,7 @@
 		  
 	   }else if($page==6){
 		   
-		   include("pages/user/view_user.php");
+		   include("pages/meal/mealtype/edit_meal.php");
 		  
 	   }else if($page==7){
 		   
