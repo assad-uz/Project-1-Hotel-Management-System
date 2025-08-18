@@ -1,22 +1,39 @@
 <?php
 include("config.php");
+
 if (!isset($conn)) {
     header("location:login.php");
     exit();
 }
 
-
 $r = "";
-if (isset($_POST["btnDelete"])) {
-    $u_id = $_POST["txtId"];
 
-    $sql = "DELETE FROM users WHERE id = '$u_id'";
+// ডেটা যোগ করার জন্য
+if (isset($_POST['submit'])) {
+    $period_name = mysqli_real_escape_string($conn, $_POST['period_name']);
+    $price = mysqli_real_escape_string($conn, $_POST['price']);
+
+    $sql = "INSERT INTO `meal_period`(`period_name`, `price`) VALUES ('$period_name', '$price')";
     $result = $conn->query($sql);
 
     if ($result === TRUE) {
-        $r = "<div class='alert alert-success'>User deleted successfully.</div>";
+        $r = "<div class='alert alert-success'>Meal Period Added Successfully</div>";
     } else {
-        $r = "<div class='alert alert-danger'>Error deleting record: " . $conn->error . "</div>";
+        $r = "<div class='alert alert-danger'>Error: " . $conn->error . "</div>";
+    }
+}
+
+// ডেটা ডিলিট করার জন্য
+if (isset($_GET['delete_id'])) {
+    $delete_id = mysqli_real_escape_string($conn, $_GET['delete_id']);
+    $sql_delete = "DELETE FROM `meal_period` WHERE id = '$delete_id'";
+    
+    if ($conn->query($sql_delete) === TRUE) {
+        $r = "<div class='alert alert-success'>Record Deleted Successfully</div>";
+        header("location: add_meal_period.php");
+        exit();
+    } else {
+        $r = "<div class='alert alert-danger'>Error: " . $conn->error . "</div>";
     }
 }
 ?>
@@ -26,13 +43,7 @@ if (isset($_POST["btnDelete"])) {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Manage users</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Manage Users</li>
-                    </ol>
+                    <h1>Add Meal Period & Price</h1>
                 </div>
             </div>
         </div>
@@ -41,68 +52,67 @@ if (isset($_POST["btnDelete"])) {
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Manage Users</h3>
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
+                <h3 class="card-title">Add Meal Period</h3>
             </div>
-
-            <div class="p-3">
-                <?php echo $r; ?>
-            </div>
-
             <div class="card-body">
-                <div class="card">
-                    <div class="card-body">
-                        <table class="table table-striped table-bordered">
-                            <thead class="bg-primary text-white">
-                                <tr>
-                                    <th>#ID</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Contact</th>
-                                    <th>Email</th>
-                                    <th>Password</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $users = $conn->query("SELECT id, firstname, lastname, phone, email, password FROM users");
-                                while (list($id, $fname, $lname, $phone, $email, $_pass) = $users->fetch_row()) {
-                                    echo "<tr> 
-        <td>$id</td>
-        <td>$fname</td>
-        <td>$lname</td>
-        <td>$phone</td>
-        <td>$email</td>
-        <td>$_pass</td>
-        <td> 
-            <div class='d-flex align-items-center'>
-                <form action='' method='post' onsubmit='return confirm(\"Are you sure you want to delete this user?\");' style='margin-right: 15px;'>
-                    <input type='hidden' name='txtId' value='$id' />
-                    <button type='submit' name='btnDelete' class='btn btn-danger btn-sm' title='Delete'>
-                        <i class='fas fa-trash'></i>
-                    </button>
-
-                    </form>
-                <a href='home.php?page=3&id=$id' class='btn btn-primary btn-sm' title='Edit'>
-                    <i class='fas fa-edit'></i>
-                </a>
-            </div>
-        </td>
-    </tr>";
-                                }
-                                ?>
-                            </tbody>
-                        </table>
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Meal Period Form</h3>
                     </div>
+                    <div class="ftitle text-center mt-3">
+                        <?php echo $r; ?>
+                    </div>
+                    <form action="#" method="post">
+                        <div class="form-group">
+                            <label for="period_name">Meal Period Name</label>
+                            <input type="text" class="form-control" name="period_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number" step="0.01" class="form-control" name="price" required>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                        </div>
+                    </form>
                 </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3 class="card-title">All Meal Periods</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Meal Period</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $query = "SELECT * FROM `meal_period`";
+                        $result = $conn->query($query);
+
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td>" . $row['id'] . "</td>";
+                                echo "<td>" . $row['period_name'] . "</td>";
+                                echo "<td>" . $row['price'] . "</td>";
+                                echo "<td><a href='add_meal_period.php?delete_id=" . $row['id'] . "' class='btn btn-danger btn-sm'>Delete</a></td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='4'>No records found</td></tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>

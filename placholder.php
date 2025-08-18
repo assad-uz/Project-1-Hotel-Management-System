@@ -45,6 +45,10 @@
 		   
 		    include("pages/category/add_cat.php");
 		  
+	   }else if($page==8){
+		   
+		    include("pages/meal/mealtype/add_meal.php");
+		  
 	   }
 	   
    }else{

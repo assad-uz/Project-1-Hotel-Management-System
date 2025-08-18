@@ -25,7 +25,8 @@ CREATE TABLE meal_type (
 -- Table: meal_period (Dropdown reference)
 CREATE TABLE meal_period (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    period_name VARCHAR(100) UNIQUE
+    period_name VARCHAR(100) NOT NULL UNIQUE,
+    price DECIMAL(10, 2) NOT NULL
 );
 
 -- Table: food_service

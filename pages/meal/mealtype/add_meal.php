@@ -1,4 +1,4 @@
-<?php 
+<?php
 include("config.php");
 if (!isset($conn)) {
     header("location:login.php");
@@ -8,25 +8,18 @@ if (!isset($conn)) {
 $r = "";
 
 if (isset($_POST['submit'])) {
-    $first_name = mysqli_real_escape_string($conn, $_POST['firstname']);
-    $last_name = mysqli_real_escape_string($conn, $_POST['lastname']);
-    $phone = mysqli_real_escape_string($conn, $_POST['phone']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
-    $role_id = mysqli_real_escape_string($conn, $_POST['role_id']);
-
-    $sql = "INSERT INTO `users`(`firstname`, `lastname`, `phone`, `email`, `password`, `role_id`) 
-            VALUES ('$first_name','$last_name','$phone','$email','$password', '$role_id')";
+    $type_name  = $_POST['meal_type'];
+    $sql = "INSERT INTO `meal_type`(`type_name`) 
+            VALUES ('$type_name')";
     $result = $conn->query($sql);
 
     if ($result === TRUE) {
-        $r = "<div class='alert alert-success'>User Added Successfully</div>";
+        $r = "<div class='alert alert-success'>Meal Type Added Successfully</div>";
     } else {
-        $r = "<div class='alert alert-danger'>Error: " . $conn->error . "</div>"; 
+        $r = "<div class='alert alert-danger'>Error: " . $conn->error . "</div>";
     }
-    
-} 
-?> 
+}
+?>
 
 <div class="content-wrapper">
     <section class="content-header">
@@ -48,41 +41,28 @@ if (isset($_POST['submit'])) {
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Add User</h3>
-                </div>
+                <h3 class="card-title">Add Meal Type</h3>
+            </div>
             <div class="card-body">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">User Registration Form</h3>
+                        <h3 class="card-title">Meal Type Form</h3>
                     </div>
-                    
-                    <div class="ftitle text-center mt-3"> 
+
+                    <div class="ftitle text-center mt-3">
                         <?php echo $r; ?>
                     </div>
-                    
+
                     <form action="#" method="post">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="fname">First Name</label>
-                                <input type="text" class="form-control" id="fname" placeholder="Enter first name" name="firstname">
-                            </div>
-                            <div class="form-group">
-                                <label for="lname">Last Name</label>
-                                <input type="text" class="form-control" id="lname" placeholder="Enter last name" name="lastname">
-                            </div>
-                            <div class="form-group">
-                                <label for="pNo">Contact</label>
-                                <input type="text" class="form-control" id="pNo" placeholder="Enter phone number" name="phone">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email address</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password" placeholder="Password" name="password">
-                            </div>
-                            
+                        <div class="form-group">
+                            <label for="meal_type">Select Meal Type </label>
+                                <select class="form-control" name="meal_type" id="meal_type" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="BD food">Bangladeshi food</option>
+                                    <option value="Chinese food">Chinese food</option>
+                                    <option value="Pakistani food">Pakistani food</option>
+                                    <option value="Thai food">Thai food</option>
+                                </select>
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary" name="submit">Submit</button>
@@ -90,6 +70,6 @@ if (isset($_POST['submit'])) {
                     </form>
                 </div>
             </div>
-            </div>
-        </section>
-    </div>
+        </div>
+    </section>
+</div>
