@@ -302,7 +302,7 @@
               <li class="nav-item">
                 <a href="home.php?page=1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add Period</p>
+                  <p>Add Room</p>
                 </a>
               </li>
              
@@ -311,7 +311,35 @@
               <li class="nav-item">
                 <a href="home.php?page=1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Manage Periods</p>
+                  <p>Manage Rooms</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Booking
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Booking</p>
+                </a>
+              </li>
+             
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Bookings</p>
                 </a>
               </li>
              
@@ -323,7 +351,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-                Meal Type
+                Check-in
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -331,7 +359,7 @@
               <li class="nav-item">
                 <a href="home.php?page=1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add Meal</p>
+                  <p>Add Check-in</p>
                 </a>
               </li>
              
@@ -340,7 +368,7 @@
               <li class="nav-item">
                 <a href="home.php?page=1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Manage Meals</p>
+                  <p>Manage Check-in</p>
                 </a>
               </li>
              
