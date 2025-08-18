@@ -79,15 +79,15 @@
 		  
 	   }else if($page==16){
 		   
-		    include("pages/services/roomservice");
+		    include("pages/services/service/add_service.php");
 		  
 	   }else if($page==17){
 		   
-		    include("pages/services/roomservice");
+		    include("pages/services/service/manage_service.php");
 		  
 	   }else if($page==18){
 		   
-		    include("pages/services/roomservice");
+		    include("pages/services/service/edit_service.php");
 		  
 	   }else if($page==19){
 		   
