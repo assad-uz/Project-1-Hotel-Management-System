@@ -70,11 +70,12 @@ CREATE TABLE room_type (
 -- Table: room (No bed_info, uses room_type only)
 CREATE TABLE room (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    service_id INT,
-    room_type_id INT NOT NULL,
-    room_id VARCHAR(50) NOT NULL,
     room_number VARCHAR(50) NOT NULL,
-    room_price DECIMAL(10,2) NOT NULL,
+    room_type_id INT NOT NULL,
+    room_type_price DECIMAL(10,2) NOT NULL,
+    service_id INT,
+    service_price DECIMAL(10,2) NOT NULL,
+    total_price DECIMAL(10,2) NOT NULL,
     room_status VARCHAR(50),
     description VARCHAR(255),
     FOREIGN KEY (service_id) REFERENCES service(id),

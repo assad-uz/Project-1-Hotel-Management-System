@@ -91,15 +91,15 @@
 		  
 	   }else if($page==19){
 		   
-		    include("pages/services/roomservice");
+		    include("pages/roombooking/roomtype/add_room_type.php");
 		  
 	   }else if($page==20){
 		   
-		    include("pages/services/roomservice");
+		    include("pages/roombooking/roomtype/manage_room_type.php");
 		  
 	   }else if($page==21){
 		   
-		    include("pages/services/roomservice");
+		    include("pages/roombooking/roomtype/edit_room_type.php");
 		  
 	   }else if($page==22){
 		   

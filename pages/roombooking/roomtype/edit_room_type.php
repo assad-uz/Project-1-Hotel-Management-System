@@ -1,112 +1,66 @@
 <?php
+// config.php ফাইলটি অন্তর্ভুক্ত করা হচ্ছে।
 include("config.php");
 if (!isset($conn)) {
     header("location:login.php");
     exit();
 }
 
+// ফলাফল বার্তা এবং ডেটা সংরক্ষণের জন্য ভেরিয়েবল।
 $r = "";
-$id = $fname = $lname = $email = $password = $phone = $role_id = '';
+$room_name = "";
+$price = "";
+$id = 0;
 
-if (isset($_POST["btnUpdate"])) {
-    $id = $_POST["id"];
-    $fname = $_POST["fname"];
-    $lname = $_POST["lname"];
-    $phone = $_POST["phone"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $role_id = $_POST["role_id"];
-    
-    $sql = "UPDATE users SET firstname='$fname', lastname='$lname', phone='$phone', email='$email', password='$password', role_id='$role_id' WHERE id='$id'";
-    
-    if ($conn->query($sql) === TRUE) {
-        $r = "<div class='alert alert-success'>User updated successfully.</div>";
+// যদি id থাকে, তাহলে ডেটা লোড করুন।
+if (isset($_GET['id'])) {
+    $id = mysqli_real_escape_string($conn, $_GET['id']);
+    $sql_fetch = "SELECT `room_name`, `price` FROM `room_type` WHERE `id` = '$id'";
+    $result_fetch = $conn->query($sql_fetch);
+    if ($result_fetch->num_rows > 0) {
+        $row = $result_fetch->fetch_assoc();
+        $room_name = $row['room_name'];
+        $price = $row['price'];
     } else {
-        $r = "<div class='alert alert-danger'>Error to update. " . $conn->error . "</div>";
+        $r = "<div class='alert alert-danger'>Record not found.</div>";
     }
 }
 
-if (isset($_GET['id'])) {
-    $id_to_edit = $_GET['id'];
-    
-    $sql = "SELECT id, firstname, lastname, phone, email, password, role_id FROM users WHERE id = '$id_to_edit'";
-    $result = $conn->query($sql);
-    
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $id = $row['id'];
-        $fname = $row['firstname'];
-        $lname = $row['lastname'];
-        $phone = $row['phone'];
-        $email = $row['email'];
-        $password = $row['password'];
-        $role_id = $row['role_id'];
+// যদি ফর্ম সাবমিট করা হয়, তাহলে ডেটা আপডেট করুন।
+if (isset($_POST['submit'])) {
+    $id_update = mysqli_real_escape_string($conn, $_POST['id']);
+    $room_name_update = mysqli_real_escape_string($conn, $_POST['room_name']);
+    $price_update = mysqli_real_escape_string($conn, $_POST['price']);
+
+    $sql_update = "UPDATE `room_type` SET `room_name` = '$room_name_update', `price` = '$price_update' WHERE `id` = '$id_update'";
+    if ($conn->query($sql_update) === TRUE) {
+        $r = "<div class='alert alert-success'>Room type updated successfully.</div>";
+    } else {
+        $r = "<div class='alert alert-danger'>Error updating record: " . $conn->error . "</div>";
     }
 }
 ?>
 
 <div class="content-wrapper">
     <section class="content-header">
-        <div class="container-fluid">
-            <h1>Update User</h1>
-        </div>
+        <h1>Edit Room Type</h1>
     </section>
-
     <section class="content">
-        <div class="card card-primary">
-            <div class="card-header">
-                <h3 class="card-title">Update User Info Form</h3>
-            </div>
+        <div class="card">
             <div class="card-body">
-                <div class="p-3">
-                    <?php echo $r; ?>
-                </div>
-
+                <?php echo $r; ?>
                 <form action="" method="post">
-                    <div class="card-body">
-                        <input type="hidden" name="id" value="<?php echo $id; ?>">
-                        
-                        <div class="form-group">
-                            <label>First Name</label>
-                            <input type="text" class="form-control" name="fname" value="<?php echo $fname; ?>">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Last Name</label>
-                            <input type="text" class="form-control" name="lname" value="<?php echo $lname; ?>">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Contact</label>
-                            <input type="text" class="form-control" name="phone" value="<?php echo $phone; ?>">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" class="form-control" name="email" value="<?php echo $email; ?>">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" name="password" value="<?php echo $password; ?>">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Role</label>
-                            <select name="role_id" class="form-control">
-                                <?php
-                                $roles = $conn->query("SELECT id, role_type FROM role");
-                                while ($row_role = $roles->fetch_assoc()) {
-                                    $selected = ($row_role['id'] == $role_id) ? 'selected' : '';
-                                    echo "<option value='{$row_role['id']}' {$selected}>{$row_role['role_type']}</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
+                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
+                    <div class="form-group">
+                        <label for="room_name">Room Name</label>
+                        <input type="text" class="form-control" name="room_name" value="<?php echo htmlspecialchars($room_name); ?>" required>
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary" name="btnUpdate">Update</button>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" step="0.01" class="form-control" name="price" value="<?php echo htmlspecialchars($price); ?>" required>
                     </div>
+                    <button type="submit" class="btn btn-primary" name="submit">Update</button>
+                    <a href="home.php?page=20" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>
