@@ -120,6 +120,316 @@
              
             </ul>
           </li>
+          <li class="nav-header">Meal Management</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Meal Type
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Meal</p>
+                </a>
+              </li>
+             
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Meals</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Meal Period
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Period</p>
+                </a>
+              </li>
+             
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Periods</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+
+          <li class="nav-header">Service Management</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Room Service
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Room</p>
+                </a>
+              </li>
+             
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Rooms</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+
+          
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Food Service
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Food</p>
+                </a>
+              </li>
+             
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Foods</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Services
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Services</p>
+                </a>
+              </li>
+             
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Services</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+
+          <li class="nav-header">Room Booking</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Room Type
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Room Type</p>
+                </a>
+              </li>
+             
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Room Type</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Room
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Period</p>
+                </a>
+              </li>
+             
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Periods</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+
+          <li class="nav-header">Checkin & Checkout</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Meal Type
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Meal</p>
+                </a>
+              </li>
+             
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Meals</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Meal Period
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Period</p>
+                </a>
+              </li>
+             
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Periods</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+
+          <li class="nav-header">Payments</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Meal Type
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Meal</p>
+                </a>
+              </li>
+             
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Meals</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Meal Period
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Period</p>
+                </a>
+              </li>
+             
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php?page=1" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Periods</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+
           <li class="nav-header">EXAMPLES</li>
          
           <li class="nav-item">
