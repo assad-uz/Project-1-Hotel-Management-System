@@ -112,7 +112,6 @@ $food_services->data_seek(0); // আবার প্রথম সারিতে
                         <input type="number" step="0.01" class="form-control" name="total_service_price" id="total_service_price" readonly required>
                     </div>
                     <button type="submit" name="submit" class="btn btn-primary">Save</button>
-                    <a href="home.php?page=13" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>

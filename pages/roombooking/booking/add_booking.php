@@ -1,4 +1,7 @@
 <?php
+// PHP-এর জন্য ডিফল্ট টাইম জোন সেট করা হচ্ছে।
+date_default_timezone_set('Asia/Dhaka');
+
 // config.php ফাইলটি অন্তর্ভুক্ত করা হচ্ছে।
 include("config.php");
 if (!isset($conn)) {
