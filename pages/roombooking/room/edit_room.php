@@ -137,7 +137,7 @@ $services->data_seek(0);
                         <textarea class="form-control" name="description"><?php echo htmlspecialchars($description); ?></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary" name="submit">Update</button>
-                    <a href="home.php?page=19" class="btn btn-secondary">Cancel</a>
+                    <a href="home.php?page=23" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>

@@ -103,11 +103,43 @@
 		  
 	   }else if($page==22){
 		   
-		    include("pages/services/roomservice");
+		    include("pages/roombooking/room/add_room.php");
 		  
 	   }else if($page==23){
 		   
-		    include("pages/services/roomservice");
+		    include("pages/roombooking/room/manage_room.php");
+		  
+	   }else if($page==24){
+		   
+		    include("pages/roombooking/room/edit_room.php");
+		  
+	   }else if($page==25){
+		   
+		    include("pages/roombooking");
+		  
+	   }else if($page==26){
+		   
+		    include("pages/roombooking");
+		  
+	   }else if($page==27){
+		   
+		    include("pages/roombooking");
+		  
+	   }else if($page==28){
+		   
+		    include("pages/roombooking");
+		  
+	   }else if($page==29){
+		   
+		    include("pages/roombooking");
+		  
+	   }else if($page==30){
+		   
+		    include("pages/roombooking");
+		  
+	   }else if($page==31){
+		   
+		    include("pages/roombooking");
 		  
 	   }
 	   

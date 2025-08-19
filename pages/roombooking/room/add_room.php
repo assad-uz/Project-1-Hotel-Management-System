@@ -124,7 +124,6 @@ while ($row = $services->fetch_assoc()) {
                         <textarea class="form-control" name="description"></textarea>
                     </div>
                     <button type="submit" name="submit" class="btn btn-primary">Save</button>
-                    <a href="home.php?page=19" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>

@@ -75,7 +75,7 @@ if (isset($_POST["btnDelete"])) {
                                 <?php
                                 // ডেটাবেজ থেকে সমস্ত room ডেটা লোড করার কোয়েরি।
                                 $sql = "SELECT r.id, r.room_number, r.room_type_price, r.service_price, r.total_price, r.room_status, r.description,
-                                        rt.room_name, s.total_service_price
+                                        rt.room_name, s.total_service_price, r.service_id
                                         FROM `room` AS r
                                         LEFT JOIN `room_type` AS rt ON r.room_type_id = rt.id
                                         LEFT JOIN `service` AS s ON r.service_id = s.id
@@ -84,7 +84,7 @@ if (isset($_POST["btnDelete"])) {
                                 $rooms = $conn->query($sql);
                                 while ($row = $rooms->fetch_assoc()) {
                                     $room_type_name = $row['room_name'] ? htmlspecialchars($row['room_name']) : 'N/A';
-                                    $service_name = $row['total_service_price'] ? 'Service ID ' . htmlspecialchars($row['service_id']) : 'N/A';
+                                    $service_name = $row['service_id'] ? 'Service ID ' . htmlspecialchars($row['service_id']) : 'N/A';
                                     $service_price = $row['service_price'] ? '$' . htmlspecialchars($row['service_price']) : 'N/A';
                                     
                                     echo "<tr> 
@@ -105,7 +105,7 @@ if (isset($_POST["btnDelete"])) {
                                                             <i class='fas fa-trash'></i>
                                                         </button>
                                                     </form>
-                                                    <a href='home.php?page=20&id=" . htmlspecialchars($row['id']) . "' class='btn btn-primary btn-sm' title='Edit'>
+                                                    <a href='home.php?page=24&id=" . htmlspecialchars($row['id']) . "' class='btn btn-primary btn-sm' title='Edit'>
                                                         <i class='fas fa-edit'></i>
                                                     </a>
                                                 </div>
