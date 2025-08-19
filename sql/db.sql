@@ -90,8 +90,8 @@ CREATE TABLE booking (
     booking_date DATETIME NOT NULL,
     checkin_date DATE NOT NULL,
     checkout_date DATE NOT NULL,
-    payment_status VARCHAR(50),
-    amount DECIMAL(10,2) NOT NULL,
+    payment_status VARCHAR(50) NOT NULL,
+    total_amount DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (users_id) REFERENCES users(id),
     FOREIGN KEY (room_id) REFERENCES room(id)
 );
