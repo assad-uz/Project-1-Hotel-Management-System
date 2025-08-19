@@ -97,14 +97,6 @@ CREATE TABLE booking (
     FOREIGN KEY (room_id) REFERENCES room(id)
 );
 
--- Table: cancellation
-CREATE TABLE cancellation (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    booking_id INT NOT NULL,
-    cancel_date DATE NOT NULL,
-    FOREIGN KEY (booking_id) REFERENCES booking(id) ON DELETE CASCADE
-);
-
 -- Table: checkin
 CREATE TABLE checkin (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -120,6 +112,15 @@ CREATE TABLE checkout (
     checkout_date DATE NOT NULL,
     FOREIGN KEY (booking_id) REFERENCES booking(id) ON DELETE CASCADE
 );
+
+-- Table: cancellation
+CREATE TABLE cancellation (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    booking_id INT NOT NULL,
+    cancel_date DATE NOT NULL,
+    FOREIGN KEY (booking_id) REFERENCES booking(id) ON DELETE CASCADE
+);
+
 
 -- Table: invoice
 CREATE TABLE invoice (
