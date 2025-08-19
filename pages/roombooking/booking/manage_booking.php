@@ -73,8 +73,9 @@ if (isset($_POST["btnDelete"])) {
                             <tbody>
                                 <?php
                                 // ডেটাবেজ থেকে সমস্ত booking ডেটা লোড করার কোয়েরি।
+                                // 'firstname' এবং 'lastname' ব্যবহার করে পুরো নাম তৈরি করা হয়েছে।
                                 $sql = "SELECT b.id, b.booking_date, b.checkin_date, b.checkout_date, b.payment_status, b.total_amount,
-                                        u.name AS user_name, r.room_number
+                                        CONCAT(u.firstname, ' ', u.lastname) AS user_name, r.room_number
                                         FROM `booking` AS b
                                         LEFT JOIN `users` AS u ON b.users_id = u.id
                                         LEFT JOIN `room` AS r ON b.room_id = r.id
@@ -102,7 +103,7 @@ if (isset($_POST["btnDelete"])) {
                                                             <i class='fas fa-trash'></i>
                                                         </button>
                                                     </form>
-                                                    <a href='home.php?page=23&id=" . htmlspecialchars($row['id']) . "' class='btn btn-primary btn-sm' title='Edit'>
+                                                    <a href='home.php?page=27&id=" . htmlspecialchars($row['id']) . "' class='btn btn-primary btn-sm' title='Edit'>
                                                         <i class='fas fa-edit'></i>
                                                     </a>
                                                 </div>

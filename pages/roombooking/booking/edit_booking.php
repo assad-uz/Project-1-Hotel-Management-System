@@ -56,7 +56,8 @@ if (isset($_POST['submit'])) {
 }
 
 // ড্রপডাউনের জন্য users ডেটা লোড করা হচ্ছে।
-$users = $conn->query("SELECT id, name FROM `users` ORDER BY name ASC");
+// 'firstname' এবং 'lastname' ব্যবহার করে পুরো নাম তৈরি করা হয়েছে।
+$users = $conn->query("SELECT id, CONCAT(firstname, ' ', lastname) AS full_name FROM `users` ORDER BY full_name ASC");
 $users_data = [];
 while ($row = $users->fetch_assoc()) {
     $users_data[] = $row;
@@ -86,7 +87,7 @@ while ($row = $rooms->fetch_assoc()) {
                             <option value="">Select User</option>
                             <?php foreach ($users_data as $row): ?>
                                 <option value="<?php echo htmlspecialchars($row['id']); ?>" <?php if ($row['id'] == $users_id) echo 'selected'; ?>>
-                                    <?php echo htmlspecialchars($row['name']); ?>
+                                    <?php echo htmlspecialchars($row['full_name']); ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
@@ -129,7 +130,7 @@ while ($row = $rooms->fetch_assoc()) {
                         <input type="number" step="0.01" class="form-control" name="total_amount" id="total_amount" value="<?php echo htmlspecialchars($total_amount_val); ?>" readonly required>
                     </div>
                     <button type="submit" class="btn btn-primary" name="submit">Update</button>
-                    <a href="home.php?page=22" class="btn btn-secondary">Cancel</a>
+                    <a href="home.php?page=26" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>

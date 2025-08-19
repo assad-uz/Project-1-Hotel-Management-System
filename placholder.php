@@ -115,15 +115,15 @@
 		  
 	   }else if($page==25){
 		   
-		    include("pages/roombooking");
+		    include("pages/roombooking/booking/add_booking.php");
 		  
 	   }else if($page==26){
 		   
-		    include("pages/roombooking");
+		    include("pages/roombooking/booking/manage_booking.php");
 		  
 	   }else if($page==27){
 		   
-		    include("pages/roombooking");
+		    include("pages/roombooking/booking/edit_booking.php");
 		  
 	   }else if($page==28){
 		   
