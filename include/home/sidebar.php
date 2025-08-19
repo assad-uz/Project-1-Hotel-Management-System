@@ -466,7 +466,7 @@
           <li class="nav-header">Pages</li>
          
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="http://localhost/Project-1-Hotel-Management-System/index.php" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Home Page
