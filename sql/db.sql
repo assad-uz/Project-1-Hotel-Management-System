@@ -51,10 +51,10 @@ CREATE TABLE room_service (
 -- Table: service
 CREATE TABLE service (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    room_service_id INT,
-    room_service_price DECIMAL(10,2) NOT NULL,
     food_service_id INT,
     food_service_price DECIMAL(10,2) NOT NULL,
+    room_service_id INT,
+    room_service_price DECIMAL(10,2) NOT NULL,
     total_service_price DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (room_service_id) REFERENCES room_service(id),
     FOREIGN KEY (food_service_id) REFERENCES food_service(id)

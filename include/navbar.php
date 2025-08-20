@@ -15,9 +15,6 @@
           <a class="nav-link fs-6" href="rooms.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link fs-6" href="about.php">About</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link fs-6" href="contact.php">Rooms</a>
         </li>
         <li class="nav-item">
@@ -36,8 +33,12 @@
           <a class="nav-link fs-6" href="contact.php">Blog</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link fs-6" href="about.php">About</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link fs-6" href="contact.php">Contact</a>
         </li>
+        
       </ul>
 
       <ul class="navbar-nav ms-auto"> <!-- Right side buttons -->
