@@ -10,8 +10,9 @@ require_once("include/navbar.php");
       <!-- About Text -->
       <div class="col-md-6">
         <h2 class="mb-4">About Our Hotel</h2>
+        <hr>
         <p>
-          Welcome to our Hotel Management System. We provide the best 
+          Welcome to our HOTEL HORIZON. We provide the best 
           services to make your stay comfortable and memorable. 
           Our system helps you to easily manage room booking, 
           restaurant orders, and other facilities.
