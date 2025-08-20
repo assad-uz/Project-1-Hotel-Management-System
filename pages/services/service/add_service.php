@@ -77,21 +77,7 @@ $food_services->data_seek(0); // আবার প্রথম সারিতে
                     <?php echo $r; ?>
                 </div>
                 <form action="" method="post">
-                    <div class="form-group">
-                        <label for="room_service_id">Room Service</label>
-                        <select class="form-control" name="room_service_id" id="room_service_id">
-                            <option value="">Select Room Service</option>
-                            <?php foreach ($room_services_data as $row): ?>
-                                <option value="<?php echo htmlspecialchars($row['id']); ?>" data-price="<?php echo htmlspecialchars($row['price']); ?>">
-                                    <?php echo htmlspecialchars($row['service_name'] . ' - $' . $row['price']); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="room_service_price">Room Service Price</label>
-                        <input type="number" step="0.01" class="form-control" name="room_service_price" id="room_service_price" readonly required>
-                    </div>
+                    
                     <div class="form-group">
                         <label for="food_service_id">Food Service</label>
                         <select class="form-control" name="food_service_id" id="food_service_id">
@@ -107,6 +93,23 @@ $food_services->data_seek(0); // আবার প্রথম সারিতে
                         <label for="food_service_price">Food Service Price</label>
                         <input type="number" step="0.01" class="form-control" name="food_service_price" id="food_service_price" readonly required>
                     </div>
+
+                    <div class="form-group">
+                        <label for="room_service_id">Room Service</label>
+                        <select class="form-control" name="room_service_id" id="room_service_id">
+                            <option value="">Select Room Service</option>
+                            <?php foreach ($room_services_data as $row): ?>
+                                <option value="<?php echo htmlspecialchars($row['id']); ?>" data-price="<?php echo htmlspecialchars($row['price']); ?>">
+                                    <?php echo htmlspecialchars($row['service_name'] . ' - $' . $row['price']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="room_service_price">Room Service Price</label>
+                        <input type="number" step="0.01" class="form-control" name="room_service_price" id="room_service_price" readonly required>
+                    </div>
+
                     <div class="form-group">
                         <label for="total_service_price">Total Service Price</label>
                         <input type="number" step="0.01" class="form-control" name="total_service_price" id="total_service_price" readonly required>
