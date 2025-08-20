@@ -34,8 +34,7 @@ require_once("include/navbar.php");
     </div>
   </section>
   
-  <?php
+<?php
   require_once("include/footer.php");
-
-  ?>
+?>
 
