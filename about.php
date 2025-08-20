@@ -1,6 +1,6 @@
 <?php
-require_once("../../include/header.php");
-require_once("../../include/navbar.php");
+require_once("include/header.php");
+require_once("include/navbar.php");
 ?>
 <!-- About Section -->
 <section id="about" class="py-5 bg-light">
@@ -25,7 +25,7 @@ require_once("../../include/navbar.php");
 
       <!-- About Image Placeholder -->
       <div class="col-md-6 text-center">
-        <img src="../../dist/images/about1.webp" alt="Hotel Image" class="img-fluid rounded shadow">
+        <img src="dist/images/about1.webp" alt="Hotel Image" class="img-fluid rounded shadow">
         <!-- এখানে আপনি নিজের ইমেজ path বসাবেন -->
       </div>
 
@@ -34,5 +34,5 @@ require_once("../../include/navbar.php");
 </section>
 
 <?php
-  require_once("../../include/footer.php");
+  require_once("include/footer.php");
 ?>
