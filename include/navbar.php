@@ -13,7 +13,7 @@
           <a class="nav-link fs-6" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link fs-6" href="#">Rooms</a>
+          <a class="nav-link fs-6" href="room.php">Rooms</a>
         </li>
         <li class="nav-item">
           <a class="nav-link fs-6" href="#">Dining</a>
