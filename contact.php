@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel Horizon Contact & Location</title>
-    <!-- Bootstrap 5 CSS CDN ব্যবহার করা হয়েছে -->
+    <title>Contact & Location</title>
+    <!-- Bootstrap 5 CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -22,11 +22,17 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh; /* ন্যূনতম স্ক্রিন উচ্চতা নিশ্চিত করে */
+            background-color: #f8f9fa; /* Bootstrap's bg-light color */
         }
         
-        /* কন্টেন্টকে ফুটারের উপরে ঠেলে দেওয়ার জন্য */
+        /* কন্টেন্টকে ফুটারের উপরে ঠেলে দেওয়ার জন্য */
         .content-wrap {
             flex-grow: 1;
+            display: flex; /* ফ্ল্যাক্সবক্স ব্যবহার করে কন্টেন্টকে মাঝখানে আনা হয়েছে */
+            align-items: center; /* উল্লম্বভাবে মাঝ বরাবর */
+            justify-content: center; /* অনুভূমিকভাবে মাঝ বরাবর */
+            padding-top: 3rem;
+            padding-bottom: 3rem;
         }
     </style>
 </head>
@@ -42,13 +48,13 @@
 
         <!-- Main Content Section -->
         <main class="content-wrap">
-            <section id="contact" class="py-5 bg-light">
+            <section id="contact">
                 <div class="container">
                     <div class="row align-items-center">
 
                         <!-- Contact Image -->
                         <div class="col-md-6 text-center mb-4 mb-md-0">
-                            <img src="https://placehold.co/600x400/1E40AF/ffffff?text=Hotel+Horizon+Image" alt="Hotel Image" class="img-fluid rounded shadow">
+                            <img src="dist/images/contact1.jpg" alt="Hotel Image" class="img-fluid rounded shadow">
                             <!-- এখানে তোমার হোটেলের আসল ইমেজ path দাও -->
                         </div>
 
@@ -65,24 +71,14 @@
                                 for reservations, support, or any queries.
                             </p>
                         </div>
-
                     </div>
                 </div>
             </section>
         </main>
 
         <!-- Footer -->
-        <footer class="bg-dark text-white text-center py-3 mt-auto">
-            <div class="container">
-                <p class="mb-0">© 2023 Hotel Management System. All Rights Reserved.</p>
-                <p class="mb-0">Developed by <a href="#" class="text-white">ASSADUZZAMAN SABIN</a></p>
-            </div>
-            <?php require_once("include/footer.php"); ?>
-        </footer>
+        <?php require_once("include/footer.php"); ?>
         
     </div>
-
-    <!-- Bootstrap 5 JS CDN (ঐচ্ছিক, তবে কিছু কম্পোনেন্টের জন্য প্রয়োজন) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
