@@ -36,7 +36,7 @@
           <a class="nav-link fs-6" href="about.php">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link fs-6" href="#">Contact</a>
+          <a class="nav-link fs-6" href="contact.php">Contact</a>
         </li>
         
       </ul>
