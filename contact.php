@@ -1,85 +1,88 @@
-<?php
-// ফলাফল বার্তা সংরক্ষণের জন্য একটি ভেরিয়েবল।
-$response_message = "";
-
-// যদি ফর্মটি POST মেথড ব্যবহার করে জমা দেওয়া হয়।
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Horizon Contact & Location</title>
+    <!-- Bootstrap 5 CSS CDN ব্যবহার করা হয়েছে -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     
-    // ফর্ম ডেটা স্যানিটাইজ করা হচ্ছে।
-    $name = strip_tags(trim($_POST["name"]));
-    $name = str_replace(array("\r","\n"),array(" "," "),$name);
-    $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
-    $subject = strip_tags(trim($_POST["subject"]));
-    $message = trim($_POST["message"]);
-
-    // যাচাই করা হচ্ছে যে ডেটা খালি নয়।
-    if (empty($name) OR empty($subject) OR empty($message) OR !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $response_message = "<div class='alert alert-danger'>Please fill out the form completely.</div>";
-    } else {
-
-        // আপনার ইমেল ঠিকানা এখানে দিন।
-        $recipient = "your-email@example.com";
-
-        // ইমেলের বিষয়।
-        $email_subject = "New Contact Message: $subject";
-
-        // ইমেলের কন্টেন্ট।
-        $email_content = "Name: $name\n";
-        $email_content .= "Email: $email\n\n";
-        $email_content .= "Message:\n$message\n";
-
-        // ইমেলের হেডার।
-        $email_headers = "From: $name <$email>";
-
-        // ইমেল পাঠানো হচ্ছে।
-        if (mail($recipient, $email_subject, $email_content, $email_headers)) {
-            $response_message = "<div class='alert alert-success'>Your message has been sent successfully!</div>";
-        } else {
-            $response_message = "<div class='alert alert-danger'>There was an issue sending your message. Please try again later.</div>";
+    <style>
+        /* ফন্টের জন্য Google Fonts ব্যবহার করুন */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
         }
-    }
-}
-?>
 
-<!-- Contact Section -->
-<section class="contact-section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="contact-form">
-                    <h2 class="text-center mb-4">Contact Us</h2>
-                    <div id="form-message">
-                        <?php echo $response_message; ?>
+        /* ফুটারকে নিচে রাখার জন্য মূল কন্টেইনারের স্টাইল */
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* ন্যূনতম স্ক্রিন উচ্চতা নিশ্চিত করে */
+        }
+        
+        /* কন্টেন্টকে ফুটারের উপরে ঠেলে দেওয়ার জন্য */
+        .content-wrap {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        
+        <!-- Header -->
+        <header>
+            <?php require_once("include/header.php"); ?>
+            <?php require_once("include/navbar.php"); ?>
+        </header>
+
+        <!-- Main Content Section -->
+        <main class="content-wrap">
+            <section id="contact" class="py-5 bg-light">
+                <div class="container">
+                    <div class="row align-items-center">
+
+                        <!-- Contact Image -->
+                        <div class="col-md-6 text-center mb-4 mb-md-0">
+                            <img src="https://placehold.co/600x400/1E40AF/ffffff?text=Hotel+Horizon+Image" alt="Hotel Image" class="img-fluid rounded shadow">
+                            <!-- এখানে তোমার হোটেলের আসল ইমেজ path দাও -->
+                        </div>
+
+                        <!-- Contact Details -->
+                        <div class="col-md-6">
+                            <h2 class="mb-4">Contact Us</h2>
+                            <hr>
+                            <p class="mb-2"><strong>Hotel Horizon</strong></p>
+                            <p class="mb-2"><i class="bi bi-geo-alt-fill text-primary"></i> 123 Main Street, Dhaka, Bangladesh</p>
+                            <p class="mb-2"><i class="bi bi-telephone-fill text-primary"></i> +880 1234-567890</p>
+                            <p class="mb-2"><i class="bi bi-envelope-fill text-primary"></i> info@hotelhorizon.com</p>
+                            <p>
+                                We are always here to help you. Feel free to reach out 
+                                for reservations, support, or any queries.
+                            </p>
+                        </div>
+
                     </div>
-                    <form action="" method="POST">
-                        <div class="form-group">
-                            <label for="name">Your Name:</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Your Email:</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject:</label>
-                            <input type="text" class="form-control" id="subject" name="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Your Message:</label>
-                            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Send Message</button>
-                    </form>
                 </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-dark text-white text-center py-3 mt-auto">
+            <div class="container">
+                <p class="mb-0">© 2023 Hotel Management System. All Rights Reserved.</p>
+                <p class="mb-0">Developed by <a href="#" class="text-white">ASSADUZZAMAN SABIN</a></p>
             </div>
-            <div class="col-lg-4 mt-4 mt-lg-0">
-                <div class="contact-info">
-                    <h3>Contact Information</h3>
-                    <p><i class="fas fa-map-marker-alt icon"></i> 19/B Road, Dhanmondi, Dhaka, Bangladesh</p>
-                    <p><i class="fas fa-envelope icon"></i> info@hotelhorizon.com</p>
-                    <p><i class="fas fa-phone-alt icon"></i> +880 1234 567890</p>
-                </div>
-            </div>
-        </div>
+            <?php require_once("include/footer.php"); ?>
+        </footer>
+        
     </div>
-</section>
+
+    <!-- Bootstrap 5 JS CDN (ঐচ্ছিক, তবে কিছু কম্পোনেন্টের জন্য প্রয়োজন) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
