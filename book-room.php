@@ -1,31 +1,7 @@
 <?php
 // PHP সেশন শুরু করুন
 session_start();
-
-// ব্যবহারকারী লগইন করেছেন কিনা তা যাচাই করুন
-// যদি সেশনে user_id না থাকে, তবে তাকে লগইন পেজে রিডাইরেক্ট করুন
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
-
-// লগইন করা ব্যবহারকারীর আইডি এবং ইউজারনেম সেশন থেকে নিন
-$user_id = $_SESSION['user_id'];
-$user_name = $_SESSION['user_name'];
-
-// আপনার ডেটাবেস সংযোগের তথ্য
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "your_database_name"; // আপনার ডেটাবেসের নাম এখানে দিন
-
-// ডেটাবেস সংযোগ স্থাপন
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// সংযোগ সফল হয়েছে কিনা পরীক্ষা করুন
-if ($conn->connect_error) {
-    die("সংযোগ ব্যর্থ হয়েছে: " . $conn->connect_error);
-}
+require_once("config.php");
 
 // বুকিং স্ট্যাটাস মেসেজ
 $booking_status_message = '';
@@ -33,55 +9,55 @@ $booking_status_message = '';
 // --- ড্রপ-ডাউন এবং চেকবক্সের জন্য ডেটাবেস থেকে তথ্য আনুন ---
 // ধরে নেওয়া হচ্ছে আপনার 'rooms' এবং 'services' নামে টেবিল আছে
 
-// রুম টাইপ ডেটা
-$room_types = [];
-$sql_rooms = "SELECT id, room_name FROM rooms ORDER BY room_name ASC";
-$result_rooms = $conn->query($sql_rooms);
-if ($result_rooms->num_rows > 0) {
-    while($row = $result_rooms->fetch_assoc()) {
-        $room_types[] = $row;
-    }
-}
+// // রুম টাইপ ডেটা
+// $room_types = [];
+// $sql_rooms = "SELECT id, room_name FROM rooms ORDER BY room_name ASC";
+// $result_rooms = $conn->query($sql_rooms);
+// if ($result_rooms->num_rows > 0) {
+//     while($row = $result_rooms->fetch_assoc()) {
+//         $room_types[] = $row;
+//     }
+// }
 
-// পরিষেবা (Services) ডেটা
-$services = [];
-$sql_services = "SELECT id, service_name FROM services ORDER BY service_name ASC";
-$result_services = $conn->query($sql_services);
-if ($result_services->num_rows > 0) {
-    while($row = $result_services->fetch_assoc()) {
-        $services[] = $row;
-    }
-}
+// // পরিষেবা (Services) ডেটা
+// $services = [];
+// $sql_services = "SELECT id, service_name FROM services ORDER BY service_name ASC";
+// $result_services = $conn->query($sql_services);
+// if ($result_services->num_rows > 0) {
+//     while($row = $result_services->fetch_assoc()) {
+//         $services[] = $row;
+//     }
+// }
 
-// --- ফর্ম সাবমিশন হ্যান্ডেল করুন ---
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $room_id = $conn->real_escape_string($_POST['room_id']);
-    $check_in_date = $conn->real_escape_string($_POST['check_in_date']);
-    $check_out_date = $conn->real_escape_string($_POST['check_out_date']);
+// // --- ফর্ম সাবমিশন হ্যান্ডেল করুন ---
+// if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//     $room_id = $conn->real_escape_string($_POST['room_id']);
+//     $check_in_date = $conn->real_escape_string($_POST['check_in_date']);
+//     $check_out_date = $conn->real_escape_string($_POST['check_out_date']);
 
-    // যদি রুম ID এবং তারিখ বৈধ হয় তবে বুকিং টেবিলে ডেটা ঢোকান
-    if (!empty($room_id) && !empty($check_in_date) && !empty($check_out_date)) {
-        // SQL ইনসার্ট কোয়েরি
-        // বুকিং টেবিলের কলামগুলো আপনার ডেটাবেস অনুযায়ী পরিবর্তন করুন
-        $sql_insert_booking = "INSERT INTO booking (users_id, room_id, booking_date, checkin_date, checkout_date)
-                               VALUES ('$user_id', '$room_id', NOW(), '$check_in_date', '$check_out_date')";
+//     // যদি রুম ID এবং তারিখ বৈধ হয় তবে বুকিং টেবিলে ডেটা ঢোকান
+//     if (!empty($room_id) && !empty($check_in_date) && !empty($check_out_date)) {
+//         // SQL ইনসার্ট কোয়েরি
+//         // বুকিং টেবিলের কলামগুলো আপনার ডেটাবেস অনুযায়ী পরিবর্তন করুন
+//         $sql_insert_booking = "INSERT INTO booking (users_id, room_id, booking_date, checkin_date, checkout_date)
+//                                VALUES ('$user_id', '$room_id', NOW(), '$check_in_date', '$check_out_date')";
 
-        if ($conn->query($sql_insert_booking) === TRUE) {
-            $booking_status_message = "<div class='alert alert-success mt-3' role='alert'>বুকিং সফল হয়েছে, " . htmlspecialchars($user_name) . "!</div>";
-        } else {
-            $booking_status_message = "<div class='alert alert-danger mt-3' role='alert'>বুকিং ব্যর্থ হয়েছে: " . $conn->error . "</div>";
-        }
-    } else {
-        $booking_status_message = "<div class='alert alert-warning mt-3' role='alert'>অনুগ্রহ করে সমস্ত প্রয়োজনীয় ফিল্ড পূরণ করুন।</div>";
-    }
-}
+//         if ($conn->query($sql_insert_booking) === TRUE) {
+//             $booking_status_message = "<div class='alert alert-success mt-3' role='alert'>বুকিং সফল হয়েছে, " . htmlspecialchars($user_name) . "!</div>";
+//         } else {
+//             $booking_status_message = "<div class='alert alert-danger mt-3' role='alert'>বুকিং ব্যর্থ হয়েছে: " . $conn->error . "</div>";
+//         }
+//     } else {
+//         $booking_status_message = "<div class='alert alert-warning mt-3' role='alert'>অনুগ্রহ করে সমস্ত প্রয়োজনীয় ফিল্ড পূরণ করুন।</div>";
+//     }
+// }
 
-// লগআউট হ্যান্ডেল করুন
-if (isset($_GET['logout'])) {
-    session_destroy();
-    header("Location: login.php");
-    exit();
-}
+// // লগআউট হ্যান্ডেল করুন
+// if (isset($_GET['logout'])) {
+//     session_destroy();
+//     header("Location: login.php");
+//     exit();
+// }
 
 ?>
 

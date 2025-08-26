@@ -9,7 +9,7 @@ require_once("include/navbar.php");
     <h1 class="display-7 fw-bold mb-3">Welcome to HOTEL HORIZON</h1>
     <!-- <h1 class="display-4 fw-bold mb-3">Welcome to <span class="text-warning">HOTEL HORIZON</span></h1> -->
     <p class="lead fw-semibold mb-4">Book your stay with ease and comfort</p>
-    <a href="book_room.php" class="btn btn-yellow btn-lg fw-semibold">Book Now</a>
+    <a href="book-room.php" class="btn btn-yellow btn-lg fw-semibold">Book Now</a>
   </div>
 </div>
 
