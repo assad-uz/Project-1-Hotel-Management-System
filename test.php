@@ -62,6 +62,11 @@ $result = $conn->query($sql);
               <input type="date" name="checkin_date" class="form-control" required>
             </div>
 
+            <div class="mb-3">
+              <label class="form-label">Check-in Date</label>
+              <input type="date" name="checkin_date" class="form-control" required>
+            </div>
+
             <!-- Check-out -->
             <div class="mb-3">
               <label class="form-label">Check-out Date</label>
