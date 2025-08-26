@@ -29,7 +29,7 @@ require_once("include/navbar.php");
     <!-- King Size Room -->
     <div class="row mb-5 align-items-center">
       <div class="col-md-6">
-        <img src="dist/images/king-room.jpg" alt="King Size Room" class="img-fluid rounded shadow">
+        <img src="dist/images/king-bed.jpg" alt="King Size Room" class="img-fluid rounded shadow">
       </div>
       <div class="col-md-6">
         <h3>King Size Room</h3>
@@ -50,7 +50,7 @@ require_once("include/navbar.php");
     <!-- Queen Size Room -->
     <div class="row mb-5 align-items-center flex-md-row-reverse">
       <div class="col-md-6">
-        <img src="dist/images/queen-room.jpg" alt="Queen Size Room" class="img-fluid rounded shadow">
+        <img src="dist/images/queen-bed.jpg" alt="Queen Size Room" class="img-fluid rounded shadow">
       </div>
       <div class="col-md-6">
         <h3>Queen Size Room</h3>
@@ -71,7 +71,7 @@ require_once("include/navbar.php");
     <!-- Standard Room -->
     <div class="row mb-5 align-items-center">
       <div class="col-md-6">
-        <img src="dist/images/standard-room.jpg" alt="Standard Room" class="img-fluid rounded shadow">
+        <img src="dist/images/standard-bed.jpg" alt="Standard Room" class="img-fluid rounded shadow">
       </div>
       <div class="col-md-6">
         <h3>Standard Room</h3>
@@ -92,7 +92,7 @@ require_once("include/navbar.php");
     <!-- Single Size Room -->
     <div class="row mb-5 align-items-center flex-md-row-reverse">
       <div class="col-md-6">
-        <img src="dist/images/single-room.jpg" alt="Single Size Room" class="img-fluid rounded shadow">
+        <img src="dist/images/single-bed.jpg" alt="Single Size Room" class="img-fluid rounded shadow">
       </div>
       <div class="col-md-6">
         <h3>Single Size Room</h3>
