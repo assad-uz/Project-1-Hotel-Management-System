@@ -44,6 +44,18 @@ $result = $conn->query($sql);
               </select>
             </div>
 
+            <div class="mb-3">
+              <label class="form-label">Select Room</label>
+              <select name="room_id" class="form-select" required>
+                <option value="">-- Choose Room --</option>
+                <?php while($row = $result->fetch_assoc()): ?>
+                  <option value="<?php echo $row['id']; ?>">
+                    <?php echo $row['room_name']; ?> - ৳<?php echo $row['price']; ?>/Night
+                  </option>
+                <?php endwhile; ?>
+              </select>
+            </div>
+
             <!-- Check-in -->
             <div class="mb-3">
               <label class="form-label">Check-in Date</label>
