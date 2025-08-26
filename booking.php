@@ -100,6 +100,10 @@ if (isset($_GET['logout'])) {
     </style>
 </head>
 <body>
+<?php 
+require_once("include/header.php");
+require_once("include/navbar.php"); 
+?>
 
 <div class="container my-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -196,3 +200,4 @@ if (isset($_GET['logout'])) {
 // সংযোগ বন্ধ করুন
 $conn->close();
 ?>
+
