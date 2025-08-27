@@ -5,13 +5,13 @@ if ($conn->connect_error) {
 }
 
 // Fetch Room Types
-$room_types = $conn->query("SELECT id, room_type, price FROM room_type");
+$room_types = $conn->query("SELECT id, room_name, price FROM room_type");
 
 // Fetch Meal Types
-$meal_types = $conn->query("SELECT id, meal_type, price FROM meal_type");
+$meal_types = $conn->query("SELECT id, type_name FROM meal_type");
 
 // Fetch Meal Periods
-$meal_periods = $conn->query("SELECT id, meal_period, price FROM meal_period");
+$meal_periods = $conn->query("SELECT id, period_name, price FROM meal_period");
 
 // Fetch Food Services
 $food_services = $conn->query("SELECT id, service_name, price FROM food_service");
