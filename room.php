@@ -39,10 +39,10 @@ require_once("include/navbar.php");
         <ul>
           <li><i class="bi bi-wifi"></i> Free WiFi</li>
           <li><i class="bi bi-snow"></i> Air Conditioning</li>
-          <li><i class="bi bi-tv"></i> Smart TV</li>
+          <li><i class="bi bi-tv"></i> Smart OLED TV</li>
           <li><i class="bi bi-cup-hot"></i> Complimentary Breakfast</li>
         </ul>
-        <h5 class="text-primary">৳ 10,000 / Night</h5>
+        <h5 class="text-primary">৳ 6,500 / Night</h5>
         <a href="booking.php" class="btn btn-primary mt-2">Book Now</a>
       </div>
     </div>
@@ -59,11 +59,11 @@ require_once("include/navbar.php");
         </p>
         <ul>
           <li><i class="bi bi-wifi"></i> Free WiFi</li>
-          <li><i class="bi bi-tv"></i> Flat-screen TV</li>
+          <li><i class="bi bi-tv"></i> LED TV</li>
           <li><i class="bi bi-snow"></i> Air Conditioning</li>
           <li><i class="bi bi-cup-hot"></i> Breakfast Included</li>
         </ul>
-        <h5 class="text-primary">৳ 7,500 / Night</h5>
+        <h5 class="text-primary">৳ 5,000 / Night</h5>
         <a href="booking.php" class="btn btn-primary mt-2">Book Now</a>
       </div>
     </div>
@@ -80,11 +80,11 @@ require_once("include/navbar.php");
         </p>
         <ul>
           <li><i class="bi bi-wifi"></i> Free WiFi</li>
-          <li><i class="bi bi-tv"></i> LED TV</li>
+          <li><i class="bi bi-tv"></i> LCD TV</li>
           <li><i class="bi bi-fan"></i> Ceiling Fan</li>
           <li><i class="bi bi-cup-hot"></i> Tea & Coffee</li>
         </ul>
-        <h5 class="text-primary">৳ 4,000 / Night</h5>
+        <h5 class="text-primary">৳ 3,500 / Night</h5>
         <a href="booking.php" class="btn btn-primary mt-2">Book Now</a>
       </div>
     </div>
@@ -100,8 +100,7 @@ require_once("include/navbar.php");
           Perfect for solo travelers with all essential facilities.
         </p>
         <ul>
-          <li><i class="bi bi-wifi"></i> Free WiFi</li>
-          <li><i class="bi bi-tv"></i> TV</li>
+          <li><i class="bi bi-tv"></i> Flat-screen TV</li>
           <li><i class="bi bi-fan"></i> Ceiling Fan</li>
         </ul>
         <h5 class="text-primary">৳ 2,500 / Night</h5>
