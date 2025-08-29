@@ -83,7 +83,20 @@ if (isset($_POST["btnLogin"])) {
     .btn-primary:hover {
       background-color: #0056b3;
     }
-    .error {
+    .home-btn {
+      background-color: #28a745;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      width: 100%;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 15px;
+    }
+    .home-btn:hover {
+      background-color: #218838;
+    }    .error {
       color: red;
       text-align: center;
     }
@@ -126,6 +139,8 @@ if (isset($_POST["btnLogin"])) {
           <input type="password" class="form-control" name="password" placeholder="Password">
         </div>
         <button type="submit" name="btnLogin" class="btn-primary">Sign In</button>
+        <!-- Home Page Button -->
+        <button type="button" onclick="window.location.href='index.php'" class="home-btn">Home Page</button>
       </form>
       
       <p class="text-center mb-0">
