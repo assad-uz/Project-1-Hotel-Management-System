@@ -6,16 +6,28 @@ if (isset($_POST["btnLogin"])) {
   $username_or_email = trim($_POST["username_or_email"]);
   $password = trim($_POST["password"]);
 
-  // Query to check if username or email exists
-  $user_table = $conn->query("SELECT id, username, email, password, role FROM users WHERE (email='$username_or_email' OR username='$username_or_email')");
+  // কাস্টমার লগইন চেক করার জন্য SQL কোয়েরি
+  $user_table = $conn->query("
+    SELECT u.id, u.username, u.email, u.password, u.role_id 
+    FROM users u
+    WHERE (u.email='$username_or_email' OR u.username='$username_or_email')
+  ");
 
-  list($id, $username, $email, $db_password, $role) = $user_table->fetch_row();
+  list($id, $username, $email, $db_password, $role_id) = $user_table->fetch_row();
 
-  // Check if user exists and password is correct, and role is 'customer'
-  if (isset($id) && password_verify($password, $db_password) && $role == 'customer') {
+  // পাসওয়ার্ড চেক এবং কাস্টমার রোল চেক করা হচ্ছে
+  if (isset($id) && password_verify($password, $db_password)) {
+    // রোল আইডি অনুযায়ী role_type বের করা হচ্ছে
+    $role_type_query = $conn->query("SELECT role_type FROM role WHERE id='$role_id'");
+    list($role_type) = $role_type_query->fetch_row();
+
     $_SESSION["s_email"] = $email;
-    $_SESSION["role"] = $role;
-    header("location:customer-dashboard.php"); // Redirect to customer dashboard
+    $_SESSION["role"] = $role_type;
+
+    // কাস্টমার হলে ড্যাশবোর্ডে রিডিরেক্ট
+    if ($role_type == 'customer') {
+      header("location:customer-dashboard.php");
+    }
   } else {
     $error = "<span style='color:red;'>Incorrect username, email or password</span>";
   }

@@ -6,22 +6,35 @@ if (isset($_POST["btnLogin"])) {
   $username_or_email = trim($_POST["username_or_email"]);
   $password = trim($_POST["password"]);
 
-  // Query to check if username or email exists
-  $user_table = $conn->query("SELECT id, username, email, password, role FROM users WHERE (email='$username_or_email' OR username='$username_or_email')");
+  // SQL কোয়েরি: ইউজারনেম বা ইমেইল এর সাথে পাসওয়ার্ড চেক করা
+  $user_table = $conn->query("
+    SELECT u.id, u.username, u.email, u.password, u.role_id 
+    FROM users u
+    WHERE (u.email='$username_or_email' OR u.username='$username_or_email')
+  ");
 
-  list($id, $username, $email, $db_password, $role) = $user_table->fetch_row();
+  // ইউজারের তথ্য বের করা
+  list($id, $username, $email, $db_password, $role_id) = $user_table->fetch_row();
 
-  // Check if user exists and password is correct, and role is 'admin'
-  if (isset($id) && password_verify($password, $db_password) && $role == 'admin') {
+  // ইউজার আছে কিনা এবং পাসওয়ার্ড সঠিক কিনা চেক করা
+  if (isset($id) && $password === $db_password) { // এখানে সরাসরি পাসওয়ার্ড মিলানো হচ্ছে
+    // রোল আইডি অনুযায়ী role_type বের করা হচ্ছে
+    $role_type_query = $conn->query("SELECT role_type FROM role WHERE id='$role_id'");
+    list($role_type) = $role_type_query->fetch_row();
+
     $_SESSION["s_email"] = $email;
-    $_SESSION["role"] = $role;
-    header("location:admin-dashboard.php"); // Redirect to admin dashboard
+    $_SESSION["role"] = $role_type;
+
+    // যদি এডমিন হয়, তবে এডমিন ড্যাশবোর্ডে রিডিরেক্ট হবে
+    if ($role_type == 'admin') {
+      header("location:pages/admin/admin-dashboard.php");
+    }
   } else {
+    // যদি ইউজার বা পাসওয়ার্ড ভুল হয়, তহলে এরর দেখাবে
     $error = "<span style='color:red;'>Incorrect username, email or password</span>";
   }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
