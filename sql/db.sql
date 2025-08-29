@@ -1,157 +1,103 @@
--- Table: role
 CREATE TABLE role (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    role_type VARCHAR(50) NOT NULL
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  role_type VARCHAR(50) NOT NULL
 );
 
--- Table: users (Admin + Customer)
 CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    role_id INT NOT NULL,
-    firstname VARCHAR(100) NOT NULL,
-    lastname VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    phone VARCHAR(20),
-    password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (role_id) REFERENCES role(id)
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  role_id INT NOT NULL,
+  firstname VARCHAR(100) NOT NULL,
+  lastname VARCHAR(100) NOT NULL,
+  username VARCHAR(100) UNIQUE NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  phone VARCHAR(20) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP),
+  FOREIGN KEY (role_id) REFERENCES role (id)
 );
 
--- Table: meal_type (Dropdown reference)
-CREATE TABLE meal_type (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    type_name VARCHAR(100) UNIQUE
-);
-
--- Table: meal_period (Dropdown reference)
-CREATE TABLE meal_period (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    period_name VARCHAR(100) NOT NULL UNIQUE,
-    price DECIMAL(10, 2) NOT NULL
-);
-
--- Table: food_service
-CREATE TABLE food_service (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    meal_type_id INT,
-    meal_period_id INT,
-    price DECIMAL(10,2),
-    FOREIGN KEY (meal_type_id) REFERENCES meal_type(id),
-    FOREIGN KEY (meal_period_id) REFERENCES meal_period(id)
-);
-
--- Table: room_service
-CREATE TABLE room_service (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    service_name VARCHAR(100) NOT NULL UNIQUE,
-    price DECIMAL(10,2) NOT NULL
-);
-
--- Table: service
-CREATE TABLE service (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    food_service_id INT,
-    food_service_price DECIMAL(10,2) NOT NULL,
-    room_service_id INT,
-    room_service_price DECIMAL(10,2) NOT NULL,
-    total_service_price DECIMAL(10,2) NOT NULL,
-    FOREIGN KEY (room_service_id) REFERENCES room_service(id),
-    FOREIGN KEY (food_service_id) REFERENCES food_service(id)
-);
-
--- Table: room_type
 CREATE TABLE room_type (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    room_name VARCHAR(100) NOT NULL,
-    price DECIMAL(10,2) NOT NULL
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  room_name VARCHAR(100) NOT NULL,
+  price DECIMAL(10,2) NOT NULL
 );
 
--- Table: room (No bed_info, uses room_type only)
+CREATE TABLE room_service (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  service_name VARCHAR(100) UNIQUE,
+  price DECIMAL(10,2)
+);
+
+CREATE TABLE food_service (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  meal_period VARCHAR(100) UNIQUE,
+  price DECIMAL(10,2) 
+);
+
+
 CREATE TABLE room (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    room_number VARCHAR(50) NOT NULL,
-    room_type_id INT NOT NULL,
-    room_type_price DECIMAL(10,2) NOT NULL,
-    service_id INT,
-    service_price DECIMAL(10,2) NOT NULL,
-    total_price DECIMAL(10,2) NOT NULL,
-    room_status VARCHAR(50),
-    description VARCHAR(255),
-    FOREIGN KEY (service_id) REFERENCES service(id),
-    FOREIGN KEY (room_type_id) REFERENCES room_type(id)
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  room_number VARCHAR(50) NOT NULL,
+  room_type_id INT NOT NULL,
+  room_type_price DECIMAL(10,2) NOT NULL,
+  service_id INT,
+  service_price DECIMAL(10,2) NOT NULL,
+  total_price DECIMAL(10,2) NOT NULL,
+  room_status VARCHAR(50),
+  description VARCHAR(255),
+  FOREIGN KEY (room_type_id) REFERENCES room_type (id),
+  FOREIGN KEY (service_id) REFERENCES room_service (id)
 );
 
--- Table: booking
 CREATE TABLE booking (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    users_id INT NOT NULL,
-    room_id INT NOT NULL,
-    booking_date DATETIME NOT NULL,
-    checkin_date DATE NOT NULL,
-    checkout_date DATE NOT NULL,
-    payment_status VARCHAR(50) NOT NULL,
-    total_amount DECIMAL(10,2) NOT NULL,
-    FOREIGN KEY (users_id) REFERENCES users(id),
-    FOREIGN KEY (room_id) REFERENCES room(id)
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  users_id INT NOT NULL,
+  booking_date DATETIME NOT NULL,
+  checkin_date DATE NOT NULL,
+  checkout_date DATE NOT NULL,
+  payment_status VARCHAR(50) NOT NULL,
+  total_amount DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (users_id) REFERENCES users (id)
 );
 
--- Table: checkin
 CREATE TABLE checkin (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    booking_id INT NOT NULL,
-    checkin_date DATE NOT NULL,
-    FOREIGN KEY (booking_id) REFERENCES booking(id) ON DELETE CASCADE
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  booking_id INT NOT NULL,
+  checkin_date DATE NOT NULL,
+  FOREIGN KEY (booking_id) REFERENCES booking (id) ON DELETE CASCADE
 );
 
--- Table: checkout
 CREATE TABLE checkout (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    booking_id INT NOT NULL,
-    checkout_date DATE NOT NULL,
-    FOREIGN KEY (booking_id) REFERENCES booking(id) ON DELETE CASCADE
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  booking_id INT NOT NULL,
+  checkout_date DATE NOT NULL,
+  FOREIGN KEY (booking_id) REFERENCES booking (id) ON DELETE CASCADE
 );
 
--- Table: cancellation
 CREATE TABLE cancellation (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    booking_id INT NOT NULL,
-    cancel_date DATE NOT NULL,
-    FOREIGN KEY (booking_id) REFERENCES booking(id) ON DELETE CASCADE
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  booking_id INT NOT NULL,
+  cancel_date DATE NOT NULL,
+  FOREIGN KEY (booking_id) REFERENCES booking (id) ON DELETE CASCADE
 );
 
-
--- Table: invoice
 CREATE TABLE invoice (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    users_id INT NOT NULL,
-    booking_id INT NOT NULL,
-    invoice_date DATE NOT NULL,
-    payment_status VARCHAR(50),
-    FOREIGN KEY (users_id) REFERENCES users(id),
-    FOREIGN KEY (booking_id) REFERENCES booking(id)
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  users_id INT NOT NULL,
+  booking_id INT NOT NULL,
+  invoice_date DATE NOT NULL,
+  payment_status VARCHAR(50),
+  FOREIGN KEY (users_id) REFERENCES users (id),
+  FOREIGN KEY (booking_id) REFERENCES booking (id)
 );
 
--- Table: payment
 CREATE TABLE payment (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    booking_id INT NOT NULL,
-    users_id INT NOT NULL,
-    invoice_id INT NOT NULL,
-    payment_method VARCHAR(50),
-    FOREIGN KEY (booking_id) REFERENCES booking(id),
-    FOREIGN KEY (users_id) REFERENCES users(id),
-    FOREIGN KEY (invoice_id) REFERENCES invoice(id)
-);
-
--- Table: transaction
-CREATE TABLE transaction (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    users_id INT NOT NULL,
-    booking_id INT NOT NULL,
-    payment_id INT NOT NULL,
-    approved_by INT NOT NULL, -- Admin's users_id
-    FOREIGN KEY (users_id) REFERENCES users(id),
-    FOREIGN KEY (booking_id) REFERENCES booking(id),
-    FOREIGN KEY (payment_id) REFERENCES payment(id),
-    FOREIGN KEY (approved_by) REFERENCES users(id)
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  booking_id INT NOT NULL,
+  users_id INT NOT NULL,
+  invoice_id INT NOT NULL,
+  payment_method VARCHAR(50),
+  FOREIGN KEY (booking_id) REFERENCES booking (id),
+  FOREIGN KEY (users_id) REFERENCES users (id),
+  FOREIGN KEY (invoice_id) REFERENCES invoice (id)
 );
