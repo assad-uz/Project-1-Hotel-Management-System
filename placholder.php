@@ -1,22 +1,11 @@
 <?php
-//    if(isset($_GET['user'])){
-// 	$user = $_GET['user'];
-// 	if ($user == 1) {
-// 		include "welcome.php";
-// 	}elseif($user == 2){
-// 		include "welcome.php";
-// 	}elseif($user == 3){
-// 		header("location:logout.php");
-// 	}
-// }
-
 
    if(isset($_GET["page"])){
 	   $page=$_GET["page"];
 	   
 	   if($page==0){
 		   
-		 include("pages/dashboard.php"); 
+		 include("pages/admin/admin-dashboard.php"); 
 		   
 	   }elseif($page==1){
 		   
