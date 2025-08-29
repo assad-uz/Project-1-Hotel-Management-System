@@ -37,14 +37,17 @@ CREATE TABLE food_service (
 CREATE TABLE booking (
   id INT PRIMARY KEY AUTO_INCREMENT,
   users_id INT NOT NULL,
-  room_type_id VARCHAR(50) NOT NULL,
+  room_type_id VARCHAR(100) NOT NULL,
+  room_service_id VARCHAR(100),
+  food_service_id VARCHAR(100),
   booking_date DATETIME NOT NULL,
   checkin_date DATE NOT NULL,
   checkout_date DATE NOT NULL,
-  payment_status VARCHAR(50) NOT NULL,
   total_amount DECIMAL(10,2) NOT NULL,
   FOREIGN KEY (users_id) REFERENCES users (id),
-  FOREIGN KEY (room_type_id) REFERENCES room_type (id)
+  FOREIGN KEY (room_type_id) REFERENCES room_type (id),
+  FOREIGN KEY (room_service_id) REFERENCES room_service (id),
+  FOREIGN KEY (food_service_id) REFERENCES food_service (id)
 );
 
 CREATE TABLE checkin (
