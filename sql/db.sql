@@ -34,30 +34,17 @@ CREATE TABLE food_service (
   price DECIMAL(10,2) 
 );
 
-
-CREATE TABLE room (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  room_number VARCHAR(50) NOT NULL,
-  room_type_id INT NOT NULL,
-  room_type_price DECIMAL(10,2) NOT NULL,
-  service_id INT,
-  service_price DECIMAL(10,2) NOT NULL,
-  total_price DECIMAL(10,2) NOT NULL,
-  room_status VARCHAR(50),
-  description VARCHAR(255),
-  FOREIGN KEY (room_type_id) REFERENCES room_type (id),
-  FOREIGN KEY (service_id) REFERENCES room_service (id)
-);
-
 CREATE TABLE booking (
   id INT PRIMARY KEY AUTO_INCREMENT,
   users_id INT NOT NULL,
+  room_type_id VARCHAR(50) NOT NULL,
   booking_date DATETIME NOT NULL,
   checkin_date DATE NOT NULL,
   checkout_date DATE NOT NULL,
   payment_status VARCHAR(50) NOT NULL,
   total_amount DECIMAL(10,2) NOT NULL,
-  FOREIGN KEY (users_id) REFERENCES users (id)
+  FOREIGN KEY (users_id) REFERENCES users (id),
+  FOREIGN KEY (room_type_id) REFERENCES room_type (id)
 );
 
 CREATE TABLE checkin (
