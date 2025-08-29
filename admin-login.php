@@ -11,11 +11,11 @@ if (isset($_POST["btnLogin"])) {
 
   list($id, $username, $email, $db_password, $role) = $user_table->fetch_row();
 
-  // Check if user exists and password is correct, and role is 'customer'
-  if (isset($id) && password_verify($password, $db_password) && $role == 'customer') {
+  // Check if user exists and password is correct, and role is 'admin'
+  if (isset($id) && password_verify($password, $db_password) && $role == 'admin') {
     $_SESSION["s_email"] = $email;
     $_SESSION["role"] = $role;
-    header("location:customer-dashboard.php"); // Redirect to customer dashboard
+    header("location:admin-dashboard.php"); // Redirect to admin dashboard
   } else {
     $error = "<span style='color:red;'>Incorrect username, email or password</span>";
   }
@@ -27,7 +27,7 @@ if (isset($_POST["btnLogin"])) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Customer Login</title>
+  <title>Admin Login</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   <style>
@@ -114,10 +114,11 @@ if (isset($_POST["btnLogin"])) {
   <div class="login-box">
     <div class="image-container"></div>
     <div class="form-container">
-      <h4>Welcome to Hotel Horizon!</h4>
-      <p>Please sign-in to manage your booking</p>
+      <h4>Welcome to Hotel Horizon (Admin)!</h4>
+      <p>Please sign-in to manage the system</p>
       <div class="error"><?php echo isset($error) ? $error : ""; ?></div>
-      
+
+      <!-- Admin Login Form -->
       <form action="#" method="post">
         <div class="form-group">
           <input type="text" class="form-control" name="username_or_email" placeholder="Email or Username">
@@ -125,12 +126,12 @@ if (isset($_POST["btnLogin"])) {
         <div class="form-group">
           <input type="password" class="form-control" name="password" placeholder="Password">
         </div>
+        
         <button type="submit" name="btnLogin" class="btn-primary">Sign In</button>
       </form>
-      
+
       <p class="text-center mb-0">
-        <span>New on our platform?</span>
-        <a href="registration.php"><span>Create an account</span></a>
+        <a href="login.php"><span>Back to Customer Login</span></a>
       </p>
     </div>
   </div>

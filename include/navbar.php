@@ -36,6 +36,9 @@
         <li class="nav-item">
           <a class="nav-link fs-6" href="contact.php">Contact</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link fs-6" href="admin-login.php">Admin Login</a>
+        </li>
         
       </ul>
 
