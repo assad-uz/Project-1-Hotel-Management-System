@@ -9,7 +9,7 @@
 		   
 	   }elseif($page==1){
 		   
-		 include("pages/user/add_user.php"); 
+		 include("pages/admin/user/add_user.php"); 
 		   
 	   }else if($page==2){
 		   

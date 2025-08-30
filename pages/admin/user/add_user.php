@@ -9,39 +9,37 @@ $r = "";
 
 if (isset($_POST['submit'])) {
     $first_name = mysqli_real_escape_string($conn, $_POST['firstname']);
-    $last_name = mysqli_real_escape_string($conn, $_POST['lastname']);
-    $phone = mysqli_real_escape_string($conn, $_POST['phone']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
-    $role_id = mysqli_real_escape_string($conn, $_POST['role_id']);
+    $last_name  = mysqli_real_escape_string($conn, $_POST['lastname']);
+    $phone      = mysqli_real_escape_string($conn, $_POST['phone']);
+    $email      = mysqli_real_escape_string($conn, $_POST['email']);
+    $password   = mysqli_real_escape_string($conn, $_POST['password']);
+    $role_id    = mysqli_real_escape_string($conn, $_POST['role_id']);
 
-    $sql = "INSERT INTO `users`(`firstname`, `lastname`, `phone`, `email`, `password`, `role_id`) 
-            VALUES ('$first_name','$last_name','$phone','$email','$password', '$role_id')";
-    $result = $conn->query($sql);
-
-    if ($result === TRUE) {
-        $r = "<div class='alert alert-success'>User Added Successfully</div>";
+    // 1. Check duplicate email
+    $check = $conn->query("SELECT id FROM users WHERE email='$email'");
+    if ($check->num_rows > 0) {
+        $r = "<div class='alert alert-warning'>This email already exists!</div>";
     } else {
-        $r = "<div class='alert alert-danger'>Error: " . $conn->error . "</div>"; 
+        // 2. Hash password
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        // 3. Insert user (simple query)
+        $sql = "INSERT INTO users (firstname, lastname, phone, email, password, role_id) 
+                VALUES ('$first_name','$last_name','$phone','$email','$hashed_password','$role_id')";
+        
+        if ($conn->query($sql) === TRUE) {
+            $r = "<div class='alert alert-success'>User Added Successfully</div>";
+        } else {
+            $r = "<div class='alert alert-danger'>Error: " . $conn->error . "</div>"; 
+        }
     }
-    
-} 
+}
 ?> 
 
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Add users</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active"></li>
-                    </ol>
-                </div>
-            </div>
+            <h1>Add users</h1>
         </div>
     </section>
 
@@ -49,7 +47,7 @@ if (isset($_POST['submit'])) {
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Add User</h3>
-                </div>
+            </div>
             <div class="card-body">
                 <div class="card card-primary">
                     <div class="card-header">
@@ -60,31 +58,31 @@ if (isset($_POST['submit'])) {
                         <?php echo $r; ?>
                     </div>
                     
-                    <form action="#" method="post">
+                    <form action="" method="post">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="fname">First Name</label>
-                                <input type="text" class="form-control" id="fname" placeholder="Enter first name" name="firstname">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" name="firstname" required>
                             </div>
                             <div class="form-group">
-                                <label for="lname">Last Name</label>
-                                <input type="text" class="form-control" id="lname" placeholder="Enter last name" name="lastname">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" name="lastname" required>
                             </div>
                             <div class="form-group">
-                                <label for="pNo">Contact</label>
-                                <input type="text" class="form-control" id="pNo" placeholder="Enter phone number" name="phone">
+                                <label>Contact</label>
+                                <input type="text" class="form-control" name="phone" required>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email address</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                                <label>Email address</label>
+                                <input type="email" class="form-control" name="email" required>
                             </div>
                             <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                                <label>Password</label>
+                                <input type="password" class="form-control" name="password" required>
                             </div>
                             <div class="form-group">
-                                <label for="role_id">Role:</label>
-                                <select name="role_id" id="role_id" class="form-control">
+                                <label>Role</label>
+                                <select name="role_id" class="form-control" required>
                                     <?php
                                     $roles = $conn->query("SELECT id, role_type FROM role");
                                     while ($row = $roles->fetch_assoc()) {
@@ -100,6 +98,6 @@ if (isset($_POST['submit'])) {
                     </form>
                 </div>
             </div>
-            </div>
-        </section>
-    </div>
+        </div>
+    </section>
+</div>
