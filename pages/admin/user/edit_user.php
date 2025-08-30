@@ -6,32 +6,47 @@ if (!isset($conn)) {
 }
 
 $r = "";
-$id = $fname = $lname = $email = $password = $phone = $role_id = '';
+$id = $fname = $lname = $email = $phone = $role_id = "";
 
+// ===== Update Logic =====
 if (isset($_POST["btnUpdate"])) {
-    $id = $_POST["id"];
-    $fname = $_POST["fname"];
-    $lname = $_POST["lname"];
-    $phone = $_POST["phone"];
-    $email = $_POST["email"];
+    $id     = $_POST["id"];
+    $fname  = $_POST["fname"];
+    $lname  = $_POST["lname"];
+    $phone  = $_POST["phone"];
+    $email  = $_POST["email"];
+    $role_id= $_POST["role_id"];
     $password = $_POST["password"];
-    $role_id = $_POST["role_id"];
-    
-    $sql = "UPDATE users SET firstname='$fname', lastname='$lname', phone='$phone', email='$email', password='$password', role_id='$role_id' WHERE id='$id'";
-    
-    if ($conn->query($sql) === TRUE) {
+
+    if (!empty($password)) {
+        // new password hash
+        $hashed = password_hash($password, PASSWORD_DEFAULT);
+        $sql = "UPDATE users SET firstname=?, lastname=?, phone=?, email=?, password=?, role_id=? WHERE id=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssssssi", $fname, $lname, $phone, $email, $hashed, $role_id, $id);
+    } else {
+        // keep old password
+        $sql = "UPDATE users SET firstname=?, lastname=?, phone=?, email=?, role_id=? WHERE id=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssssii", $fname, $lname, $phone, $email, $role_id, $id);
+    }
+
+    if ($stmt->execute()) {
         $r = "<div class='alert alert-success'>User updated successfully.</div>";
     } else {
         $r = "<div class='alert alert-danger'>Error to update. " . $conn->error . "</div>";
     }
 }
 
+// ===== Fetch User to Edit =====
 if (isset($_GET['id'])) {
     $id_to_edit = $_GET['id'];
-    
-    $sql = "SELECT id, firstname, lastname, phone, email, password, role_id FROM users WHERE id = '$id_to_edit'";
-    $result = $conn->query($sql);
-    
+    $sql = "SELECT id, firstname, lastname, phone, email, role_id FROM users WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id_to_edit);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $id = $row['id'];
@@ -39,7 +54,6 @@ if (isset($_GET['id'])) {
         $lname = $row['lastname'];
         $phone = $row['phone'];
         $email = $row['email'];
-        $password = $row['password'];
         $role_id = $row['role_id'];
     }
 }
@@ -68,32 +82,32 @@ if (isset($_GET['id'])) {
                         
                         <div class="form-group">
                             <label>First Name</label>
-                            <input type="text" class="form-control" name="fname" value="<?php echo $fname; ?>">
+                            <input type="text" class="form-control" name="fname" value="<?php echo $fname; ?>" required>
                         </div>
                         
                         <div class="form-group">
                             <label>Last Name</label>
-                            <input type="text" class="form-control" name="lname" value="<?php echo $lname; ?>">
+                            <input type="text" class="form-control" name="lname" value="<?php echo $lname; ?>" required>
                         </div>
 
                         <div class="form-group">
                             <label>Contact</label>
-                            <input type="text" class="form-control" name="phone" value="<?php echo $phone; ?>">
+                            <input type="text" class="form-control" name="phone" value="<?php echo $phone; ?>" required>
                         </div>
 
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" class="form-control" name="email" value="<?php echo $email; ?>">
+                            <input type="email" class="form-control" name="email" value="<?php echo $email; ?>" required>
                         </div>
                         
                         <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" name="password" value="<?php echo $password; ?>">
+                            <label>New Password (leave blank to keep old)</label>
+                            <input type="password" class="form-control" name="password" placeholder="Enter new password if you want to change">
                         </div>
                         
                         <div class="form-group">
                             <label>Role</label>
-                            <select name="role_id" class="form-control">
+                            <select name="role_id" class="form-control" required>
                                 <?php
                                 $roles = $conn->query("SELECT id, role_type FROM role");
                                 while ($row_role = $roles->fetch_assoc()) {

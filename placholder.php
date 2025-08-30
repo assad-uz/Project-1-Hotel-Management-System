@@ -13,10 +13,10 @@
 		   
 	   }else if($page==2){
 		   
-		   include("pages/user/manage_user.php");
+		   include("pages/admin/user/manage_user.php");
 		  
 	   }else if($page==3){
-		   include("pages/user/edit_user.php");
+		   include("pages/admin/user/edit_user.php");
 		  
 	   }else if($page==4){
 		   
