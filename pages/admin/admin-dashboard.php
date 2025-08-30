@@ -1,7 +1,4 @@
 <?php
-session_start();
-require_once("../../config.php"); // Make sure config.php path is correct
-
 // Today's Booking
 $booking_query = "SELECT COUNT(*) FROM booking WHERE DATE(booking_date) = CURDATE()";
 $booking_result = $conn->query($booking_query);
