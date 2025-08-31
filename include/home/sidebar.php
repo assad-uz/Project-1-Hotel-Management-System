@@ -166,7 +166,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home.php?page=19" class="nav-link">
+                <a href="home.php?page=10" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Room Type</p>
                 </a>
@@ -175,7 +175,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home.php?page=20" class="nav-link">
+                <a href="home.php?page=11" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Manage Room Type</p>
                 </a>

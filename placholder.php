@@ -44,15 +44,15 @@
 		  
 	   }else if($page==10){
 		   
-		    include("pages/services/foodservice/add_food_service.php");
+		    include("pages/admin/room-type/add_roomtype.php");
 		  
 	   }else if($page==11){
 		   
-		    include("pages/services/foodservice/manage_food_service.php");
+		    include("pages/admin/room-type/manage_roomtype.php");
 		  
 	   }else if($page==12){
 		   
-		    include("pages/services/foodservice/edit_food_service.php");
+		    include("pages/admin/room-type/edit_roomtype.php");
 		  
 	   }else if($page==13){
 		   
