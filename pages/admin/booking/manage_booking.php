@@ -64,7 +64,7 @@ if (isset($_POST["btnDelete"])) {
                                                 <i class='fas fa-trash'></i>
                                             </button>
                                         </form>
-                                        <a href='home.php?page=6&id={$booking['id']}' class='btn btn-primary btn-sm' title='Edit'>
+                                        <a href='home.php?page=15&id={$booking['id']}' class='btn btn-primary btn-sm' title='Edit'>
                                             <i class='fas fa-edit'></i>
                                         </a>
                                     </div>

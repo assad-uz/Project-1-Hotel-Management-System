@@ -56,15 +56,15 @@
 		  
 	   }else if($page==13){
 		   
-		    include("pages/services/roomservice/add_room_service.php");
+		    include("pages/admin/booking/add_booking.php");
 		  
 	   }else if($page==14){
 		   
-		    include("pages/services/roomservice/manage_room_service.php");
+		    include("pages/admin/booking/manage_booking.php");
 		  
 	   }else if($page==15){
 		   
-		    include("pages/services/roomservice/edit_room_service.php");
+		    include("pages/admin/booking/edit_booking.php");
 		  
 	   }else if($page==16){
 		   

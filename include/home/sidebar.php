@@ -194,7 +194,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home.php?page=25" class="nav-link">
+                <a href="home.php?page=13" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Booking</p>
                 </a>
@@ -203,7 +203,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home.php?page=26" class="nav-link">
+                <a href="home.php?page=14" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Manage Bookings</p>
                 </a>

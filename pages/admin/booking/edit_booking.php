@@ -110,6 +110,10 @@ if (isset($_GET['id'])) {
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary" name="btnUpdate">Update</button>
                     </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary" name="btnUpdate">Update</button>
+                        <a href="home.php?page=14" class="btn btn-secondary" style="margin-left: 10px;">Back to Manage Bookings</a>
+                    </div>
                 </form>
             </div>
         </div>
