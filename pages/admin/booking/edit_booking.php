@@ -1,81 +1,88 @@
 <?php
+// PHP-এর জন্য ডিফল্ট টাইমজোন সেট করা হচ্ছে।
+date_default_timezone_set('Asia/Dhaka');
+
+// config.php ফাইলটি অন্তর্ভুক্ত করা হচ্ছে।
 include("config.php");
 
+if (!isset($conn)) {
+    header("location:login.php");
+    exit();
+}
+
 $r = "";
-$id = $users_id = $room_type_id = $room_service_id = $food_service_id = $booking_date = $checkin_date = $checkout_date = $total_amount = "";
 
-// Update Booking
-if (isset($_POST["btnUpdate"])) {
-    $id = $_POST["id"];
-    $users_id = $_POST["users_id"];
-    $room_type_id = $_POST["room_type_id"];
-    $room_service_id = $_POST["room_service_id"];
-    $food_service_id = $_POST["food_service_id"];
-    $booking_date = $_POST["booking_date"];
-    $checkin_date = $_POST["checkin_date"];
-    $checkout_date = $_POST["checkout_date"];
-    $total_amount = $_POST["total_amount"];
+// Check if an id is provided in the URL to fetch the booking details
+if (isset($_GET['id'])) {
+    $booking_id = mysqli_real_escape_string($conn, $_GET['id']);
+    
+    // Fetch the existing booking data based on the provided ID
+    $booking_query = "SELECT * FROM booking WHERE id = '$booking_id'";
+    $result = $conn->query($booking_query);
+    
+    if ($result->num_rows > 0) {
+        $booking = $result->fetch_assoc();
+    } else {
+        $r = "<div class='alert alert-danger'>Booking not found!</div>";
+    }
+} else {
+    header("location:manage_booking.php");
+    exit();
+}
 
-    $sql = "UPDATE booking SET users_id=?, room_type_id=?, room_service_id=?, food_service_id=?, booking_date=?, checkin_date=?, checkout_date=?, total_amount=? WHERE id=?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iiiiiisdi", $users_id, $room_type_id, $room_service_id, $food_service_id, $booking_date, $checkin_date, $checkout_date, $total_amount, $id);
-
+// Process the form submission to update the booking
+if (isset($_POST['submit'])) {
+    // Get the updated data from the form
+    $users_id = mysqli_real_escape_string($conn, $_POST['users_id']);
+    $room_type_id = mysqli_real_escape_string($conn, $_POST['room_type_id']);
+    
+    // Check if room_service_id is set
+    $room_service_id = isset($_POST['room_service_id']) && $_POST['room_service_id'] != "" ? mysqli_real_escape_string($conn, $_POST['room_service_id']) : NULL;
+    
+    // Check if food_service_id is set and is an array
+    $food_service_ids = isset($_POST['food_service_id']) ? $_POST['food_service_id'] : [];
+    $food_service_id = !empty($food_service_ids) ? implode(',', $food_service_ids) : NULL;  // Join multiple food service IDs if selected
+    
+    $checkin_date = mysqli_real_escape_string($conn, $_POST['checkin_date']);
+    $checkout_date = mysqli_real_escape_string($conn, $_POST['checkout_date']);
+    $total_amount = mysqli_real_escape_string($conn, $_POST['total_amount']);
+    
+    // Update query for the booking
+    $stmt = $conn->prepare("UPDATE booking SET users_id = ?, room_type_id = ?, room_service_id = ?, food_service_id = ?, checkin_date = ?, checkout_date = ?, total_amount = ? WHERE id = ?");
+    $stmt->bind_param("iiisssdi", $users_id, $room_type_id, $room_service_id, $food_service_id, $checkin_date, $checkout_date, $total_amount, $booking_id);
+    
     if ($stmt->execute()) {
         $r = "<div class='alert alert-success'>Booking updated successfully.</div>";
     } else {
-        $r = "<div class='alert alert-danger'>Error to update. " . $conn->error . "</div>";
+        $r = "<div class='alert alert-danger'>Error: " . $stmt->error . "</div>";
     }
 }
 
-// Fetch Booking to Edit
-if (isset($_GET['id'])) {
-    $id_to_edit = $_GET['id'];
-    $sql = "SELECT id, users_id, room_type_id, room_service_id, food_service_id, booking_date, checkin_date, checkout_date, total_amount FROM booking WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id_to_edit);
-    $stmt->execute();
-    $result = $stmt->get_result();
+// Fetch necessary data for dropdowns (users, room types, services)
+$users = $conn->query("SELECT id, CONCAT(firstname, ' ', lastname) AS full_name FROM users ORDER BY full_name ASC");
+$room_types = $conn->query("SELECT id, room_name, price FROM room_type ORDER BY room_name ASC");
+$room_services = $conn->query("SELECT id, service_name, price FROM room_service ORDER BY service_name ASC");
+$food_services = $conn->query("SELECT id, meal_period, price FROM food_service ORDER BY FIELD(meal_period, 'Breakfast', 'Launch', 'Dinner') ASC");
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $id = $row['id'];
-        $users_id = $row['users_id'];
-        $room_type_id = $row['room_type_id'];
-        $room_service_id = $row['room_service_id'];
-        $food_service_id = $row['food_service_id'];
-        $booking_date = $row['booking_date'];
-        $checkin_date = $row['checkin_date'];
-        $checkout_date = $row['checkout_date'];
-        $total_amount = $row['total_amount'];
-    }
+$users_data = [];
+while ($row = $users->fetch_assoc()) {
+    $users_data[] = $row;
 }
 
-// Fetch Room Type Price
-$room_type_price = 0;
-if ($room_type_id) {
-    $room_type_query = $conn->query("SELECT price FROM room_type WHERE id = '$room_type_id'");
-    $room_type_data = $room_type_query->fetch_assoc();
-    $room_type_price = $room_type_data['price'];
+$room_types_data = [];
+while ($row = $room_types->fetch_assoc()) {
+    $room_types_data[] = $row;
 }
 
-// Fetch Room Service Price
-$room_service_price = 0;
-if ($room_service_id) {
-    $room_service_query = $conn->query("SELECT price FROM room_service WHERE id = '$room_service_id'");
-    $room_service_data = $room_service_query->fetch_assoc();
-    $room_service_price = $room_service_data['price'];
+$room_services_data = [];
+while ($row = $room_services->fetch_assoc()) {
+    $room_services_data[] = $row;
 }
 
-// Fetch Food Service Price
-$food_service_price = 0;
-if ($food_service_id) {
-    $food_service_query = $conn->query("SELECT price FROM food_service WHERE id = '$food_service_id'");
-    $food_service_data = $food_service_query->fetch_assoc();
-    $food_service_price = $food_service_data['price'];
+$food_services_data = [];
+while ($row = $food_services->fetch_assoc()) {
+    $food_services_data[] = $row;
 }
-
-// Calculate Total Amount
-$total_amount_calculated = $room_type_price + $room_service_price + $food_service_price;
 ?>
 
 <div class="content-wrapper">
@@ -86,95 +93,95 @@ $total_amount_calculated = $room_type_price + $room_service_price + $food_servic
     </section>
 
     <section class="content">
-        <div class="card card-primary">
+        <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Edit Booking Info</h3>
+                <h3 class="card-title">Edit Booking</h3>
             </div>
             <div class="card-body">
                 <div class="p-3">
                     <?php echo $r; ?>
                 </div>
-
                 <form action="" method="post">
-                    <div class="card-body">
-                        <input type="hidden" name="id" value="<?php echo $id; ?>">
-
-                        <div class="form-group">
-                            <label>User</label>
-                            <select class="form-control" name="users_id" required>
-                                <option value="">Select User</option>
-                                <?php
-                                $users = $conn->query("SELECT id, firstname, lastname FROM users");
-                                while ($user = $users->fetch_assoc()) {
-                                    $selected = ($user['id'] == $users_id) ? 'selected' : '';
-                                    echo "<option value='{$user['id']}' {$selected}>{$user['firstname']} {$user['lastname']}</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Room Type</label>
-                            <select class="form-control" name="room_type_id" id="room_type_id" required>
-                                <option value="">Select Room Type</option>
-                                <?php
-                                $room_types = $conn->query("SELECT id, room_name FROM room_type");
-                                while ($room = $room_types->fetch_assoc()) {
-                                    $selected = ($room['id'] == $room_type_id) ? 'selected' : '';
-                                    echo "<option value='{$room['id']}' {$selected} data-price='{$room['price']}'>{$room['room_name']}</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Room Service</label>
-                            <select class="form-control" name="room_service_id" id="room_service_id">
-                                <option value="">Select Room Service</option>
-                                <?php
-                                $room_services = $conn->query("SELECT id, service_name FROM room_service");
-                                while ($service = $room_services->fetch_assoc()) {
-                                    $selected = ($service['id'] == $room_service_id) ? 'selected' : '';
-                                    echo "<option value='{$service['id']}' {$selected}>{$service['service_name']}</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Food Service</label>
-                            <select class="form-control" name="food_service_id" id="food_service_id">
-                                <option value="">Select Food Service</option>
-                                <?php
-                                $food_services = $conn->query("SELECT id, meal_period FROM food_service");
-                                while ($food = $food_services->fetch_assoc()) {
-                                    $selected = ($food['id'] == $food_service_id) ? 'selected' : '';
-                                    echo "<option value='{$food['id']}' {$selected}>{$food['meal_period']}</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Check-in Date</label>
-                            <input type="date" class="form-control" name="checkin_date" id="checkin_date" value="<?php echo $checkin_date; ?>" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Check-out Date</label>
-                            <input type="date" class="form-control" name="checkout_date" id="checkout_date" value="<?php echo $checkout_date; ?>" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Total Amount</label>
-                            <input type="number" class="form-control" name="total_amount" id="total_amount" value="<?php echo $total_amount_calculated; ?>" readonly>
-                        </div>
+                    <div class="form-group">
+                        <label for="users_id">User</label>
+                        <select class="form-control" name="users_id" id="users_id" required>
+                            <option value="">Select User</option>
+                            <?php foreach ($users_data as $row): ?>
+                                <option value="<?php echo htmlspecialchars($row['id']); ?>" <?php echo ($row['id'] == $booking['users_id']) ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($row['full_name']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
 
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary" name="btnUpdate">Update</button>
-                        <a href="home.php?page=14" class="btn btn-secondary" style="margin-left: 10px;">Back to Manage Bookings</a>
+                    <div class="form-group">
+                        <label for="room_type_id">Room Type</label>
+                        <select class="form-control" name="room_type_id" id="room_type_id" required>
+                            <option value="">Select Room Type</option>
+                            <?php foreach ($room_types_data as $row): ?>
+                                <option value="<?php echo htmlspecialchars($row['id']); ?>" data-price="<?php echo htmlspecialchars($row['price']); ?>" 
+                                    <?php echo ($row['id'] == $booking['room_type_id']) ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($row['room_name']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                        <!-- Room Price (Check if room_type_price exists, if not, set default value) -->
+                        <input type="text" class="form-control mt-2" id="room_price" 
+                               placeholder="Room Price" value="<?php echo isset($booking['room_type_price']) ? htmlspecialchars($booking['room_type_price']) : '0.00'; ?>" readonly>
                     </div>
+
+                    <div class="form-group">
+                        <label for="room_service_id">Room Service</label>
+                        <select class="form-control" name="room_service_id" id="room_service_id">
+                            <option value="">Select Room Service (Optional)</option>
+                            <?php foreach ($room_services_data as $row): ?>
+                                <option value="<?php echo htmlspecialchars($row['id']); ?>" data-price="<?php echo htmlspecialchars($row['price']); ?>" 
+                                    <?php echo ($row['id'] == $booking['room_service_id']) ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($row['service_name']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                        <!-- Room Service Price (Check if room_service_price exists, if not, set default value) -->
+                        <input type="text" class="form-control mt-2" id="room_service_price" 
+                               placeholder="Room Service Price" value="<?php echo isset($booking['room_service_price']) ? htmlspecialchars($booking['room_service_price']) : '0.00'; ?>" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="food_service_id">Food Service</label>
+                        <div class="food-service-checkboxes">
+                            <?php foreach ($food_services_data as $row): ?>
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-check-input" name="food_service_id[]" value="<?php echo htmlspecialchars($row['id']); ?>" 
+                                        id="food_service_<?php echo htmlspecialchars($row['id']); ?>" 
+                                        data-price="<?php echo htmlspecialchars($row['price']); ?>"
+                                        <?php echo (in_array($row['id'], explode(",", $booking['food_service_id']))) ? 'checked' : ''; ?>>
+                                    <label class="form-check-label" for="food_service_<?php echo htmlspecialchars($row['id']); ?>">
+                                        <?php echo htmlspecialchars($row['meal_period']); ?>
+                                    </label>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                        <!-- Food Service Price (Check if food_service_price exists, if not, set default value) -->
+                        <input type="text" class="form-control mt-2" id="food_service_price" 
+                               placeholder="Food Service Price" value="<?php echo isset($booking['food_service_price']) ? htmlspecialchars($booking['food_service_price']) : '0.00'; ?>" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="checkin_date">Check-in Date</label>
+                        <input type="date" class="form-control" name="checkin_date" id="checkin_date" value="<?php echo $booking['checkin_date']; ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="checkout_date">Check-out Date</label>
+                        <input type="date" class="form-control" name="checkout_date" id="checkout_date" value="<?php echo $booking['checkout_date']; ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="total_amount">Total Amount</label>
+                        <input type="number" step="0.01" class="form-control" name="total_amount" id="total_amount" value="<?php echo $booking['total_amount']; ?>" readonly required>
+                    </div>
+
+                    <button type="submit" name="submit" class="btn btn-primary">Update</button>
                 </form>
             </div>
         </div>
@@ -182,22 +189,5 @@ $total_amount_calculated = $room_type_price + $room_service_price + $food_servic
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const roomSelect = document.getElementById('room_type_id');
-        const roomPriceInput = document.getElementById('total_amount');
-
-        function updateRoomPrice() {
-            const selectedRoomOption = roomSelect.options[roomSelect.selectedIndex];
-            let roomPrice = 0;
-            if (selectedRoomOption && selectedRoomOption.dataset.price) {
-                roomPrice = parseFloat(selectedRoomOption.dataset.price);
-            }
-
-            roomPriceInput.value = roomPrice.toFixed(2); // Show price in Total Amount
-        }
-
-        roomSelect.addEventListener('change', updateRoomPrice);
-
-        updateRoomPrice(); // Initially set the value when page loads
-    });
+    // Add JavaScript code to recalculate total amount and prices
 </script>
