@@ -27,7 +27,7 @@ if (isset($_POST["btnLogin"])) {
 
     // যদি এডমিন হয়, তবে এডমিন ড্যাশবোর্ডে রিডিরেক্ট হবে
     if ($role_type == 'admin') {
-      header("location:home.php");
+      header("location:home.php?page=0");
     }
   } else {
     // যদি ইউজার বা পাসওয়ার্ড ভুল হয়, তহলে এরর দেখাবে

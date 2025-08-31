@@ -98,33 +98,6 @@
           </li>
           
           <li class="nav-header">Service Management</li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Food Service
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="home.php?page=10" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Add Food</p>
-                </a>
-              </li>
-             
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="home.php?page=11" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Manage Foods</p>
-                </a>
-              </li>
-             
-            </ul>
-          </li>
 
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -153,29 +126,29 @@
              
             </ul>
           </li>
-
+          
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-                Services
+                Food Service
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home.php?page=16" class="nav-link">
+                <a href="home.php?page=10" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add Services</p>
+                  <p>Add Food Service</p>
                 </a>
               </li>
              
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home.php?page=17" class="nav-link">
+                <a href="home.php?page=11" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Manage Services</p>
+                  <p>Manage Food Services</p>
                 </a>
               </li>
              
@@ -205,33 +178,6 @@
                 <a href="home.php?page=20" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Manage Room Type</p>
-                </a>
-              </li>
-             
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Room
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="home.php?page=22" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Add Room</p>
-                </a>
-              </li>
-             
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="home.php?page=23" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Manage Rooms</p>
                 </a>
               </li>
              
@@ -378,41 +324,13 @@
             </ul>
           </li>
 
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Transaction
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="home.php?page=1" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Add Transaction</p>
-                </a>
-              </li>
-             
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="home.php?page=1" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Manage Transaction</p>
-                </a>
-              </li>
-             
-            </ul>
-          </li>
-
           <li class="nav-header">Pages</li>
          
           <li class="nav-item">
             <a href="http://localhost/Project-1-Hotel-Management-System/index.php" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
-                Home Page
+                Landing Page
               </p>
             </a>
           </li> 

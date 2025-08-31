@@ -22,95 +22,163 @@ $today_payment = $payment_result->fetch_row()[0];
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Dashboard</title>
 
-  <!-- Add Bootstrap CSS for styling -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Add Bootstrap CSS for styling -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-  <style>
-    .card {
-      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
+    <style>
+        /* General Card Body Style */
+        .card-body {
+            padding: 20px;
+            border-radius: 8px;
+        }
 
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    }
+        /* Card Header */
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            font-size: 1.25rem;
+            padding: 10px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
 
-    .dashboard-card {
-      margin: 20px 0;
-    }
+        /* Card Style */
+        .card {
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    .card-title {
-      font-size: 18px;
-      font-weight: bold;
-    }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
 
-    .card-text {
-      font-size: 24px;
-      font-weight: bold;
-    }
-  </style>
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Card Background Colors */
+        .bg-success {
+            background-color: #28a745 !important;
+        }
+
+        .bg-info {
+            background-color: #17a2b8 !important;
+        }
+
+        .bg-warning {
+            background-color: #ffc107 !important;
+        }
+
+        .bg-danger {
+            background-color: #dc3545 !important;
+        }
+
+        /* Row Layout for Cards */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* Ensure 4 cards in one row */
+        .col-md-3 {
+            width: 23%;  /* 4 cards in a row */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .col-md-3 {
+                width: 48%;  /* Two cards per row on small screens */
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="container mt-4">
-  <h1 class="text-center">Admin Dashboard</h1>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <h1 class="text-center">Admin Dashboard</h1>
+            </div>
+        </section>
 
-  <!-- Dashboard content -->
-  <div class="row">
+        <section class="content">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Dashboard Overview</h3>
+                </div>
+                <div class="card-body">
+                    <!-- Row for Cards -->
+                    <div class="row">
+                        <!-- Today's Booking Card -->
+                        <div class="col-md-3">
+                            <div class="card bg-success text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Today's Booking</h5>
+                                    <p class="card-text"><?php echo $today_booking; ?></p>
+                                </div>
+                            </div>
+                        </div>
 
-    <!-- Today's Booking Card -->
-    <div class="col-md-3">
-      <div class="card bg-success text-white dashboard-card">
-        <div class="card-body">
-          <h5 class="card-title">Today's Booking</h5>
-          <p class="card-text"><?php echo $today_booking; ?></p>
-        </div>
-      </div>
+                        <!-- Today's Total Checkin Card -->
+                        <div class="col-md-3">
+                            <div class="card bg-info text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Today's Total Checkin</h5>
+                                    <p class="card-text"><?php echo $today_checkin; ?></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Today's Total Checkout Card -->
+                        <div class="col-md-3">
+                            <div class="card bg-warning text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Today's Total Checkout</h5>
+                                    <p class="card-text"><?php echo $today_checkout; ?></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Today's Total Payment Card -->
+                        <div class="col-md-3">
+                            <div class="card bg-danger text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Today's Total Payment</h5>
+                                    <p class="card-text"><?php echo "$" . number_format($today_payment, 2); ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Row for Cards -->
+                </div>
+            </div>
+        </section>
     </div>
 
-    <!-- Today's Total Checkin Card -->
-    <div class="col-md-3">
-      <div class="card bg-info text-white dashboard-card">
-        <div class="card-body">
-          <h5 class="card-title">Today's Total Checkin</h5>
-          <p class="card-text"><?php echo $today_checkin; ?></p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Today's Total Checkout Card -->
-    <div class="col-md-3">
-      <div class="card bg-warning text-white dashboard-card">
-        <div class="card-body">
-          <h5 class="card-title">Today's Total Checkout</h5>
-          <p class="card-text"><?php echo $today_checkout; ?></p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Today's Total Payment Card -->
-    <div class="col-md-3">
-      <div class="card bg-danger text-white dashboard-card">
-        <div class="card-body">
-          <h5 class="card-title">Today's Total Payment</h5>
-          <p class="card-text"><?php echo "$" . number_format($today_payment, 2); ?></p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <!-- End of dashboard content -->
-</div>
-
-<!-- Add Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Add Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
+
 </html>
