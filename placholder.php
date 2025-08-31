@@ -20,15 +20,15 @@
 		  
 	   }else if($page==4){
 		   
-		   include("pages/admin/food-service/add_foodservice.php");
+		   include("pages/admin/room-service/add_roomservice.php");
 		  
 	   }else if($page==5){
 		   
-		   include("pages/admin/food-service/manage_foodservice.php");
+		   include("pages/admin/room-service/manage_roomservice.php");
 		  
 	   }else if($page==6){
 		   
-		   include("pages/admin/food-service/edit_foodservice.php");
+		   include("pages/admin/room-service/edit_roomservice.php");
 		  
 	   }else if($page==7){
 		   

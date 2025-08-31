@@ -109,18 +109,18 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home.php?page=13" class="nav-link">
+                <a href="home.php?page=4" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add Room</p>
+                  <p>Add Room Service</p>
                 </a>
               </li>
              
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home.php?page=14" class="nav-link">
+                <a href="home.php?page=5" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Manage Rooms</p>
+                  <p>Manage Room Services</p>
                 </a>
               </li>
              
@@ -137,7 +137,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home.php?page=7" class="nav-link">
+                <a href="home.php?page=6" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Food Service</p>
                 </a>

@@ -3,12 +3,12 @@ include("config.php");
 
 $r = "";
 
-// Delete food service
+// Delete room service
 if (isset($_POST["btnDelete"])) {
     $service_id = $_POST["txtId"];
-    $sql = "DELETE FROM food_service WHERE id = '$service_id'";
+    $sql = "DELETE FROM room_service WHERE id = '$service_id'";
     if ($conn->query($sql) === TRUE) {
-        $r = "<div class='alert alert-success'>Food service deleted successfully.</div>";
+        $r = "<div class='alert alert-success'>Room service deleted successfully.</div>";
     } else {
         $r = "<div class='alert alert-danger'>Error deleting record: " . $conn->error . "</div>";
     }
@@ -18,14 +18,14 @@ if (isset($_POST["btnDelete"])) {
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
-            <h1>Manage Food Services</h1>
+            <h1>Manage Room Services</h1>
         </div>
     </section>
 
     <section class="content">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title">Food Service List</h3>
+                <h3 class="card-title">Room Service List</h3>
             </div>
 
             <div class="p-3">
@@ -37,28 +37,28 @@ if (isset($_POST["btnDelete"])) {
                     <thead class="bg-primary text-white">
                         <tr>
                             <th>#ID</th>
-                            <th>Meal Period</th>
-                            <th>Price (Per Person)</th>
+                            <th>Service Name</th>
+                            <th>Price</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $services = $conn->query("SELECT id, meal_period, price FROM food_service");
+                        $services = $conn->query("SELECT id, service_name, price FROM room_service");
                         while ($service = $services->fetch_assoc()) {
                             echo "<tr>
                                 <td>{$service['id']}</td>
-                                <td>{$service['meal_period']}</td>
+                                <td>{$service['service_name']}</td>
                                 <td>{$service['price']}</td>
                                 <td>
                                     <div class='d-flex align-items-center'>
-                                        <form action='' method='post' onsubmit='return confirm(\"Are you sure you want to delete this food service?\");' style='margin-right: 10px;'>
+                                        <form action='' method='post' onsubmit='return confirm(\"Are you sure you want to delete this room service?\");' style='margin-right: 10px;'>
                                             <input type='hidden' name='txtId' value='{$service['id']}' />
                                             <button type='submit' name='btnDelete' class='btn btn-danger btn-sm' title='Delete'>
                                                 <i class='fas fa-trash'></i>
                                             </button>
                                         </form>
-                                        <a href='home.php?page=9&id={$service['id']}' class='btn btn-primary btn-sm' title='Edit'>
+                                        <a href='home.php?page=6&id={$service['id']}' class='btn btn-primary btn-sm' title='Edit'>
                                             <i class='fas fa-edit'></i>
                                         </a>
                                     </div>
