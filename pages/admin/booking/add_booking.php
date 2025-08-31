@@ -18,8 +18,9 @@ if (isset($_POST["submit"])) {
     // ব্যবহারকারীর ইনপুট স্যানিটাইজ করা হচ্ছে।
     $users_id = mysqli_real_escape_string($conn, $_POST['users_id']);
     $room_type_id = mysqli_real_escape_string($conn, $_POST['room_type_id']);
-    $room_service_id = isset($_POST['room_service_id']) ? mysqli_real_escape_string($conn, $_POST['room_service_id']) : NULL;
-    $food_service_id = isset($_POST['food_service_id']) ? mysqli_real_escape_string($conn, $_POST['food_service_id']) : NULL;
+    // রুম সার্ভিস এবং ফুড সার্ভিস অপশনাল, যদি কিছু না দেওয়া হয় তবে NULL
+    $room_service_id = isset($_POST['room_service_id']) && $_POST['room_service_id'] != "" ? mysqli_real_escape_string($conn, $_POST['room_service_id']) : NULL;
+    $food_service_id = isset($_POST['food_service_id']) && $_POST['food_service_id'] != "" ? mysqli_real_escape_string($conn, $_POST['food_service_id']) : NULL;
     $booking_date = date("Y-m-d H:i:s");
     $checkin_date = mysqli_real_escape_string($conn, $_POST['checkin_date']);
     $checkout_date = mysqli_real_escape_string($conn, $_POST['checkout_date']);
@@ -110,7 +111,7 @@ while ($row = $food_services->fetch_assoc()) {
                     <div class="form-group">
                         <label for="room_service_id">Room Service</label>
                         <select class="form-control" name="room_service_id" id="room_service_id">
-                            <option value="">Select Room Service</option>
+                            <option value="">Select Room Service (Optional)</option>
                             <?php foreach ($room_services_data as $row): ?>
                                 <option value="<?php echo htmlspecialchars($row['id']); ?>" data-price="<?php echo htmlspecialchars($row['price']); ?>">
                                     <?php echo htmlspecialchars($row['service_name']); ?>
@@ -123,7 +124,7 @@ while ($row = $food_services->fetch_assoc()) {
                     <div class="form-group">
                         <label for="food_service_id">Food Service</label>
                         <select class="form-control" name="food_service_id" id="food_service_id">
-                            <option value="">Select Food Service</option>
+                            <option value="">Select Food Service (Optional)</option>
                             <?php foreach ($food_services_data as $row): ?>
                                 <option value="<?php echo htmlspecialchars($row['id']); ?>" data-price="<?php echo htmlspecialchars($row['price']); ?>">
                                     <?php echo htmlspecialchars($row['meal_period']); ?>
@@ -182,18 +183,24 @@ while ($row = $food_services->fetch_assoc()) {
             if (selectedRoomOption && selectedRoomOption.dataset.price) {
                 roomPrice = parseFloat(selectedRoomOption.dataset.price);
                 roomPriceInput.value = roomPrice.toFixed(2);
+            } else {
+                roomPriceInput.value = "0.00";
             }
 
             const selectedRoomServiceOption = roomServiceSelect.options[roomServiceSelect.selectedIndex];
             if (selectedRoomServiceOption && selectedRoomServiceOption.dataset.price) {
                 roomServicePrice = parseFloat(selectedRoomServiceOption.dataset.price);
                 roomServicePriceInput.value = roomServicePrice.toFixed(2);
+            } else {
+                roomServicePriceInput.value = "0.00";
             }
 
             const selectedFoodServiceOption = foodServiceSelect.options[foodServiceSelect.selectedIndex];
             if (selectedFoodServiceOption && selectedFoodServiceOption.dataset.price) {
                 foodServicePrice = parseFloat(selectedFoodServiceOption.dataset.price);
                 foodServicePriceInput.value = foodServicePrice.toFixed(2);
+            } else {
+                foodServicePriceInput.value = "0.00";
             }
 
             const checkinDate = new Date(checkinDateInput.value);
@@ -205,7 +212,7 @@ while ($row = $food_services->fetch_assoc()) {
                 const totalAmount = (roomPrice + roomServicePrice + foodServicePrice) * diffDays;
                 totalAmountInput.value = totalAmount.toFixed(2);
             } else {
-                totalAmountInput.value = 0.00;
+                totalAmountInput.value = "0.00";
             }
         }
 
@@ -218,3 +225,4 @@ while ($row = $food_services->fetch_assoc()) {
         calculateTotalAmount();
     });
 </script>
+

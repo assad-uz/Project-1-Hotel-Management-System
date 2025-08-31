@@ -73,7 +73,7 @@ if (isset($_GET['id'])) {
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary" name="btnUpdate">Update</button>
                       <!-- Back Button to Manage Food Services -->
-                        <a href="home.php?page=5" class="btn btn-secondary" style="margin-left: 10px;">Back to Manage Food Services</a>
+                        <a href="home.php?page=8" class="btn btn-secondary" style="margin-left: 10px;">Back to Manage Food Services</a>
                     </div>
                 </form>
             </div>

@@ -56,17 +56,18 @@ CREATE TABLE booking (
   id INT PRIMARY KEY AUTO_INCREMENT,
   users_id INT NOT NULL,
   room_type_id INT NOT NULL,
-  room_service_id INT,
-  food_service_id INT,
+  room_service_id INT DEFAULT NULL,  -- Allow NULL values
+  food_service_id INT DEFAULT NULL,   -- Allow NULL values
   booking_date DATETIME NOT NULL,
   checkin_date DATE NOT NULL,
   checkout_date DATE NOT NULL,
   total_amount DECIMAL(10,2) NOT NULL,
   FOREIGN KEY (users_id) REFERENCES users (id),
   FOREIGN KEY (room_type_id) REFERENCES room_type (id),
-  FOREIGN KEY (room_service_id) REFERENCES room_service (id),
-  FOREIGN KEY (food_service_id) REFERENCES food_service (id)
+  FOREIGN KEY (room_service_id) REFERENCES room_service (id) ON DELETE SET NULL ON UPDATE SET NULL,
+  FOREIGN KEY (food_service_id) REFERENCES food_service (id) ON DELETE SET NULL ON UPDATE SET NULL
 );
+
 
 -- ===============================
 -- Check-in Table
