@@ -84,52 +84,7 @@
 		  
 	   }else if($page==20){
 		   
-		    include("pages/roombooking/roomtype/manage_room_type.php");
-		  
-	   }else if($page==21){
-		   
-		    include("pages/roombooking/roomtype/edit_room_type.php");
-		  
-	   }else if($page==22){
-		   
-		    include("pages/roombooking/room/add_room.php");
-		  
-	   }else if($page==23){
-		   
-		    include("pages/roombooking/room/manage_room.php");
-		  
-	   }else if($page==24){
-		   
-		    include("pages/roombooking/room/edit_room.php");
-		  
-	   }else if($page==25){
-		   
-		    include("pages/roombooking/booking/add_booking.php");
-		  
-	   }else if($page==26){
-		   
-		    include("pages/roombooking/booking/manage_booking.php");
-		  
-	   }else if($page==27){
-		   
-		    include("pages/roombooking/booking/edit_booking.php");
-		  
-	   }else if($page==28){
-		   
-		    include("pages/roombooking");
-		  
-	   }else if($page==29){
-		   
-		    include("pages/roombooking");
-		  
-	   }else if($page==30){
-		   
-		    include("pages/roombooking");
-		  
-	   }else if($page==31){
-		   
-		    include("pages/roombooking");
-		  
+		    include("pages/roombooking/roomtype/manage_room_type.php");		  
 	   }
 	   
    }else{

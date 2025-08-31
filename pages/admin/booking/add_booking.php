@@ -20,7 +20,9 @@ if (isset($_POST["submit"])) {
     $room_type_id = mysqli_real_escape_string($conn, $_POST['room_type_id']);
     // রুম সার্ভিস এবং ফুড সার্ভিস অপশনাল, যদি কিছু না দেওয়া হয় তবে NULL
     $room_service_id = isset($_POST['room_service_id']) && $_POST['room_service_id'] != "" ? mysqli_real_escape_string($conn, $_POST['room_service_id']) : NULL;
-    $food_service_id = isset($_POST['food_service_id']) && $_POST['food_service_id'] != "" ? mysqli_real_escape_string($conn, $_POST['food_service_id']) : NULL;
+    $food_service_ids = isset($_POST['food_service_id']) ? $_POST['food_service_id'] : [];
+    $food_service_id = !empty($food_service_ids) ? implode(',', $food_service_ids) : NULL;  // মাল্টিপল ফুড সার্ভিস আইডি কমা দিয়ে সংযুক্ত
+
     $booking_date = date("Y-m-d H:i:s");
     $checkin_date = mysqli_real_escape_string($conn, $_POST['checkin_date']);
     $checkout_date = mysqli_real_escape_string($conn, $_POST['checkout_date']);
@@ -58,8 +60,9 @@ while ($row = $room_services->fetch_assoc()) {
     $room_services_data[] = $row;
 }
 
-// ড্রপডাউনের জন্য food_service ডেটা লোড করা হচ্ছে।
-$food_services = $conn->query("SELECT id, meal_period, price FROM food_service ORDER BY meal_period ASC");
+// ফুড সার্ভিস মাল্টিপল সিলেকশন হলে তার আইডি গুলি অ্যারে আকারে পাবেন।
+// ফুড সার্ভিসের অর্ডার ঠিক রাখার জন্য ORDER BY FIELD ব্যবহার করা হচ্ছে।
+$food_services = $conn->query("SELECT id, meal_period, price FROM food_service ORDER BY FIELD(meal_period, 'Breakfast', 'Launch', 'Dinner') ASC");
 $food_services_data = [];
 while ($row = $food_services->fetch_assoc()) {
     $food_services_data[] = $row;
@@ -123,14 +126,16 @@ while ($row = $food_services->fetch_assoc()) {
 
                     <div class="form-group">
                         <label for="food_service_id">Food Service</label>
-                        <select class="form-control" name="food_service_id" id="food_service_id">
-                            <option value="">Select Food Service (Optional)</option>
+                        <div class="food-service-checkboxes">
                             <?php foreach ($food_services_data as $row): ?>
-                                <option value="<?php echo htmlspecialchars($row['id']); ?>" data-price="<?php echo htmlspecialchars($row['price']); ?>">
-                                    <?php echo htmlspecialchars($row['meal_period']); ?>
-                                </option>
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-check-input" name="food_service_id[]" value="<?php echo htmlspecialchars($row['id']); ?>" id="food_service_<?php echo htmlspecialchars($row['id']); ?>" data-price="<?php echo htmlspecialchars($row['price']); ?>">
+                                    <label class="form-check-label" for="food_service_<?php echo htmlspecialchars($row['id']); ?>">
+                                        <?php echo htmlspecialchars($row['meal_period']); ?>
+                                    </label>
+                                </div>
                             <?php endforeach; ?>
-                        </select>
+                        </div>
                         <input type="text" class="form-control mt-2" id="food_service_price" placeholder="Food Service Price" readonly>
                     </div>
 
@@ -161,11 +166,42 @@ while ($row = $food_services->fetch_assoc()) {
     </section>
 </div>
 
+<!-- Add CSS for Styling -->
+<style>
+    .food-service-checkboxes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .form-check-inline {
+        display: flex;
+        align-items: center;
+    }
+
+    .form-check-input {
+        margin-right: 5px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .form-check-label {
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+
+    @media (max-width: 576px) {
+        .food-service-checkboxes {
+            flex-direction: column;
+        }
+    }
+</style>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const roomSelect = document.getElementById('room_type_id');
         const roomServiceSelect = document.getElementById('room_service_id');
-        const foodServiceSelect = document.getElementById('food_service_id');
+        const foodServiceInputs = document.querySelectorAll('input[name="food_service_id[]"]');
         const checkinDateInput = document.getElementById('checkin_date');
         const checkoutDateInput = document.getElementById('checkout_date');
         const totalAmountInput = document.getElementById('total_amount');
@@ -195,13 +231,15 @@ while ($row = $food_services->fetch_assoc()) {
                 roomServicePriceInput.value = "0.00";
             }
 
-            const selectedFoodServiceOption = foodServiceSelect.options[foodServiceSelect.selectedIndex];
-            if (selectedFoodServiceOption && selectedFoodServiceOption.dataset.price) {
-                foodServicePrice = parseFloat(selectedFoodServiceOption.dataset.price);
-                foodServicePriceInput.value = foodServicePrice.toFixed(2);
-            } else {
-                foodServicePriceInput.value = "0.00";
-            }
+            // ফুড সার্ভিস মূল্য গণনা
+            foodServicePrice = 0;
+            foodServiceInputs.forEach(input => {
+                if (input.checked && input.dataset.price) {
+                    foodServicePrice += parseFloat(input.dataset.price);
+                }
+            });
+
+            foodServicePriceInput.value = foodServicePrice.toFixed(2);
 
             const checkinDate = new Date(checkinDateInput.value);
             const checkoutDate = new Date(checkoutDateInput.value);
@@ -218,11 +256,10 @@ while ($row = $food_services->fetch_assoc()) {
 
         roomSelect.addEventListener('change', calculateTotalAmount);
         roomServiceSelect.addEventListener('change', calculateTotalAmount);
-        foodServiceSelect.addEventListener('change', calculateTotalAmount);
+        foodServiceInputs.forEach(input => input.addEventListener('change', calculateTotalAmount));
         checkinDateInput.addEventListener('change', calculateTotalAmount);
         checkoutDateInput.addEventListener('change', calculateTotalAmount);
 
         calculateTotalAmount();
     });
-</script>
-
+</script> 
