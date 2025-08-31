@@ -40,21 +40,28 @@ if (isset($_POST["btnDelete"])) {
                             <th>User</th>
                             <th>Room Type</th>
                             <th>Booking Date</th>
+                            <th>Check-in Date</th>
+                            <th>Check-out Date</th>
                             <th>Total Amount</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $bookings = $conn->query("SELECT b.id, u.firstname, u.lastname, r.room_name, b.booking_date, b.total_amount FROM booking b
+                        // SQL Query with JOIN to fetch check-in and check-out dates
+                        $bookings = $conn->query("SELECT b.id, u.firstname, u.lastname, r.room_name, b.booking_date, b.checkin_date, b.checkout_date, b.total_amount 
+                                                  FROM booking b
                                                   JOIN users u ON b.users_id = u.id
                                                   JOIN room_type r ON b.room_type_id = r.id");
+
                         while ($booking = $bookings->fetch_assoc()) {
                             echo "<tr>
                                 <td>{$booking['id']}</td>
                                 <td>{$booking['firstname']} {$booking['lastname']}</td>
                                 <td>{$booking['room_name']}</td>
                                 <td>{$booking['booking_date']}</td>
+                                <td>{$booking['checkin_date']}</td>
+                                <td>{$booking['checkout_date']}</td>
                                 <td>{$booking['total_amount']}</td>
                                 <td>
                                     <div class='d-flex align-items-center'>
