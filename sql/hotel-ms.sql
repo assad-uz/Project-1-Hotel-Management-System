@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 31, 2025 at 06:10 PM
+-- Generation Time: Sep 01, 2025 at 12:24 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,6 +38,15 @@ CREATE TABLE `booking` (
   `checkout_date` date NOT NULL,
   `total_amount` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `booking`
+--
+
+INSERT INTO `booking` (`id`, `users_id`, `room_type_id`, `room_service_id`, `food_service_id`, `booking_date`, `checkin_date`, `checkout_date`, `total_amount`) VALUES
+(15, 3, 2, NULL, 1, '2025-09-01 03:49:33', '2025-09-20', '2025-09-21', 5300.00),
+(18, 3, 4, NULL, 2, '2025-09-01 03:57:17', '2025-09-27', '2025-09-28', 2900.00),
+(19, 3, 4, NULL, NULL, '2025-09-01 03:57:45', '2025-09-02', '2025-09-03', 2600.00);
 
 -- --------------------------------------------------------
 
@@ -95,7 +104,7 @@ CREATE TABLE `food_service` (
 INSERT INTO `food_service` (`id`, `meal_period`, `price`) VALUES
 (1, 'Breakfast', 100.00),
 (2, 'Launch', 200.00),
-(4, 'Dinner', 200.00);
+(3, 'Dinner', 200.00);
 
 -- --------------------------------------------------------
 
@@ -210,9 +219,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `firstname`, `lastname`, `username`, `email`, `phone`, `password`, `created_at`) VALUES
-(1, 1, 'Assaduzzaman', 'Shaon', 'assad-uz', 'assad.uz255@gmail.com', '01234-567890', '00005555', '2025-08-30 20:01:56'),
-(2, 2, 'Akib', 'Hossain', 'akib-hsn', 'akib-hsn@gmail.com', '01302-485651', '$2y$10$TqBUlpzscKQlCaLrajID6eGOz.wUKggvPBzfCjghIBGckbZR2VkPi', '2025-08-31 09:32:42'),
-(3, 2, 'Azim', 'Akbar', 'azim-akbar', 'azim-akbar@gmail.com', '01742-453299', '$2y$10$MqWftaMDU/YZh/8OVpj57O...MM006O1PPWqRP62m7goCazRiC2DO', '2025-08-31 15:21:36');
+(2, 1, 'Assaduzzaman', 'Shaon', 'assad-uz', 'assad.uz255@gmail.com', '01234-567890', '00005555', '2025-08-31 16:33:10'),
+(3, 2, 'Azim', 'Akbar', 'azim-akbar', 'azim@gmail.com', '01742-453299', '$2y$10$l9ZsZIzZfDCfhJW0t4RdkeIcNvONWoFN.BAykvalIuimHLYRavxs6', '2025-08-31 16:34:09');
 
 --
 -- Indexes for dumped tables
@@ -309,7 +317,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `cancellation`
@@ -333,7 +341,7 @@ ALTER TABLE `checkout`
 -- AUTO_INCREMENT for table `food_service`
 --
 ALTER TABLE `food_service`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `invoice`
