@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 30, 2025 at 10:03 PM
+-- Generation Time: Aug 31, 2025 at 06:10 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -88,6 +88,15 @@ CREATE TABLE `food_service` (
   `price` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `food_service`
+--
+
+INSERT INTO `food_service` (`id`, `meal_period`, `price`) VALUES
+(1, 'Breakfast', 100.00),
+(2, 'Launch', 200.00),
+(4, 'Dinner', 200.00);
+
 -- --------------------------------------------------------
 
 --
@@ -149,6 +158,13 @@ CREATE TABLE `room_service` (
   `price` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `room_service`
+--
+
+INSERT INTO `room_service` (`id`, `service_name`, `price`) VALUES
+(1, 'Laundry', 100.00);
+
 -- --------------------------------------------------------
 
 --
@@ -160,6 +176,16 @@ CREATE TABLE `room_type` (
   `room_name` varchar(100) NOT NULL,
   `price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `room_type`
+--
+
+INSERT INTO `room_type` (`id`, `room_name`, `price`) VALUES
+(1, 'King Size Room', 6500.00),
+(2, 'Queen Size Room', 5000.00),
+(3, 'Standard Room', 3500.00),
+(4, 'Single Size Room', 2500.00);
 
 -- --------------------------------------------------------
 
@@ -184,7 +210,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `firstname`, `lastname`, `username`, `email`, `phone`, `password`, `created_at`) VALUES
-(1, 1, 'Assaduzzaman', 'Shaon', 'assad-uz', 'assad.uz255@gmail.com', '01234-567890', '00005555', '2025-08-30 20:01:56');
+(1, 1, 'Assaduzzaman', 'Shaon', 'assad-uz', 'assad.uz255@gmail.com', '01234-567890', '00005555', '2025-08-30 20:01:56'),
+(2, 2, 'Akib', 'Hossain', 'akib-hsn', 'akib-hsn@gmail.com', '01302-485651', '$2y$10$TqBUlpzscKQlCaLrajID6eGOz.wUKggvPBzfCjghIBGckbZR2VkPi', '2025-08-31 09:32:42'),
+(3, 2, 'Azim', 'Akbar', 'azim-akbar', 'azim-akbar@gmail.com', '01742-453299', '$2y$10$MqWftaMDU/YZh/8OVpj57O...MM006O1PPWqRP62m7goCazRiC2DO', '2025-08-31 15:21:36');
 
 --
 -- Indexes for dumped tables
@@ -281,7 +309,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `cancellation`
@@ -305,7 +333,7 @@ ALTER TABLE `checkout`
 -- AUTO_INCREMENT for table `food_service`
 --
 ALTER TABLE `food_service`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `invoice`
@@ -329,19 +357,19 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `room_service`
 --
 ALTER TABLE `room_service`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `room_type`
 --
 ALTER TABLE `room_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -353,8 +381,8 @@ ALTER TABLE `users`
 ALTER TABLE `booking`
   ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`room_type_id`) REFERENCES `room_type` (`id`),
-  ADD CONSTRAINT `booking_ibfk_3` FOREIGN KEY (`room_service_id`) REFERENCES `room_service` (`id`),
-  ADD CONSTRAINT `booking_ibfk_4` FOREIGN KEY (`food_service_id`) REFERENCES `food_service` (`id`);
+  ADD CONSTRAINT `booking_ibfk_3` FOREIGN KEY (`room_service_id`) REFERENCES `room_service` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
+  ADD CONSTRAINT `booking_ibfk_4` FOREIGN KEY (`food_service_id`) REFERENCES `food_service` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Constraints for table `cancellation`

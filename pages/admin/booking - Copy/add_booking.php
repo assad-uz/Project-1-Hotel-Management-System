@@ -1,5 +1,5 @@
 <?php
-// PHP-এর জন্য ডিফল্ট টাইমজোন সেট করা হচ্ছে।
+// PHP-এর জন্য ডিফল্ট টাইম জোন সেট করা হচ্ছে।
 date_default_timezone_set('Asia/Dhaka');
 
 // config.php ফাইলটি অন্তর্ভুক্ত করা হচ্ছে।
@@ -29,14 +29,13 @@ if (isset($_POST["submit"])) {
     $total_amount = mysqli_real_escape_string($conn, $_POST['total_amount']);
 
     // ডেটাবেজে নতুন ডেটা ইনসার্ট করার জন্য SQL কোয়েরি।
-    $stmt = $conn->prepare("INSERT INTO booking (users_id, room_type_id, room_service_id, food_service_id, booking_date, checkin_date, checkout_date, total_amount) 
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("iiisssss", $users_id, $room_type_id, $room_service_id, $food_service_id, $booking_date, $checkin_date, $checkout_date, $total_amount);
-    
-    if ($stmt->execute()) {
+    $sql = "INSERT INTO booking (users_id, room_type_id, room_service_id, food_service_id, booking_date, checkin_date, checkout_date, total_amount) 
+            VALUES ('$users_id', '$room_type_id', '$room_service_id', '$food_service_id', '$booking_date', '$checkin_date', '$checkout_date', '$total_amount')";
+
+    if ($conn->query($sql) === TRUE) {
         $r = "<div class='alert alert-success'>Booking added successfully.</div>";
     } else {
-        $r = "<div class='alert alert-danger'>Error: " . $stmt->error . "</div>";
+        $r = "<div class='alert alert-danger'>Error: " . $conn->error . "</div>";
     }
 }
 
