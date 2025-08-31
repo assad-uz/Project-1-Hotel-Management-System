@@ -20,15 +20,15 @@
 		  
 	   }else if($page==4){
 		   
-		   include("pages/meal/mealtype/add_meal.php");
+		   include("pages/admin/food-service/add_foodservice.php");
 		  
 	   }else if($page==5){
 		   
-		   include("pages/meal/mealtype/manage_meal.php");
+		   include("pages/admin/food-service/manage_foodservice.php");
 		  
 	   }else if($page==6){
 		   
-		   include("pages/meal/mealtype/edit_meal.php");
+		   include("pages/admin/food-service/edit_foodservice.php");
 		  
 	   }else if($page==7){
 		   
