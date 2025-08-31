@@ -120,6 +120,8 @@ if (isset($_GET['id'])) {
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary" name="btnUpdate">Update</button>
+                      <!-- Back Button to Manage Food Services -->
+                        <a href="home.php?page=2" class="btn btn-secondary" style="margin-left: 10px;">Back to Manage Users</a>
                     </div>
                 </form>
             </div>

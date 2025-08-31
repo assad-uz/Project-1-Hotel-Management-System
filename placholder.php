@@ -32,15 +32,15 @@
 		  
 	   }else if($page==7){
 		   
-		    include("pages/meal/mealperiod/add_meal_period.php");
+		   include("pages/admin/food-service/add_foodservice.php");
 		  
 	   }else if($page==8){
 		   
-		    include("pages/meal/mealperiod/manage_meal_period.php");
+		   include("pages/admin/food-service/manage_foodservice.php");
 		  
 	   }else if($page==9){
 		   
-		    include("pages/meal/mealperiod/edit_meal_period.php");
+		   include("pages/admin/food-service/edit_foodservice.php");
 		  
 	   }else if($page==10){
 		   

@@ -66,12 +66,14 @@ if (isset($_GET['id'])) {
                         </div>
 
                         <div class="form-group">
-                            <label>Price</label>
+                            <label>Price (Per Person)</label>
                             <input type="text" class="form-control" name="price" value="<?php echo $price; ?>" required>
                         </div>
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary" name="btnUpdate">Update</button>
+                      <!-- Back Button to Manage Food Services -->
+                        <a href="home.php?page=5" class="btn btn-secondary" style="margin-left: 10px;">Back to Manage Food Services</a>
                     </div>
                 </form>
             </div>

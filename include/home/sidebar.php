@@ -137,7 +137,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home.php?page=4" class="nav-link">
+                <a href="home.php?page=7" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Food Service</p>
                 </a>
@@ -146,7 +146,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home.php?page=5" class="nav-link">
+                <a href="home.php?page=8" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Manage Food Services</p>
                 </a>

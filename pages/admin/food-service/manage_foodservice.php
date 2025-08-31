@@ -38,7 +38,7 @@ if (isset($_POST["btnDelete"])) {
                         <tr>
                             <th>#ID</th>
                             <th>Meal Period</th>
-                            <th>Price</th>
+                            <th>Price (Per Person)</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -51,25 +51,27 @@ if (isset($_POST["btnDelete"])) {
                                 <td>{$service['meal_period']}</td>
                                 <td>{$service['price']}</td>
                                 <td>
-<div class="d-flex align-items-center">
-    <form action="" method="post" onsubmit="return confirm('Are you sure you want to delete this food service?');" style="margin-right: 10px;">
-        <input type="hidden" name="txtId" value="<?php echo $service['id']; ?>" />
-        <button type="submit" name="btnDelete" class="btn btn-danger btn-sm" title="Delete">
-            <i class="fas fa-trash"></i>
-        </button>
-    </form>
-
-    <a href="home.php?page=6&id=<?php echo $service['id']; ?>" class="btn btn-primary btn-sm" title="Edit">
-        <i class="fas fa-edit"></i>
-    </a>
-</div>
-
+                                    <div class='d-flex align-items-center'>
+                                        <form action='' method='post' onsubmit='return confirm(\"Are you sure you want to delete this food service?\");' style='margin-right: 10px;'>
+                                            <input type='hidden' name='txtId' value='{$service['id']}' />
+                                            <button type='submit' name='btnDelete' class='btn btn-danger btn-sm' title='Delete'>
+                                                <i class='fas fa-trash'></i>
+                                            </button>
+                                        </form>
+                                        <a href='home.php?page=9&id={$service['id']}' class='btn btn-primary btn-sm' title='Edit'>
+                                            <i class='fas fa-edit'></i>
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>";
                         }
                         ?>
                     </tbody>
                 </table>
+                    <div class="card-footer">
+                  <!-- Back Button to Manage Food Services -->
+                        <a href="home.php?page=7" class="btn btn-secondary" style="margin-left: 10px;">Add Food Services</a>
+                    </div>
             </div>
         </div>
     </section>
