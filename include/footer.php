@@ -42,7 +42,7 @@
         <p>&copy; <?php echo date("Y"); ?> Hotel Horizon. All Rights Reserved.</p>
       </div>
       <div class="col-md-6 text-center text-md-end">
-        <p>Developed by <a href="https://your-portfolio-link.com" target="_blank" class="text-white" style="font-weight: 600;">ASSADUZZAMAN SHAON</a></p>
+        <p>Developed by <a href="https://www.linkedin.com/in/assad-uz/" target="_blank" class="text-white" style="font-weight: 600;">ASSADUZZAMAN SHAON</a></p>
       </div>
     </div>
   </div>
