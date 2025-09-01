@@ -1,5 +1,5 @@
 <?php
-session_start(); // Start the session
+session_start(); // Ensure session is started
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
@@ -20,7 +20,7 @@ session_start(); // Start the session
           <!-- If logged in, show customer name and dropdown -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-              <?= $_SESSION['customer_name']; ?>
+              <?= htmlspecialchars($_SESSION['customer_name']); ?>
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="profile.php">Profile</a></li>

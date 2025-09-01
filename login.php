@@ -6,7 +6,7 @@ if (isset($_POST["btnLogin"])) {
     $username_or_email = trim($_POST["username_or_email"]);
     $password = trim($_POST["password"]);
 
-    // কাস্টমার লগইন চেক করার জন্য SQL কোয়েরি
+    // Customer login check SQL query
     $user_table = $conn->query("
         SELECT u.id, u.username, u.email, u.password, u.role_id 
         FROM users u
@@ -15,20 +15,21 @@ if (isset($_POST["btnLogin"])) {
 
     list($id, $username, $email, $db_password, $role_id) = $user_table->fetch_row();
 
-    // পাসওয়ার্ড চেক এবং কাস্টমার রোল চেক করা হচ্ছে
+    // Password check and customer role check
     if (isset($id) && password_verify($password, $db_password)) {
-        // রোল আইডি অনুযায়ী role_type বের করা হচ্ছে
+        // Get role_type according to role_id
         $role_type_query = $conn->query("SELECT role_type FROM role WHERE id='$role_id'");
         list($role_type) = $role_type_query->fetch_row();
 
-        $_SESSION["s_email"] = $email;
-        $_SESSION["role"] = $role_type;
+        // Set session variables
+        $_SESSION["customer_id"] = $id;
         $_SESSION["customer_name"] = $username; // Save the username for display
+        $_SESSION["role"] = $role_type;
 
-        // কাস্টমার হলে index.php তে রিডিরেক্ট
+        // If the role is customer, redirect to index.php
         if ($role_type == 'customer') {
-            header("location:index.php");
-            exit(); // Ensure that no further code is executed after redirection
+            header("Location: index.php");
+            exit(); // Stop further execution after redirection
         }
     } else {
         $error = "<span style='color:red;'>Incorrect username, email or password</span>";
@@ -44,7 +45,6 @@ if (isset($_POST["btnLogin"])) {
   <title>Customer Login</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
-  
   <style>
     body {
       display: flex;
