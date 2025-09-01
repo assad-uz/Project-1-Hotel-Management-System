@@ -1,12 +1,13 @@
 <?php
 // Start the session
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+  session_start();
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +27,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
     .navbar.scrolled {
       background-color: #003d47;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
     .hero-section {
@@ -80,6 +81,7 @@ if (session_status() === PHP_SESSION_NONE) {
     }
   </style>
 </head>
+
 <body>
 
   <!-- Navbar -->
@@ -115,13 +117,16 @@ if (session_status() === PHP_SESSION_NONE) {
   </nav>
 
   <!-- Hero Section -->
-  <div class="hero-section">
-    <div>
-      <h1>Welcome to Hotel Horizon</h1>
-      <p>Your comfort is our priority</p>
+  <!-- Hero Section -->
+  <div class="hero-section" style="position: relative;">
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <div style="position: relative; z-index: 1; color: #fff; text-align: center; padding: 50px;">
+      <h1 style="font-size: 3.5rem; font-weight: 700;">Welcome to Hotel Horizon</h1>
+      <p style="font-size: 1.2rem;">Your comfort is our priority</p>
       <a href="rooms.php" class="btn btn-success btn-lg">Book a Room</a>
     </div>
   </div>
+
 
   <!-- Services Section -->
   <section class="container py-5">
@@ -241,4 +246,5 @@ if (session_status() === PHP_SESSION_NONE) {
     });
   </script>
 </body>
+
 </html>
