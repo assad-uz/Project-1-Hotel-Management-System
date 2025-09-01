@@ -1,6 +1,6 @@
 <!-- index.php -->
-<?php include('header.php'); ?>
-<?php include('navbar.php'); ?>
+<?php include('include/header.php'); ?>
+<?php include('include/navbar.php'); ?>
 
 <!-- Hero Section -->
 <div class="hero-section" style="position: relative;">
@@ -113,7 +113,7 @@
 </section>
 
 <!-- Footer -->
-<?php include('footer.php'); ?>
+<?php include('include/footer.php'); ?>
 
 
 

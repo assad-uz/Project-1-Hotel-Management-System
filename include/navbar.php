@@ -10,6 +10,7 @@
           <li class="nav-item"><a class="nav-link" href="room.php">Rooms</a></li>
           <li class="nav-item"><a class="nav-link" href="services.php">Services</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="admin-login.php">Admin Login</a></li>
           <?php if (isset($_SESSION['customer_id'])): ?>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
@@ -17,6 +18,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="profile.php">Profile</a></li>
+                <li><a class="dropdown-item" href="profile.php">Dashboard</a></li>
                 <li><a class="dropdown-item" href="logout.php">Logout</a></li>
               </ul>
             </li>
