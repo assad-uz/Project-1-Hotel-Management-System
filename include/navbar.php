@@ -1,7 +1,3 @@
-<?php
-session_start(); // Ensure session is started
-?>
-
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
   <div class="container">
     <a class="navbar-brand" href="index.php">HOTEL HORIZON</a>
@@ -12,7 +8,7 @@ session_start(); // Ensure session is started
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="room.php">Rooms</a></li>
-        <li class="nav-item"><a class="nav-link" href="services.php">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="service.php">Services</a></li>
         <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
         <li class="nav-item"><a class="nav-link" href="admin-login.php">Admin Login</a></li>
 

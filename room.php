@@ -1,5 +1,6 @@
 <?php
-// room.php
+// Start the session to handle user login status
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
