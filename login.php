@@ -1,36 +1,38 @@
-<?php 
+<?php
 session_start();
 require_once("config.php");
 
 if (isset($_POST["btnLogin"])) {
-  $username_or_email = trim($_POST["username_or_email"]);
-  $password = trim($_POST["password"]);
+    $username_or_email = trim($_POST["username_or_email"]);
+    $password = trim($_POST["password"]);
 
-  // কাস্টমার লগইন চেক করার জন্য SQL কোয়েরি
-  $user_table = $conn->query("
-    SELECT u.id, u.username, u.email, u.password, u.role_id 
-    FROM users u
-    WHERE (u.email='$username_or_email' OR u.username='$username_or_email')
-  ");
+    // কাস্টমার লগইন চেক করার জন্য SQL কোয়েরি
+    $user_table = $conn->query("
+        SELECT u.id, u.username, u.email, u.password, u.role_id 
+        FROM users u
+        WHERE (u.email='$username_or_email' OR u.username='$username_or_email')
+    ");
 
-  list($id, $username, $email, $db_password, $role_id) = $user_table->fetch_row();
+    list($id, $username, $email, $db_password, $role_id) = $user_table->fetch_row();
 
-  // পাসওয়ার্ড চেক এবং কাস্টমার রোল চেক করা হচ্ছে
-  if (isset($id) && password_verify($password, $db_password)) {
-    // রোল আইডি অনুযায়ী role_type বের করা হচ্ছে
-    $role_type_query = $conn->query("SELECT role_type FROM role WHERE id='$role_id'");
-    list($role_type) = $role_type_query->fetch_row();
+    // পাসওয়ার্ড চেক এবং কাস্টমার রোল চেক করা হচ্ছে
+    if (isset($id) && password_verify($password, $db_password)) {
+        // রোল আইডি অনুযায়ী role_type বের করা হচ্ছে
+        $role_type_query = $conn->query("SELECT role_type FROM role WHERE id='$role_id'");
+        list($role_type) = $role_type_query->fetch_row();
 
-    $_SESSION["s_email"] = $email;
-    $_SESSION["role"] = $role_type;
+        $_SESSION["s_email"] = $email;
+        $_SESSION["role"] = $role_type;
+        $_SESSION["customer_name"] = $username; // Save the username for display
 
-    // কাস্টমার হলে ড্যাশবোর্ডে রিডিরেক্ট
-    if ($role_type == 'customer') {
-      header("location:customer-dashboard.php");
+        // কাস্টমার হলে index.php তে রিডিরেক্ট
+        if ($role_type == 'customer') {
+            header("location:index.php");
+            exit(); // Ensure that no further code is executed after redirection
+        }
+    } else {
+        $error = "<span style='color:red;'>Incorrect username, email or password</span>";
     }
-  } else {
-    $error = "<span style='color:red;'>Incorrect username, email or password</span>";
-  }
 }
 ?>
 
@@ -42,6 +44,7 @@ if (isset($_POST["btnLogin"])) {
   <title>Customer Login</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+  
   <style>
     body {
       display: flex;
@@ -151,7 +154,6 @@ if (isset($_POST["btnLogin"])) {
           <input type="password" class="form-control" name="password" placeholder="Password">
         </div>
         <button type="submit" name="btnLogin" class="btn-primary">Sign In</button>
-        <!-- Home Page Button -->
         <button type="button" onclick="window.location.href='index.php'" class="home-btn">Home Page</button>
       </form>
       

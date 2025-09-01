@@ -8,7 +8,7 @@
   <div style="position: relative; z-index: 1; color: #fff; text-align: center; padding: 50px;">
     <h1 style="font-size: 3.5rem; font-weight: 700;">Welcome to Hotel Horizon</h1>
     <p style="font-size: 1.2rem;">Your comfort is our priority</p>
-    <a href="rooms.php" class="btn btn-success btn-lg">Book a Room</a>
+    <a href="room.php" class="btn btn-success btn-lg">Book a Room</a>
   </div>
 </div>
 
@@ -90,7 +90,7 @@
       <div class="col-md-4">
         <div class="testimonial-card">
           <p>"A wonderful experience. The staff were extremely friendly, and the room was perfect!"</p>
-          <h5>Akib Hussain</h5>
+          <h5>Akib Hossain</h5>
           <p>Guest</p>
         </div>
       </div>
