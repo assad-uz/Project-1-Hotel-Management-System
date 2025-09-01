@@ -164,7 +164,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <div class="row">
       <div class="col-md-4 mb-4">
         <div class="card room-card">
-          <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Room">
+          <img src="dist/images/front-room-1.jpg" class="card-img-top" alt="Room">
           <div class="card-body">
             <h5 class="card-title">Deluxe Room</h5>
             <p class="card-text">A spacious and elegantly designed room with all modern facilities.</p>
@@ -173,7 +173,7 @@ if (session_status() === PHP_SESSION_NONE) {
       </div>
       <div class="col-md-4 mb-4">
         <div class="card room-card">
-          <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Room">
+          <img src="dist/images/front-room-2.jpg" class="card-img-top" alt="Room">
           <div class="card-body">
             <h5 class="card-title">Executive Suite</h5>
             <p class="card-text">A luxury suite with an amazing view and exclusive amenities.</p>
@@ -182,7 +182,7 @@ if (session_status() === PHP_SESSION_NONE) {
       </div>
       <div class="col-md-4 mb-4">
         <div class="card room-card">
-          <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Room">
+          <img src="dist/images/front-room-3.jpg" class="card-img-top" alt="Room">
           <div class="card-body">
             <h5 class="card-title">Presidential Suite</h5>
             <p class="card-text">The most luxurious room in the hotel with private services and more.</p>
