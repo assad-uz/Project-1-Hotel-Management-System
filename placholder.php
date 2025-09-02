@@ -67,29 +67,10 @@
 		    include("pages/admin/booking/edit_booking.php");
 		  
 	   }else if($page==16){
-		   
-		    include("pages/services/service/add_service.php");
-		  
-	   }else if($page==17){
-		   
-		    include("pages/services/service/manage_service.php");
-		  
-	   }else if($page==18){
-		   
-		    include("pages/services/service/edit_service.php");
-		  
-	   }else if($page==19){
-		   
-		    include("pages/roombooking/roomtype/add_room_type.php");
-		  
-	   }else if($page==20){
-		   
-		    include("pages/roombooking/roomtype/manage_room_type.php");		  
-	   }
-	   
-   }else{
-	   
-       echo "Welcome to my New Project";
-   }
+		    include("");
+   		}else{
+	   		echo "Welcome to my New Project";
+   		}
+    }
 
 ?>
