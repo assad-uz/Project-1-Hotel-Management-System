@@ -1,12 +1,6 @@
 <?php
 // Start the session to handle user login status
 session_start();
-
-// // Check if the user is logged in
-// if (!isset($_SESSION['user_id'])) {
-//     header("Location: login.php"); // Redirect to login page if not logged in
-//     exit();
-// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,22 +12,21 @@ session_start();
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body>
-<?php 
+<?php
 require_once("include/header.php");
-require_once("include/navbar.php"); 
+require_once("include/navbar.php");
 ?>
 
-<!-- Banner -->
 <div class="container-fluid p-0">
   <img src="dist/images/hotel-banner.jpg" alt="Hotel Banner" class="img-fluid w-100" style="height:300px; object-fit:cover;">
 </div>
 
-<!-- Rooms Section -->
 <section id="rooms" class="py-5 bg-light">
   <div class="container">
     <h2 class="text-center mb-5">Our Rooms</h2>
+    
+    <?php $is_logged_in = isset($_SESSION['customer_id']); ?>
 
-    <!-- King Size Room -->
     <div class="row mb-5 align-items-center">
       <div class="col-md-6">
         <img src="dist/images/king-bed.jpg" alt="King Size Room" class="img-fluid rounded shadow">
@@ -50,11 +43,14 @@ require_once("include/navbar.php");
           <li><i class="bi bi-cup-hot"></i> Complimentary Breakfast</li>
         </ul>
         <h5 class="text-primary">৳ 6,500 / Night</h5>
-        <a href="booking.php" class="btn btn-primary mt-2">Book Now</a>
+        <?php if ($is_logged_in): ?>
+          <a href="booking.php" class="btn btn-primary mt-2">Book Now</a>
+        <?php else: ?>
+          <a href="login.php" class="btn btn-warning mt-2">Login to Book</a>
+        <?php endif; ?>
       </div>
     </div>
-
-    <!-- Queen Size Room -->
+    
     <div class="row mb-5 align-items-center flex-md-row-reverse">
       <div class="col-md-6">
         <img src="dist/images/queen-bed.jpg" alt="Queen Size Room" class="img-fluid rounded shadow">
@@ -71,11 +67,14 @@ require_once("include/navbar.php");
           <li><i class="bi bi-cup-hot"></i> Breakfast Included</li>
         </ul>
         <h5 class="text-primary">৳ 5,000 / Night</h5>
-        <a href="booking.php" class="btn btn-primary mt-2">Book Now</a>
+        <?php if ($is_logged_in): ?>
+          <a href="booking.php" class="btn btn-primary mt-2">Book Now</a>
+        <?php else: ?>
+          <a href="login.php" class="btn btn-warning mt-2">Login to Book</a>
+        <?php endif; ?>
       </div>
     </div>
 
-    <!-- Standard Room -->
     <div class="row mb-5 align-items-center">
       <div class="col-md-6">
         <img src="dist/images/standard-bed.jpg" alt="Standard Room" class="img-fluid rounded shadow">
@@ -92,11 +91,14 @@ require_once("include/navbar.php");
           <li><i class="bi bi-cup-hot"></i> Tea & Coffee</li>
         </ul>
         <h5 class="text-primary">৳ 3,500 / Night</h5>
-        <a href="booking.php" class="btn btn-primary mt-2">Book Now</a>
+        <?php if ($is_logged_in): ?>
+          <a href="booking.php" class="btn btn-primary mt-2">Book Now</a>
+        <?php else: ?>
+          <a href="login.php" class="btn btn-warning mt-2">Login to Book</a>
+        <?php endif; ?>
       </div>
     </div>
 
-    <!-- Single Size Room -->
     <div class="row mb-5 align-items-center flex-md-row-reverse">
       <div class="col-md-6">
         <img src="dist/images/single-bed.jpg" alt="Single Size Room" class="img-fluid rounded shadow">
@@ -111,18 +113,17 @@ require_once("include/navbar.php");
           <li><i class="bi bi-fan"></i> Ceiling Fan</li>
         </ul>
         <h5 class="text-primary">৳ 2,500 / Night</h5>
-        <a href="booking.php" class="btn btn-primary mt-2">Book Now</a>
+        <?php if ($is_logged_in): ?>
+          <a href="booking.php" class="btn btn-primary mt-2">Book Now</a>
+        <?php else: ?>
+          <a href="login.php" class="btn btn-warning mt-2">Login to Book</a>
+        <?php endif; ?>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- Footer -->
-<?php require_once("include/footer.php");
-?>
-
+<?php require_once("include/footer.php"); ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
