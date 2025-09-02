@@ -13,14 +13,24 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id']; // Get user id from session
 
-// Fetch user information from the database
-$user_query = "SELECT * FROM users WHERE id = '$user_id'";
-$user_result = $conn->query($user_query);
+// Use prepared statements to prevent SQL injection
+$user_query = "SELECT * FROM users WHERE id = ?";
+$stmt = $conn->prepare($user_query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$user_result = $stmt->get_result();
 $user = $user_result->fetch_assoc();
 
-// Fetch the bookings of the logged-in customer
-$bookings_query = "SELECT * FROM booking WHERE users_id = '$user_id' ORDER BY booking_date DESC";
-$bookings_result = $conn->query($bookings_query);
+// Fetch the bookings of the logged-in customer using JOIN to get room names
+$bookings_query = "SELECT b.id, b.room_type_id, b.checkin_date, b.checkout_date, b.total_amount, b.status, rt.room_name 
+                   FROM booking b
+                   JOIN room_type rt ON b.room_type_id = rt.id
+                   WHERE b.users_id = ?
+                   ORDER BY b.booking_date DESC";
+$stmt2 = $conn->prepare($bookings_query);
+$stmt2->bind_param("i", $user_id);
+$stmt2->execute();
+$bookings_result = $stmt2->get_result();
 ?>
 
 <div class="content-wrapper">
@@ -62,17 +72,10 @@ $bookings_result = $conn->query($bookings_query);
                             <?php while ($booking = $bookings_result->fetch_assoc()): ?>
                                 <tr>
                                     <td><?php echo $booking['id']; ?></td>
-                                    <td>
-                                        <?php
-                                        $room_query = "SELECT room_name FROM room_type WHERE id = " . $booking['room_type_id'];
-                                        $room_result = $conn->query($room_query);
-                                        $room = $room_result->fetch_assoc();
-                                        echo htmlspecialchars($room['room_name']);
-                                        ?>
-                                    </td>
-                                    <td><?php echo $booking['checkin_date']; ?></td>
-                                    <td><?php echo $booking['checkout_date']; ?></td>
-                                    <td><?php echo $booking['total_amount']; ?></td>
+                                    <td><?php echo htmlspecialchars($booking['room_name']); ?></td>
+                                    <td><?php echo htmlspecialchars($booking['checkin_date']); ?></td>
+                                    <td><?php echo htmlspecialchars($booking['checkout_date']); ?></td>
+                                    <td><?php echo htmlspecialchars($booking['total_amount']); ?></td>
                                     <td><?php echo $booking['status'] ? 'Confirmed' : 'Pending'; ?></td>
                                 </tr>
                             <?php endwhile; ?>

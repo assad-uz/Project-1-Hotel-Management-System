@@ -20,7 +20,7 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-              <li><a class="dropdown-item" href="dashboard.php">Dashboard</a></li>
+              <li><a class="dropdown-item" href="/Project-1-Hotel-Management-System/pages/customer/customer-dashboard.php">Dashboard</a></li>
               <li><a class="dropdown-item" href="logout.php">Logout</a></li>
             </ul>
           </li>
