@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 01, 2025 at 12:24 AM
+-- Generation Time: Sep 02, 2025 at 03:20 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -220,7 +220,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `role_id`, `firstname`, `lastname`, `username`, `email`, `phone`, `password`, `created_at`) VALUES
 (2, 1, 'Assaduzzaman', 'Shaon', 'assad-uz', 'assad.uz255@gmail.com', '01234-567890', '00005555', '2025-08-31 16:33:10'),
-(3, 2, 'Azim', 'Akbar', 'azim-akbar', 'azim@gmail.com', '01742-453299', '$2y$10$l9ZsZIzZfDCfhJW0t4RdkeIcNvONWoFN.BAykvalIuimHLYRavxs6', '2025-08-31 16:34:09');
+(3, 2, 'Azim', 'Akbar', 'azim-akbar', 'azim@gmail.com', '01742-453299', '$2y$10$l9ZsZIzZfDCfhJW0t4RdkeIcNvONWoFN.BAykvalIuimHLYRavxs6', '2025-08-31 16:34:09'),
+(4, 2, 'Akib', 'Hossain', 'akib-hsn', 'akib-hsn@gmail.com', '01742-453299', '$2y$10$9i4LkiGSwhCPKmIJJFv6o.fLSEt4/UsLI.rWPMX4BcSt4ea0OZz.6', '2025-09-01 21:48:33');
 
 --
 -- Indexes for dumped tables
@@ -377,7 +378,7 @@ ALTER TABLE `room_type`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
