@@ -1,74 +1,162 @@
 <?php
-// PHP-এর জন্য ডিফল্ট টাইমজোন সেট করা হচ্ছে।
-date_default_timezone_set('Asia/Dhaka');
-
-// config.php ফাইলটি অন্তর্ভুক্ত করা হচ্ছে।
+// Check if a session is not already active before starting it
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 include("config.php");
 
-if (!isset($conn)) {
-    header("location:login.php");
-    exit();
+// Initialize variables to avoid 'Undefined variable' warnings
+$r = "";
+$users_data = [];
+$room_types_data = [];
+$room_services_data = [];
+$food_services_data = [];
+
+// Fetch data from database for the form fields
+// Corrected query to use CONCAT() for first and last name
+$users = $conn->query("SELECT id, CONCAT(firstname, ' ', lastname) AS full_name FROM users ORDER BY full_name ASC");
+if ($users) {
+    while ($row = $users->fetch_assoc()) {
+        $users_data[] = $row;
+    }
+} else {
+    // If query fails, show error message
+    $r = "<div class='alert alert-danger'>Error fetching users: " . $conn->error . "</div>";
 }
 
-// ফলাফল বার্তা সংরক্ষণের জন্য একটি ভেরিয়েবল।
-$r = "";
-
-// যদি ফর্মটি জমা দেওয়া হয়।
-if (isset($_POST["submit"])) {
-    // ব্যবহারকারীর ইনপুট স্যানিটাইজ করা হচ্ছে।
-    $users_id = mysqli_real_escape_string($conn, $_POST['users_id']);
-    $room_type_id = mysqli_real_escape_string($conn, $_POST['room_type_id']);
-    // রুম সার্ভিস এবং ফুড সার্ভিস অপশনাল, যদি কিছু না দেওয়া হয় তবে NULL
-    $room_service_id = isset($_POST['room_service_id']) && $_POST['room_service_id'] != "" ? mysqli_real_escape_string($conn, $_POST['room_service_id']) : NULL;
-    $food_service_ids = isset($_POST['food_service_id']) ? $_POST['food_service_id'] : [];
-    $food_service_id = !empty($food_service_ids) ? implode(',', $food_service_ids) : NULL;  // মাল্টিপল ফুড সার্ভিস আইডি কমা দিয়ে সংযুক্ত
-
-    $booking_date = date("Y-m-d H:i:s");
-    $checkin_date = mysqli_real_escape_string($conn, $_POST['checkin_date']);
-    $checkout_date = mysqli_real_escape_string($conn, $_POST['checkout_date']);
-    $total_amount = mysqli_real_escape_string($conn, $_POST['total_amount']);
-
-    // ডেটাবেজে নতুন ডেটা ইনসার্ট করার জন্য SQL কোয়েরি।
-    $stmt = $conn->prepare("INSERT INTO booking (users_id, room_type_id, room_service_id, food_service_id, booking_date, checkin_date, checkout_date, total_amount) 
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("iiisssss", $users_id, $room_type_id, $room_service_id, $food_service_id, $booking_date, $checkin_date, $checkout_date, $total_amount);
-    
-    if ($stmt->execute()) {
-        $r = "<div class='alert alert-success'>Booking added successfully.</div>";
-    } else {
-        $r = "<div class='alert alert-danger'>Error: " . $stmt->error . "</div>";
+$room_types = $conn->query("SELECT id, room_name, price FROM room_type ORDER BY room_name ASC");
+if ($room_types) {
+    while ($row = $room_types->fetch_assoc()) {
+        $room_types_data[] = $row;
     }
 }
 
-// ড্রপডাউনের জন্য users ডেটা লোড করা হচ্ছে।
-$users = $conn->query("SELECT id, CONCAT(firstname, ' ', lastname) AS full_name FROM users ORDER BY full_name ASC");
-$users_data = [];
-while ($row = $users->fetch_assoc()) {
-    $users_data[] = $row;
-}
-
-// ড্রপডাউনের জন্য room_type ডেটা লোড করা হচ্ছে।
-$room_types = $conn->query("SELECT id, room_name, price FROM room_type ORDER BY room_name ASC");
-$room_types_data = [];
-while ($row = $room_types->fetch_assoc()) {
-    $room_types_data[] = $row;
-}
-
-// ড্রপডাউনের জন্য room_service ডেটা লোড করা হচ্ছে।
 $room_services = $conn->query("SELECT id, service_name, price FROM room_service ORDER BY service_name ASC");
-$room_services_data = [];
-while ($row = $room_services->fetch_assoc()) {
-    $room_services_data[] = $row;
+if ($room_services) {
+    while ($row = $room_services->fetch_assoc()) {
+        $room_services_data[] = $row;
+    }
 }
 
-// ফুড সার্ভিস মাল্টিপল সিলেকশন হলে তার আইডি গুলি অ্যারে আকারে পাবেন।
-// ফুড সার্ভিসের অর্ডার ঠিক রাখার জন্য ORDER BY FIELD ব্যবহার করা হচ্ছে।
-$food_services = $conn->query("SELECT id, meal_period, price FROM food_service ORDER BY FIELD(meal_period, 'Breakfast', 'Launch', 'Dinner') ASC");
-$food_services_data = [];
-while ($row = $food_services->fetch_assoc()) {
-    $food_services_data[] = $row;
+$food_services = $conn->query("SELECT id, meal_period, price FROM food_service ORDER BY FIELD(meal_period, 'Breakfast', 'Lunch', 'Dinner') ASC");
+if ($food_services) {
+    while ($row = $food_services->fetch_assoc()) {
+        $food_services_data[] = $row;
+    }
+}
+
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get user ID from form
+    $users_id = $_POST['users_id']; 
+    $room_type_id = $_POST['room_type_id'];
+    $room_service_id = !empty($_POST['room_service_id']) ? (int)$_POST['room_service_id'] : NULL;
+
+    // Multiple food services
+    $food_service_ids = isset($_POST['food_service_id']) ? $_POST['food_service_id'] : [];
+    // Combine multiple IDs into a comma-separated string
+    $food_service_id_string = !empty($food_service_ids) ? implode(',', $food_service_ids) : NULL;
+
+    $booking_date = date("Y-m-d H:i:s");
+    $checkin_date = $_POST['checkin_date'];
+    $checkout_date = $_POST['checkout_date'];
+
+    $total_amount = 0;
+
+    // Room price
+    $sql = "SELECT price FROM room_type WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $room_type_id);
+    $stmt->execute();
+    $stmt->bind_result($room_price);
+    if ($stmt->fetch()) {
+        $total_amount += $room_price;
+    }
+    $stmt->close();
+
+    // Room service price
+    if (!empty($room_service_id)) {
+        $sql = "SELECT price FROM room_service WHERE id = ?";
+        $stmt2 = $conn->prepare($sql);
+        $stmt2->bind_param("i", $room_service_id);
+        $stmt2->execute();
+        $stmt2->bind_result($service_price);
+        if ($stmt2->fetch()) {
+            $total_amount += $service_price;
+        }
+        $stmt2->close();
+    }
+
+    // Multiple food service price
+    if (!empty($food_service_ids)) {
+        foreach ($food_service_ids as $fid) {
+            $sql = "SELECT price FROM food_service WHERE id = ?";
+            $stmt3 = $conn->prepare($sql);
+            $stmt3->bind_param("i", $fid);
+            $stmt3->execute();
+            $stmt3->bind_result($food_price);
+            if ($stmt3->fetch()) {
+                $total_amount += $food_price;
+            }
+            $stmt3->close();
+        }
+    }
+
+    // Insert booking
+    $insert = "INSERT INTO booking (users_id, room_type_id, room_service_id, food_service_id, booking_date, checkin_date, checkout_date, total_amount)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt4 = $conn->prepare($insert);
+    // Corrected bind_param: 'd' is for double/decimal total_amount
+    $stmt4->bind_param("iiissssd", $users_id, $room_type_id, $room_service_id, $food_service_id_string, $booking_date, $checkin_date, $checkout_date, $total_amount);
+
+    if ($stmt4->execute()) {
+        $r = "<div class='alert alert-success'>Booking successful!</div>";
+        // Optionally, redirect after a successful booking
+        // echo "<script>window.location='customer_dashboard.php';</script>";
+    } else {
+        $r = "<div class='alert alert-danger'>Error: " . $stmt4->error . "</div>";
+    }
+
+    $stmt4->close();
+    $conn->close();
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Booking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        .food-service-checkboxes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .form-check-inline {
+            display: flex;
+            align-items: center;
+        }
+        .form-check-input {
+            margin-right: 5px;
+            width: 18px;
+            height: 18px;
+        }
+        .form-check-label {
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+        @media (max-width: 576px) {
+            .food-service-checkboxes {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
 
 <div class="content-wrapper">
     <section class="content-header">
@@ -167,36 +255,6 @@ while ($row = $food_services->fetch_assoc()) {
     </section>
 </div>
 
-<style>
-    .food-service-checkboxes {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .form-check-inline {
-        display: flex;
-        align-items: center;
-    }
-
-    .form-check-input {
-        margin-right: 5px;
-        width: 18px;
-        height: 18px;
-    }
-
-    .form-check-label {
-        font-size: 14px;
-        margin-bottom: 0;
-    }
-
-    @media (max-width: 576px) {
-        .food-service-checkboxes {
-            flex-direction: column;
-        }
-    }
-</style>
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const roomSelect = document.getElementById('room_type_id');
@@ -262,3 +320,5 @@ while ($row = $food_services->fetch_assoc()) {
         calculateTotalAmount();
     });
 </script>
+</body>
+</html>
