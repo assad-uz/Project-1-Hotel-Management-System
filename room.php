@@ -2,11 +2,11 @@
 // Start the session to handle user login status
 session_start();
 
-// Check if the user is logged in
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php"); // Redirect to login page if not logged in
-    exit();
-}
+// // Check if the user is logged in
+// if (!isset($_SESSION['user_id'])) {
+//     header("Location: login.php"); // Redirect to login page if not logged in
+//     exit();
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -122,6 +122,7 @@ require_once("include/navbar.php");
 <?php require_once("include/footer.php");
 ?>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
